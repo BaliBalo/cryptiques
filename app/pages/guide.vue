@@ -509,7 +509,7 @@
 				indicators: { ranges: [[35, 47]], note: 'C\'est un indicateur d\'homophone. On cherche donc un mot qui se prononce de la même façon qu\'un autre mot.' },
 				fodder: { ranges: [[17, 34]], note: 'On utilisera un synonyme court.' },
 				definition: { range: [0, 8] },
-				answer: 'Un vers est un bout de poésie. C\'est aussi un homophone de vert, et un vert peut être un écolo.',
+				answer: 'Un vers est un bout de poésie. C\'est aussi un homophone de &quot;vert&quot; (qui peut être utilisé pour décrire un écolo).',
 			}">
 				Un écolo compose un bout de poésie à voix haute
 			</Clue>
@@ -536,7 +536,7 @@
 			<p>Les définitions cryptiques sont des énigmes sans <span class="highlight underline wordplay">recette</span>, mais dont la <span class="highlight underline definition">définition</span> est formulée d'une manière assez inattendue.</p>
 			<Aside type="info">
 				<template #title>Plus souvent dans une grille</template>
-				<p>Cette technique se prête mieux aux grilles de mots croisés, où les lettres de croisements peuvent aider à identifier la réponse. En tant qu'énigme indépendante, il est rare que ces énigmes soient assez claires pour être considérées justes.</p>
+				<p>Cette technique se prête mieux aux grilles de mots croisés, où les lettres de croisement peuvent aider à identifier la réponse. En dehors, il est rare que ces énigmes soient assez claires pour être considérées justes.</p>
 			</Aside>
 			<p>Un exemple :</p>
 			<Clue example answer="nonagénaire" :hints="{
@@ -551,13 +551,13 @@
 		</section>
 		<section class="section" id="tout-en-un">
 			<h3>Tout-en-un</h3>
-			<p>Les énigmes "tout-en-un" (aussi appelées <code>&lit</code>, de l'anglais "and literally so") sont des énigmes dans lesquelles la <span class="highlight underline definition">définition</span> et la <span class="highlight underline wordplay">recette</span> sont combinés en une seule phrase.</p>
+			<p>Les énigmes "tout-en-un" (aussi appelées <code>&lit</code>, de l'anglais "and literally so") sont des énigmes dans lesquelles la <span class="highlight underline definition">définition</span> et la <span class="highlight underline wordplay">recette</span> sont combinées en une seule phrase.</p>
 			<p>C'est-à-dire que la <span class="highlight underline definition">définition</span> est l'énigme entière, et la <span class="highlight underline wordplay">recette</span> aussi.</p>
 			<Aside type="info">
 				<template #title>Une technique rare</template>
 				<p>Les énigmes tout-en-un sont difficiles à créer ! Elles sont donc beaucoup moins fréquentes.</p>
 			</Aside>
-			<p>Il y a aussi des "semi-&lit", dans lesquelles l'énigme entière est la <span class="highlight underline definition">définition</span>, mais seulement une partie est la <span class="highlight underline wordplay">recette</span>.</p>
+			<p>Il y a aussi des énigmes "semi-&lit", dans lesquelles l'énigme entière est la <span class="highlight underline definition">définition</span>, mais seulement une partie est la <span class="highlight underline wordplay">recette</span>.</p>
 			<p>Un exemple :</p>
 			<Clue example answer="jésus" :hints="{
 				indicators: { ranges: [[8, 15]], note: 'Si quelque chose est mort, alors cette chose n\'est plus. Cela peut donc être un indicateur de suppression.' },
@@ -647,8 +647,8 @@
 		<section class="section" id="accents">
 			<h3>Accents</h3>
 			<p>Il n'y a pas vraiment de standard établi pour la cohérence des accents, par exemple si "début d'été" doit représenter un "é" dans la réponse ou peut aussi représenter un "e" ou "è".</p>
-			<p>Cela dit, les accents sont généralement ignorés dans les réponses de mots croisés classiques, il y a donc un argument pour les ignorer.</p>
-			<p>Quand vous cherchez une réponse ne partez donc pas du principe que les accents doivent correspondre.</p>
+			<p>Cela dit, les accents sont généralement ignorés dans les réponses de mots croisés classiques, il serait donc raisonnable de les ignorer ici aussi.</p>
+			<p>En tout cas, quand vous cherchez une réponse, ne partez donc pas du principe que les accents doivent correspondre.</p>
 		</section>
 		<section class="section" id="mots-à-double-usage">
 			<h3>Mots à double usage</h3>
