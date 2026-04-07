@@ -927,30 +927,30 @@
 				&.a {
 					background: var(--hint-2);
 					opacity: clamp(0, var(--scroll) - 6, 1);
-					translate:
-						calc(200% - 100% * clamp(0, (var(--scroll) - 6.6) / .4, 1) - 100% * clamp(0, var(--scroll) - 7, 1))
-						calc(-100% + 100% * clamp(0, (var(--scroll) - 6) / .6, 1));
+					--x: 200% - 100% * clamp(0, (var(--scroll) - 6.6) / .4, 1) - 100% * clamp(0, var(--scroll) - 7, 1);
+					--y: -100% + 100% * clamp(0, (var(--scroll) - 6) / .6, 1);
+					translate: calc(var(--x)) calc(var(--y));
 				}
 				&.m {
 					background: var(--hint-2);
 					opacity: clamp(0, var(--scroll) - 6, 1);
-					translate:
-						calc(100% + 100% * clamp(0, (var(--scroll) - 6.6) / .4, 1) - 100% * clamp(0, var(--scroll) - 7, 1))
-						calc(-100% + 100% * clamp(0, (var(--scroll) - 6) / .6, 1));
+					--x: 100% + 100% * clamp(0, (var(--scroll) - 6.6) / .4, 1) - 100% * clamp(0, var(--scroll) - 7, 1);
+					--y: -100% + 100% * clamp(0, (var(--scroll) - 6) / .6, 1);
+					translate: calc(var(--x)) calc(var(--y));
 				}
 				&.i {
 					background: var(--hint-2);
 					opacity: clamp(0, var(--scroll) - 6, 1);
-					translate:
-						calc(300% - 100% * clamp(0, var(--scroll) - 7, 1))
-						calc(-100% + 100% * clamp(0, (var(--scroll) - 6) / .6, 1));
+					--x: 300% - 100% * clamp(0, var(--scroll) - 7, 1);
+					--y: -100% + 100% * clamp(0, (var(--scroll) - 6) / .6, 1);
+					translate: calc(var(--x)) calc(var(--y));
 				}
 				&.e {
 					background: var(--hint-1);
 					opacity: clamp(0, var(--scroll) - 5, 1);
-					translate:
-						calc(300% * clamp(0, var(--scroll) - 7, 1))
-						calc(-100% + 100% * clamp(0, var(--scroll) - 5, 1));
+					--x: 300% * clamp(0, var(--scroll) - 7, 1);
+					--y: -100% + 100% * clamp(0, var(--scroll) - 5, 1);
+					translate: calc(var(--x)) calc(var(--y));
 				}
 			}
 		}
