@@ -38,6 +38,9 @@
 			<li>
 				<a href="https://xavierbdm.fr/mots-croises-cryptiques/" target="_blank" rel="noopener noreferrer">Quelques grilles</a> créées par Xavier BdM
 			</li>
+			<li>
+				<a href="https://casevide.fr/grilles/archives/?crossword_type=1" target="_blank" rel="noopener noreferrer">D'autres grilles</a> par Antoine Hinge
+			</li>
 		</ul>
 		<h2>Dans d'autres langues</h2>
 		<h3>Anglais</h3>
