@@ -19,4 +19,9 @@ export default defineNuxtConfig({
 		},
 		rootAttrs: { id: 'root' },
 	},
-})
+	modules: ['@nuxtjs/sitemap'],
+	sitemap: {
+		zeroRuntime: true,
+		xsl: false,
+	},
+});
