@@ -1,7 +1,7 @@
 module.exports = {
 	apps: [
 		{
-			name: 'Cryptiques',
+			name: 'cryptiques',
 			port: '28119',
 			exec_mode: 'cluster',
 			instances: 'max',
