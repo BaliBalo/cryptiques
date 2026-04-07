@@ -8,6 +8,7 @@ export default defineNuxtConfig({
 	// spaLoadingTemplate: false,
 	devtools: { enabled: false },
 	app: {
+		buildAssetsDir: '/build/',
 		head: {
 			title: 'Cryptiques',
 			htmlAttrs: { lang: 'fr' },
