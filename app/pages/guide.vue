@@ -3,9 +3,11 @@
 		title: 'Guide | Cryptiques',
 		// bodyAttrs: { class: 'page-guide' },
 	});
+	useSeoMeta({
+		description: 'Guide aux cryptiques: découvrez les techniques, principes et astuces pour résoudre ces énigmes originaires du Royaume-Uni.',
+	});
 
 	const introSlideshow = useTemplateRef('introSlideshow');
-	const router = useRouter();
 
 	onMounted(() => {
 		const prefersReducesMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -39,8 +41,6 @@
 			const top = document.documentElement.scrollTop + bounds.top - Math.max(halfViewportHeight - bounds.height / 2, 0);
 			window.scrollTo({ top, behavior: prefersReducesMotion.matches ? 'instant' : 'smooth' });
 
-			// const url = hashLink.pathname + hashLink.search + hashLink.hash;
-			// await router.push(url)
 			history.pushState(history.state, '', hashLink.href);
 		}, true);
 
@@ -756,9 +756,12 @@
 		& li a {
 			display: block;
 			position: relative;
+			padding: 2px 0;
 			padding-inline-start: calc(8px + 12px * var(--depth, 0));
 			animation: toc-active 1ms linear;
 			animation-range: entry 50vh exit calc(100% - 50vh);
+			transition: translate .15s;
+			@media (prefers-reduced-motion: reduce) { transition: none; }
 			&::before {
 				content: '';
 				position: absolute;
@@ -770,6 +773,17 @@
 				animation: toc-entry 1ms linear both, toc-exit 1ms linear both;
 				animation-timeline: inherit;
 				animation-range: entry 0% entry 100%, exit 0% exit 100%;
+				transition: inherit;
+			}
+			&::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				transition: inherit;
+			}
+			&:hover {
+				translate: 4px 0;
+				&::before, &::after { translate: -4px 0; }
 			}
 			@supports not (animation-timeline: --works) {
 				animation: none;
@@ -1023,6 +1037,7 @@
 		}
 		&[open]::details-content { height: auto; padding: 1px 0; }
 		summary {
+			padding: 2px 0;
 			text-decoration: underline dashed 1px color-mix(in srgb, currentColor 50%, #0000);
 			text-underline-offset: 2px;
 			border-radius: 4px;
