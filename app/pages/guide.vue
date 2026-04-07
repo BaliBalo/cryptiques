@@ -4,7 +4,7 @@
 		// bodyAttrs: { class: 'page-guide' },
 	});
 	useSeoMeta({
-		description: 'Guide aux cryptiques: découvrez les techniques, principes et astuces pour résoudre ces énigmes originaires du Royaume-Uni.',
+		description: 'Guide des cryptiques : découvrez les techniques, principes et astuces pour résoudre ces énigmes originaires du Royaume-Uni.',
 	});
 
 	const introSlideshow = useTemplateRef('introSlideshow');
@@ -131,7 +131,7 @@
 	</header>
 	<main class="main">
 		<section class="section">
-			<h1 class="page-title">Guide<br><small>aux cryptiques</small></h1>
+			<h1 class="page-title">Guide<br><small>des cryptiques</small></h1>
 		</section>
 
 		<section class="section" id="quoi">
@@ -160,7 +160,7 @@
 				<div class="slides">
 					<div class="slide">
 						<p>Voilà une énigme cryptique classique.</p>
-						<p>La grande majorité des énigmes ont cette forme.</p>
+						<p>La grande majorité des énigmes a cette forme.</p>
 					</div>
 					<div class="slide">
 						<p>Les chiffres entre parenthèses à la fin indiquent la longueur de la réponse, ici 4 lettres.</p>
@@ -175,7 +175,7 @@
 						<p>Cette définition est toujours au début ou à la fin de l'énigme.</p>
 					</div>
 					<div class="slide">
-						<p>Chaque énigme contient aussi une <span class="highlight wordplay">recette</span>. Elle contient une série d'instructions qui mènent à la même solution que la définition.</p>
+						<p>Chaque énigme comporte aussi une <span class="highlight wordplay">recette</span>. Elle contient une série d'instructions qui mènent à la même solution que la définition.</p>
 						<p>La recette peut par exemple inclure des manipulations de lettres, des synonymes, des homophones, etc.</p>
 						<p>Chacune de ces opérations y est explicitement décrite si on lit les choses de la bonne façon.</p>
 					</div>
@@ -237,7 +237,7 @@
 
 		<section class="section" id="substitution">
 			<h3>Substitution</h3>
-			<p>Les substitutions sont la seule technique (à part celles de positionnement) ne nécessitant pas d'<span class="highlight underline color-2">indicateur</span>. Elles consistent à remplacer un mot par un synonyme.</p>
+			<p>La substitution est la seule technique n'utilisant pas d'<span class="highlight underline color-2">indicateur</span>. Elles consistent à remplacer un mot par un synonyme.</p>
 			<Aside type="warning">
 				<template #title>Une technique difficile</template>
 				<p>Puisque n'importe quel mot peut être remplacé sans indication, et qu'il y a souvent beaucoup de synonymes possibles, il peut être difficile de repérer les substitutions. Ne vous inquiétez pas si elles vous échappent au début.</p>
