@@ -99,7 +99,7 @@
 								<li><NuxtLink to="#anagrammes-spéciaux">Anagrammes spéciaux</NuxtLink></li>
 							</ol>
 						</li>
-						<li><NuxtLink to="#séléction">Séléction</NuxtLink></li>
+						<li><NuxtLink to="#sélection">Sélection</NuxtLink></li>
 						<li><NuxtLink to="#insertion">Insertion</NuxtLink></li>
 						<li><NuxtLink to="#suppression">Suppression</NuxtLink></li>
 						<li><NuxtLink to="#cachés">Cachés</NuxtLink></li>
@@ -136,7 +136,7 @@
 
 		<section class="section" id="quoi">
 			<h2>Qu'est-ce que c'est?</h2>
-			<p>Les cryptiques, plus souvent connus sous la forme de mots croisés, sont une forme de casse-tête originaires du Royaume-Uni.</p>
+			<p>Les cryptiques, plus souvent connus sous la forme de mots croisés, sont une forme de casse-tête originaire du Royaume-Uni.</p>
 			<p>Voyons tout d'abord quelques principes de base via un exemple.</p>
 			<Aside type="warning">
 				<template #title>Une note sur les termes utilisés</template>
@@ -212,7 +212,7 @@
 		<section class="section" id="techniques">
 			<h2>Techniques courantes</h2>
 			<p>La <span class="highlight underline wordplay">recette</span> (parfois appelée la partie "jeu de mots") d'une énigme contient une ou plusieurs <em>techniques</em>.</p>
-			<p>Une <em>technique</em> comprend en général un <span class="highlight underline color-2">indicateur</span> (l'action à effectuer) et de la <span class="highlight underline color-1">matière</span> (les mots desquels on considère les lettres pour effectuer l'action).</p>
+			<p>Une <em>technique</em> comprend en général un <span class="highlight underline color-2">indicateur</span> (l'action à effectuer) et de la <span class="highlight underline color-1">matière</span> (les mots dont on considère les lettres pour effectuer l'action).</p>
 			<p>Un <span class="highlight underline color-2">indicateur</span> ne peut pas être sa propre <span class="highlight underline color-1">matière</span>.</p>
 			<p>Dans les chapitres qui suivent, nous allons passer en revue les techniques couramment utilisées.</p>
 		</section>
@@ -220,7 +220,7 @@
 		<section class="section" id="positionnement">
 			<h3>Positionnement</h3>
 			<p>Les résultats de plusieurs techniques sont souvent mis bout à bout.</p>
-			<p>Si les parties à enchaîner sont dans le bon ordre, il n'y aura pas necessairement d'indicateur ; mais il peut y en avoir un quand même (surtout si ça aide la <span class="highlight underline surface">surface</span>). Par exemple, <code>A <span class="highlight underline color-2">avec</span> B</code> pour <code>AB</code>.</p>
+			<p>Si les parties à enchaîner sont dans le bon ordre, il n'y aura pas nécessairement d'indicateur ; mais il peut y en avoir un quand même (surtout si ça aide la <span class="highlight underline surface">surface</span>). Par exemple, <code>A <span class="highlight underline color-2">avec</span> B</code> pour <code>AB</code>.</p>
 			<p>Si elles sont à mettre dans l'ordre inverse, cela sera indiqué. Par exemple, <code>A <span class="highlight underline color-2">à la suite de</span> B</code> pour <code>BA</code>.</p>
 			<Aside type="info">
 				<template #title>Pas nécessairement remplacés</template>
@@ -388,8 +388,8 @@
 				Sinuer de droite à gauche ensemble
 			</Clue>
 		</section>
-		<section class="section" id="séléction">
-			<h3>Séléction</h3>
+		<section class="section" id="sélection">
+			<h3>Sélection</h3>
 			<p>Les techniques de séléction consistent à n'utiliser (ou supprimer) que certaines lettres de la <span class="highlight underline color-1">matière</span>.</p>
 			<p>Il y en a plusieurs types. Voici les plus communs:</p>
 			<ul class="expandable">
@@ -416,14 +416,14 @@
 				</li>
 				<li>
 					<details>
-						<summary>Exterieur</summary>
+						<summary>Extérieur</summary>
 						<p>Ne prendre en compte que les lettres externes (première et dernière) de mots alentours.</p>
 						<p>Indicateurs: enrobant, vêtements, contour, murs, ...</p>
 					</details>
 				</li>
 				<li>
 					<details>
-						<summary>Interieur</summary>
+						<summary>Intérieur</summary>
 						<p>Ne prendre en compte que les lettres internes (celles qui ne sont pas aux extrémités) de mots alentours.</p>
 						<p>Indicateurs: tronc, nu, démembré, ...</p>
 					</details>
@@ -439,7 +439,7 @@
 			<Aside type="info">
 				<template #title>Gardez un œil sur les accords</template>
 				<p>Chacun de ces indicateurs peut s'appliquer à un ou plusieurs mots.</p>
-				<p>Selon si l'indicateur est singulier ou pluriel est en général un bon indice pour le déduire.</p>
+				<p>Le fait que l'indicateur soit singulier ou pluriel est en général un bon indice pour le déduire.</p>
 			</Aside>
 			<p>Un exemple:</p>
 			<Clue example answer="pacte" :hints="{
@@ -594,7 +594,7 @@
 			<Aside type="success">
 				<template #title>Vous êtes prêt !</template>
 				<p>Vous avez maintenant les outils nécessaires pour aborder les énigmes cryptiques.</p>
-				<p>Ce que ce guide ne vous fournira pas, et dont vous aurez besoin, est de l'expérience !</p>
+				<p>Ce que ce guide ne pourra pas vous fournir, mais dont vous aurez besoin, est l'expérience !</p>
 				<p>Alors, lancez-vous et amusez-vous à résoudre des cryptiques !</p>
 			</Aside>
 			<p>Il reste quand même quelques notes diverses à aborder, pouvant potentiellement vous aider.</p>
@@ -649,7 +649,7 @@
 		<section class="section" id="accents">
 			<h3>Accents</h3>
 			<p>Il n'y a pas vraiment de standard établi pour la cohérence des accents, par exemple si "début d'été" doit représenter un "é" dans la réponse ou peut aussi représenter un "e" ou "è".</p>
-			<p>Cela dit, les accents sont généralement ignorés dans les réponses de mots croisés standards, il y a donc un argument pour les ignorer.</p>
+			<p>Cela dit, les accents sont généralement ignorés dans les réponses de mots croisés classiques, il y a donc un argument pour les ignorer.</p>
 			<p>Quand vous cherchez une réponse ne partez donc pas du principe que les accents doivent correspondre.</p>
 		</section>
 		<section class="section" id="mots-à-double-usage">
