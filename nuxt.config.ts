@@ -12,17 +12,22 @@ export default defineNuxtConfig({
 		head: {
 			title: 'Cryptiques',
 			htmlAttrs: { lang: 'fr' },
-			link: [
-				{ rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-				{ rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-				{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Limelight&display=block' },
-			],
 		},
 		rootAttrs: { id: 'root' },
 	},
-	modules: ['@nuxtjs/sitemap'],
+	modules: ['@nuxtjs/sitemap', '@nuxtjs/google-fonts'],
 	sitemap: {
 		zeroRuntime: true,
 		xsl: false,
+	},
+	googleFonts: {
+		families: {
+			'Funnel Display': {
+				wght: '300..800',
+			},
+			Limelight: true,
+		},
+		display: 'block',
+		preload: true,
 	},
 });
