@@ -24,6 +24,7 @@
 		min-height: 100dvh;
 		place-content: center;
 		text-align: center;
+		padding: 48px 32px;
 	}
 	h1 {
 		font-size: 3rem;
