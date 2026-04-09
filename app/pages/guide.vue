@@ -1,7 +1,7 @@
 <script setup lang="ts">
 	useHead({
 		title: 'Guide | Cryptiques',
-		// bodyAttrs: { class: 'page-guide' },
+		htmlAttrs: { class: 'page-guide' },
 	});
 	useSeoMeta({
 		description: 'Guide des cryptiques : découvrez les techniques, principes et astuces pour résoudre ces énigmes originaires du Royaume-Uni.',
@@ -795,7 +795,7 @@
 		}
 	}
 
-	:global(html):has(.section) {
+	:global(html.page-guide) {
 		scroll-snap-type: y mandatory;
 	}
 	.section {
@@ -807,7 +807,7 @@
 		scroll-snap-align: start;
 	}
 	@media (pointer: fine) {
-		:global(html):has(.section) {
+		:global(html.page-guide) {
 			scroll-snap-type: none;
 		}
 		.section {
@@ -817,7 +817,7 @@
 	}
 	/* 800 for .section max-width + 250 for #toc size */
 	@media (width >= 1050px) {
-		:global(#root):has(.section) {
+		:global(html.page-guide #root) {
 			display: flex;
 		}
 		header {
