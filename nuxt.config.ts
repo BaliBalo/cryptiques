@@ -27,7 +27,7 @@ export default defineNuxtConfig({
 			},
 			Limelight: true,
 		},
-		// display: 'block',
+		display: 'swap',
 		preload: true,
 	},
 });

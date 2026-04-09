@@ -10,7 +10,7 @@
 	<main>
 		<template v-if="status === 404">
 			<h1><span class="definition"><span class="group-1">Pa</span><span class="group-2">ge non</span> <span class="group-3">t</span><span class="group-4">rouvé</span><span class="group-3">e</span></span></h1>
-			<p class="clue"><span class="group-2" tabIndex="0"><span class="fodder">Guenon</span> <span class="indicator">sans</span> <span class="fodder">tension</span></span> suis <span class="group-1" tabIndex="0"><span class="indicator">une paire de</span> <span class="fodder">passants</span></span>, <span class="group-3" tabIndex="0"><span class="fodder">te</span> <span class="indicator">cerne</span></span>, <span class="group-4" tabIndex="0"><span class="fodder">ouvre</span> <span class="indicator">frénétiquement</span></span> <span class="definition" tabIndex="0">ce qui est là</span> (4, 3, 7)</p>
+			<p class="clue"><span class="group-2" tabIndex="0"><span class="fodder">Guenon</span> <span class="indicator">sans</span> <span class="fodder">tension</span></span> suit <span class="group-1" tabIndex="0"><span class="indicator">une paire de</span> <span class="fodder">passants</span></span>, <span class="group-3" tabIndex="0"><span class="fodder">te</span> <span class="indicator">cerne</span></span>, <span class="group-4" tabIndex="0"><span class="fodder">ouvre</span> <span class="indicator">frénétiquement</span></span> <span class="definition" tabIndex="0">ce qui est là</span> (4, 3, 7)</p>
 		</template>
 		<template v-else>
 			<h1>Erreur</h1>
