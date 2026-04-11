@@ -163,7 +163,7 @@
 						<p>La grande majorité des énigmes a cette forme.</p>
 					</div>
 					<div class="slide">
-						<p>Les chiffres entre parenthèses à la fin indiquent la longueur de la réponse, ici 4 lettres.</p>
+						<p>Les chiffres entre parenthèses à la fin indiquent la <span class="highlight length">longueur</span> de la réponse, ici 4 lettres.</p>
 						<p>Les espaces et traits d'union sont également indiqués. Par exemple, "au revoir" serait (2, 6) et "pique-nique" serait (6-5).</p>
 					</div>
 					<div class="slide">
@@ -218,7 +218,8 @@
 		<section class="section" id="positionnement">
 			<h3>Positionnement</h3>
 			<p>Les résultats de plusieurs techniques sont souvent mis bout à bout.</p>
-			<p>Si les parties à enchaîner sont dans le bon ordre, il n'y aura pas nécessairement d'indicateur ; mais il peut y en avoir un quand même (surtout si cela améliore la <span class="highlight underline surface">surface</span>). Par exemple, <code>A <span class="highlight underline color-2">avec</span> B</code> pour <code>AB</code>.</p>
+			<p>Ce n'est pas toujours considéré comme une technique à part entière, mais c'est un outil classique que l'on appelera <em>positionnement</em>.</p>
+			<p>Si les parties à enchaîner sont dans le bon ordre, il n'y aura pas nécessairement d'<span class="highlight underline color-2">indicateur</span> ; mais il peut y en avoir un quand même (surtout si cela améliore la <span class="highlight underline surface">surface</span>). Par exemple, <code>A <span class="highlight underline color-2">avec</span> B</code> pour <code>AB</code>.</p>
 			<p>Si elles sont à mettre dans l'ordre inverse, cela sera indiqué. Par exemple, <code>A <span class="highlight underline color-2">à la suite de</span> B</code> pour <code>BA</code>.</p>
 			<Aside type="info">
 				<template #title>Pas nécessairement remplacés</template>
@@ -237,7 +238,7 @@
 
 		<section class="section" id="substitution">
 			<h3>Substitution</h3>
-			<p>La substitution est la seule technique n'utilisant pas d'<span class="highlight underline color-2">indicateur</span>. Elles consistent à remplacer un mot par un synonyme.</p>
+			<p>La <em>substitution</em> est la seule technique n'utilisant pas d'<span class="highlight underline color-2">indicateur</span>. Elles consistent à remplacer un mot par un synonyme.</p>
 			<Aside type="warning">
 				<template #title>Une technique difficile</template>
 				<p>Puisque n'importe quel mot peut être remplacé sans indication, et qu'il y a souvent beaucoup de synonymes possibles, il peut être difficile de repérer les substitutions. Ne vous inquiétez pas si elles vous échappent au début.</p>
@@ -313,7 +314,7 @@
 		</section>
 		<section class="section" id="anagrammes">
 			<h3>Anagrammes</h3>
-			<p>Les anagrammes consistent à réarranger les lettres de la <span class="highlight underline color-1">matière</span>.</p>
+			<p>Les <em>anagrammes</em> consistent à réarranger les lettres de la <span class="highlight underline color-1">matière</span>.</p>
 			<Aside type="info">
 				<template #title>Juste une collection de lettres</template>
 				<p>Le résultat d'une anagramme n'a pas forcément besoin d'être directement un mot valide en lui-même, il peut être utilisé avec d'autres techniques pour former la réponse.</p>
@@ -388,7 +389,7 @@
 		</section>
 		<section class="section" id="sélection">
 			<h3>Sélection</h3>
-			<p>Les techniques de sélection consistent à n'utiliser (ou supprimer) que certaines lettres de la <span class="highlight underline color-1">matière</span>.</p>
+			<p>Les techniques de <em>sélection</em> consistent à n'utiliser (ou supprimer) que certaines lettres de la <span class="highlight underline color-1">matière</span>.</p>
 			<p>Il y en a plusieurs types. Voici les plus communs :</p>
 			<ul class="expandable">
 				<li>
@@ -451,7 +452,7 @@
 		</section>
 		<section class="section" id="insertion">
 			<h3>Insertion</h3>
-			<p>Les techniques d'insertion consistent à ajouter de la <span class="highlight underline color-1">matière</span> dans un autre bout de <span class="highlight underline color-1">matière</span>.</p>
+			<p>Les techniques d'<em>insertion</em> consistent à ajouter de la <span class="highlight underline color-1">matière</span> dans un autre bout de <span class="highlight underline color-1">matière</span>.</p>
 			<p>Quelques <span class="highlight underline color-2">indicateurs</span> possibles : dans, ajouter, introduire, autour de, ...</p>
 			<p>Les lettres à insérer peuvent être spécifiées via un indicateur de sélection, ou un mot complet (en général via une substitution).</p>
 			<p>Un exemple :</p>
@@ -466,7 +467,7 @@
 		</section>
 		<section class="section" id="suppression">
 			<h3>Suppression</h3>
-			<p>Très proches des insertions, les techniques de suppression consistent à retirer certaines lettres de la <span class="highlight underline color-1">matière</span>.</p>
+			<p>Très proches des insertions, les techniques de <em>suppression</em> consistent à retirer certaines lettres de la <span class="highlight underline color-1">matière</span>.</p>
 			<p>Quelques <span class="highlight underline color-2">indicateurs</span> possibles : sans, privé de, dépourvu de, abandonne, ...</p>
 			<p>Un exemple :</p>
 			<Clue example answer="open" :hints="{
@@ -480,7 +481,7 @@
 		</section>
 		<section class="section" id="cachés">
 			<h3>Cachés</h3>
-			<p>Les techniques de mots cachés consistent à trouver la solution écrite telle quelle dans la <span class="highlight underline color-1">matière</span> (en ignorant les espaces et la ponctuation).</p>
+			<p>Les techniques de <em>mots cachés</em> consistent à trouver la solution écrite telle quelle dans la <span class="highlight underline color-1">matière</span> (en ignorant les espaces et la ponctuation).</p>
 			<Aside type="info">
 				<template #title>Attention aux espaces</template>
 				<p>Les cachés peuvent parfois être au milieu d'un seul mot, mais ils sont souvent dispersés sur plusieurs mots pour être plus difficiles à repérer.</p>
@@ -498,7 +499,7 @@
 		</section>
 		<section class="section" id="homophones">
 			<h3>Homophones</h3>
-			<p>Les techniques d'homophones consistent à remplacer un mot par un autre qui se prononce de la même façon.</p>
+			<p>Les techniques d'<em>homophones</em> consistent à remplacer un mot par un autre qui se prononce de la même façon.</p>
 			<Aside type="info">
 				<template #title>Souvent remplacé</template>
 				<p>Le mot servant d'homophone est presque toujours une substitution, puisque la réponse serait souvent trop évidente sinon.</p>
@@ -520,7 +521,7 @@
 		</section>
 		<section class="section" id="doubles-définitions">
 			<h3>Doubles définitions</h3>
-			<p>Les énigmes à doubles définitions présentent une seconde <span class="highlight underline definition">définition</span> au lieu d'une recette.</p>
+			<p>Les énigmes à <em>doubles définitions</em> présentent une seconde <span class="highlight underline definition">définition</span> au lieu d'une recette.</p>
 			<p>La réponse doit souvent être interprétée de deux façons différentes pour correspondre aux deux définitions.</p>
 			<p>Un exemple :</p>
 			<Clue example answer="bien" :hints="{
@@ -533,7 +534,7 @@
 		</section>
 		<section class="section" id="définition-cryptique">
 			<h3>Définition cryptique</h3>
-			<p>Les définitions cryptiques sont des énigmes sans <span class="highlight underline wordplay">recette</span>, mais dont la <span class="highlight underline definition">définition</span> est formulée d'une manière assez inattendue.</p>
+			<p>Les <em>définitions cryptiques</em> sont des énigmes sans <span class="highlight underline wordplay">recette</span>, mais dont la <span class="highlight underline definition">définition</span> est formulée d'une manière assez inattendue.</p>
 			<Aside type="info">
 				<template #title>Plus souvent dans une grille</template>
 				<p>Cette technique se prête mieux aux grilles de mots croisés, où les lettres de croisement peuvent aider à identifier la réponse. En dehors, il est rare que ces énigmes soient assez claires pour être considérées justes.</p>
@@ -551,7 +552,7 @@
 		</section>
 		<section class="section" id="tout-en-un">
 			<h3>Tout-en-un</h3>
-			<p>Les énigmes "tout-en-un" (aussi appelées <code>&lit</code>, de l'anglais "and literally so") sont des énigmes dans lesquelles la <span class="highlight underline definition">définition</span> et la <span class="highlight underline wordplay">recette</span> sont combinées en une seule phrase.</p>
+			<p>Les énigmes <em>tout-en-un</em> (aussi appelées <code>&lit</code>, de l'anglais "and literally so") sont des énigmes dans lesquelles la <span class="highlight underline definition">définition</span> et la <span class="highlight underline wordplay">recette</span> sont combinées en une seule phrase.</p>
 			<p>C'est-à-dire que la <span class="highlight underline definition">définition</span> est l'énigme entière, et la <span class="highlight underline wordplay">recette</span> aussi.</p>
 			<Aside type="info">
 				<template #title>Une technique rare</template>
@@ -570,7 +571,7 @@
 		</section>
 		<section class="section" id="rébus">
 			<h3>Rébus</h3>
-			<p>Dans une énigme de type rébus, la réponse décrit ce qui se passe dans l'énigme.</p>
+			<p>Dans une énigme de type <em>rébus</em>, la réponse décrit ce qui se passe dans l'énigme.</p>
 			<Aside type="info">
 				<template #title>Astuce pour les repérer</template>
 				<p>Si vous voyez des choses bizarres dans l'énigme, par exemple une capitalisation étrange ou des symboles inhabituels, il s'agit probablement d'un rébus.</p>
@@ -599,7 +600,7 @@
 		</section>
 		<section class="section" id="mots-de-liaison">
 			<h3>Mots de liaison</h3>
-			<p>Les mots de liaison, comme indiqué plus haut, lient la <span class="highlight underline definition">définition</span> et la <span class="highlight underline wordplay">recette</span> (ou les deux définitions).</p>
+			<p>Les <em>mots de liaison</em>, comme indiqué plus haut, lient la <span class="highlight underline definition">définition</span> et la <span class="highlight underline wordplay">recette</span> (ou les deux définitions).</p>
 			<p>Ils indiquent soit que les deux sont égaux, soit qu'ils décrivent l'un comme l'autre la réponse, soit encore que l'un mène à l'autre.</p>
 			<p>Voici une liste non-exhaustive de mots de liaison, et leur justification possible :</p>
 			<ul class="expandable">
