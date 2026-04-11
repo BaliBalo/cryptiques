@@ -217,6 +217,9 @@
 				corner-shape: inherit;
 				border-radius: 0 0 calc(var(--r) + 2px) calc(var(--r) + 2px);
 				transition: inset .15s, border-radius .15s, visibility .15s;
+				@media (prefers-reduced-motion: reduce) {
+					transition: none;
+				}
 			}
 			/* ::after just for stable hit-checking */
 			&::after { border-color: transparent; }
@@ -244,6 +247,9 @@
 		box-shadow: 0 4px 4px #0001;
 		z-index: 8;
 		transition: display .15s allow-discrete, overlay .15s allow-discrete, translate .15s, opacity .15s;
+		@media (prefers-reduced-motion: reduce) {
+			transition: none;
+		}
 		@starting-style {
 			translate: 0 8px;
 			opacity: 0;
@@ -261,6 +267,9 @@
 			padding: 0;
 			border-radius: 0;
 			transition: background-size .15s, margin .15s, padding .15s, border-radius .15s;
+			@media (prefers-reduced-motion: reduce) {
+				transition: none;
+			}
 			&:hover {
 				background-size: 100% 100%;
 				margin: 0;
