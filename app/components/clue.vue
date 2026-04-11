@@ -71,7 +71,7 @@
 			<div v-if="hints.fodder" class="hint fodder">La matière est <fodderList />. {{ hints.fodder.note }}</div>
 			<div v-if="hints.definition" class="hint definition">{{ hints.altDefinition ? 'Une' : 'La' }} définition est <code>{{ extractRange(text, hints.definition.range) }}</code>. {{ hints.definition.note }}</div>
 			<div v-if="hints.altDefinition" class="hint alt-definition">L'autre définition est <code>{{ extractRange(text, hints.altDefinition.range) }}</code>. {{ hints.altDefinition.note }}</div>
-			<div v-for="(extra, i) in extraHints" class="hint extra" :class="{ [`extra-${i + 1}`]: true }">{{ extra.content }}</div>
+			<div v-for="(extra, i) in extraHints" :key="i" class="hint extra" :class="{ [`extra-${i + 1}`]: true }">{{ extra.content }}</div>
 			<div v-if="example" class="answer">
 				{{ answer }}
 				<div v-if="hints.answer" class="details">{{ hints.answer }}</div>
@@ -80,12 +80,12 @@
 		<div class="buttons">
 			<!-- setting explicit anchorName because implicit ones from popover break during closing animation in FF -->
 			<button v-if="props.hints && (hints.indicators || hints.fodder || hints.definition || hints.altDefinition || extraHints.length)" :popovertarget="hintsPopoverId" :style="{ anchorName: `--${hintsPopoverId}` }">indices</button>
-			<div class="choose-hint" popover :id="hintsPopoverId" :style="{ positionAnchor: `--${hintsPopoverId}` }">
+			<div :id="hintsPopoverId" class="choose-hint" popover :style="{ positionAnchor: `--${hintsPopoverId}` }">
 				<button v-if="hints.indicators" data-type="indicators" @click="show">indicateurs</button>
 				<button v-if="hints.fodder" data-type="fodder" @click="show">matière</button>
 				<button v-if="hints.definition" data-type="definition" @click="show">définition</button>
 				<button v-if="hints.altDefinition" data-type="alt-definition" @click="show">autre définition</button>
-				<button v-for="(extra, i) in extraHints" :data-type="`extra-${i + 1}`" @click="show">{{ extra.name || `extra ${i + 1}` }}</button>
+				<button v-for="(extra, i) in extraHints" :key="i" :data-type="`extra-${i + 1}`" @click="show">{{ extra.name || `extra ${i + 1}` }}</button>
 			</div>
 			<button v-if="example" data-type="answer" @click="show">solution</button>
 		</div>

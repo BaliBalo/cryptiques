@@ -15,7 +15,11 @@ export default defineNuxtConfig({
 		},
 		rootAttrs: { id: 'root' },
 	},
-	modules: ['@nuxtjs/sitemap', '@nuxtjs/google-fonts'],
+	modules: [
+		'@nuxt/eslint',
+		'@nuxtjs/sitemap',
+		'@nuxtjs/google-fonts',
+	],
 	sitemap: {
 		zeroRuntime: true,
 		xsl: false,
@@ -25,7 +29,7 @@ export default defineNuxtConfig({
 			'Funnel Display': {
 				wght: '300..800',
 			},
-			Limelight: true,
+			'Limelight': true,
 		},
 		display: 'swap',
 		preload: true,

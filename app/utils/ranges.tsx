@@ -10,7 +10,7 @@ export function wrapRanges(text: string, ranges: TypedRange[]) {
 	});
 
 	type StackItem = { range?: TypedRange; content: (string | VNode)[] };
-	let stack: StackItem[] = [{ content: [] }];
+	const stack: StackItem[] = [{ content: [] }];
 	for (let i = 0; i < text.length; i++) {
 		// Ranges ending
 		while ((stack.at(-1)?.range?.[1] ?? Infinity) <= i) {
@@ -42,8 +42,3 @@ export function wrapRanges(text: string, ranges: TypedRange[]) {
 export function extractRange(str: string, range: Range) {
 	return str.slice(...range);
 }
-
-// Ensure ranges don't overlap
-// export function checkRanges(ranges: Range[]) {
-// 	return true;
-// }
