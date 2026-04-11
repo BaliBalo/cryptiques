@@ -48,7 +48,7 @@
 			function setIntroScrollProgress() {
 				const el = introSlideshow.value;
 				if (!el) return;
-				el.style.setProperty('--intro-scroll-progress', `${el.scrollLeft / el.clientWidth}`);
+				el.style.setProperty('--guide-intro-scroll-progress', `${el.scrollLeft / el.clientWidth}`);
 			}
 			introSlideshow.value?.addEventListener('scroll', setIntroScrollProgress);
 			setIntroScrollProgress();
@@ -668,7 +668,21 @@
 	</main>
 </template>
 
-<style scoped>
+<style>
+@property --guide-intro-scroll-progress {
+	syntax: '<number>';
+	initial-value: 0;
+	inherits: true;
+}
+@keyframes guide-intro-scroll-progress {
+	to { --guide-intro-scroll-progress: 8; }
+}
+
+@keyframes guide-toc-active { from, to { color: var(--color-primary); } }
+@keyframes guide-toc-entry { to { bottom: 0; } }
+@keyframes guide-toc-exit { to { top: 100%; } }
+
+.page-guide {
 	.main {
 		/* Avoid margin collapsing */
 		display: inline-block;
@@ -693,9 +707,7 @@
 		left: auto; right: 8px;
 		-webkit-tap-highlight-color: transparent;
 	}
-	@keyframes toc-active { from, to { color: var(--color-primary); } }
-	@keyframes toc-entry { to { bottom: 0; } }
-	@keyframes toc-exit { to { top: 100%; } }
+	
 	#toc {
 		inset: 7px 7px auto auto;
 		max-height: calc(100dvh - 16px);
@@ -757,7 +769,7 @@
 			position: relative;
 			padding: 2px 0;
 			padding-inline-start: calc(8px + 12px * var(--depth, 0));
-			animation: toc-active 1ms linear;
+			animation: guide-toc-active 1ms linear;
 			animation-range: entry 50vh exit calc(100% - 50vh);
 			transition: translate .15s;
 			@media (prefers-reduced-motion: reduce) { transition: none; }
@@ -769,7 +781,7 @@
 				bottom: 100%;
 				width: 1px;
 				background: var(--color-primary-bright);
-				animation: toc-entry 1ms linear both, toc-exit 1ms linear both;
+				animation: guide-toc-entry 1ms linear both, guide-toc-exit 1ms linear both;
 				animation-timeline: inherit;
 				animation-range: entry 0% entry 100%, exit 0% exit 100%;
 				transition: inherit;
@@ -868,11 +880,11 @@
 		scroll-snap-type: x mandatory;
 		scroll-snap-stop: always;
 		scroll-timeline: --slide-scroll inline;
-		animation: intro-scroll-progress auto linear;
+		animation: guide-intro-scroll-progress auto linear;
 		animation-timeline: --slide-scroll;
-		--scroll: var(--intro-scroll-progress);
+		--scroll: var(--guide-intro-scroll-progress);
 		@media (prefers-reduced-motion: reduce) {
-			--scroll: round(nearest, var(--intro-scroll-progress));
+			--scroll: round(nearest, var(--guide-intro-scroll-progress));
 		}
 		:global(p) { margin-bottom: .5em; }
 		.static {
@@ -1044,7 +1056,6 @@
 			transition: text-underline-offset .2s, text-decoration-color .2s;
 			&::marker { font-size: .75em; }
 			&:hover {
-				/* background: rgb(255 255 255 / .05); */
 				text-decoration-color: currentColor;
 				text-decoration-style: solid;
 				text-underline-offset: 3px;
@@ -1059,5 +1070,6 @@
 	.expandable {
 		list-style: none;
 		padding: 0;
+	}
 	}
 </style>
