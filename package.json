@@ -8,7 +8,7 @@
 		"generate": "nuxt generate",
 		"preview": "nuxt preview",
 		"postinstall": "nuxt prepare",
-		"prod": "git pull && { git diff --name-only HEAD HEAD~1 | grep package-lock.json && npm install } && npm run build && pm2 reload cryptiques"
+		"prod": "git pull && { git diff --name-only HEAD HEAD~1 | grep package-lock.json && npm install ; } && npm run build && pm2 reload cryptiques"
 	},
 	"dependencies": {
 		"@nuxtjs/google-fonts": "^3.2.0",
