@@ -80,7 +80,7 @@
 		background: var(--background);
 		color: var(--text);
 		font-family: var(--font-main);
-  		font-optical-sizing: auto;
+		font-optical-sizing: auto;
 		font-weight: 300;
 	}
 	strong { font-weight: 600; }

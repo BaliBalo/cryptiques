@@ -1,6 +1,8 @@
 export type Range = [number, number];
 export type TypedRange = [number, number, string];
 
+type StackItem = { range?: TypedRange, content: (string | VNode)[] };
+
 export function wrapRanges(text: string, ranges: TypedRange[]) {
 	ranges = ranges.slice().sort((a, b) => {
 		// Earlier starts first
@@ -9,7 +11,6 @@ export function wrapRanges(text: string, ranges: TypedRange[]) {
 		return (b[1] - b[0]) - (a[1] - a[0]);
 	});
 
-	type StackItem = { range?: TypedRange; content: (string | VNode)[] };
 	const stack: StackItem[] = [{ content: [] }];
 	for (let i = 0; i < text.length; i++) {
 		// Ranges ending

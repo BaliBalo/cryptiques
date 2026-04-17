@@ -14,7 +14,7 @@
 
 		const allTimelines: string[] = [];
 		const tocLinks = document.querySelectorAll<HTMLLinkElement>('#toc a[href^="#"]');
-		tocLinks.forEach(link => {
+		tocLinks.forEach((link) => {
 			const id = link.getAttribute('href')?.slice(1) || '';
 			if (!id) return;
 			const timeline = `--toc-${id}`;
@@ -24,7 +24,7 @@
 		});
 		document.documentElement.style.setProperty('timeline-scope', allTimelines.join(','));
 
-		document.addEventListener('click', async e => {
+		document.addEventListener('click', async (e) => {
 			const hashLink = e.target instanceof Element && e.target.closest('a[href^="#"]');
 			if (!(hashLink instanceof HTMLAnchorElement)) return;
 
@@ -55,7 +55,7 @@
 
 			function setTOCScrollProgress() {
 				const wh = window.innerHeight;
-				tocLinks.forEach(link => {
+				tocLinks.forEach((link) => {
 					const id = link.getAttribute('href')!.slice(1);
 					const target = document.getElementById(id);
 					if (!target) return;
@@ -227,7 +227,7 @@
 		<section id="positionnement" class="section">
 			<h3>Positionnement</h3>
 			<p>Les résultats de plusieurs techniques sont souvent mis bout à bout.</p>
-			<p>Ce n'est pas toujours considéré comme une technique à part entière, mais c'est un outil classique que l'on appelera <em>positionnement</em>.</p>
+			<p>Ce n'est pas toujours considéré comme une technique à part entière, mais c'est un outil classique que l'on appelle <em>positionnement</em>.</p>
 			<p>Si les parties à enchaîner sont dans le bon ordre, il n'y aura pas nécessairement d'<span class="highlight underline color-2">indicateur</span> ; mais il peut y en avoir un quand même (surtout si cela améliore la <span class="highlight underline surface">surface</span>). Par exemple, <code>A <span class="highlight underline color-2">avec</span> B</code> pour <code>AB</code>.</p>
 			<p>Si elles sont à mettre dans l'ordre inverse, cela sera indiqué. Par exemple, <code>A <span class="highlight underline color-2">à la suite de</span> B</code> pour <code>BA</code>.</p>
 			<Aside type="info">

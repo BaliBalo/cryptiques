@@ -39,7 +39,7 @@
 	const toHumanList = (arr: Range[]) => arr.flatMap((range, i, arr) => [
 		!i ? '' : (i === arr.length - 1 ? ' et ' : ', '),
 		<code>{extractRange(text, range)}</code>,
-	]);;
+	]);
 
 	const indicatorsList = () => toHumanList(indicatorRanges);
 

@@ -7,33 +7,9 @@ import withNuxt from './.nuxt/eslint.config.mjs';
 
 export default withNuxt(
 	{
-		files: ['**/*.vue'],
 		extends: [
 			eslint.configs.recommended,
 			...typescriptEslint.configs.recommended,
-			...eslintPluginVue.configs['flat/recommended'],
-		],
-		languageOptions: {
-			parserOptions: {
-				parser: typescriptEslint.parser,
-			},
-			globals: { ...globals.browser },
-		},
-		rules: {
-			'vue/multi-word-component-names': 'off',
-			'vue/html-indent': ['error', 'tab'],
-			'vue/script-indent': ['error', 'tab', { baseIndent: 1 }],
-			'vue/no-multiple-template-root': 'off',
-			'vue/max-attributes-per-line': 'off',
-			'vue/singleline-html-element-content-newline': 'off',
-		},
-	},
-	{
-		files: ['**/*.{ts,tsx,js,jsx}'],
-		extends: [
-			eslint.configs.recommended,
-			...typescriptEslint.configs.recommended,
-			...eslintPluginVue.configs['flat/recommended'],
 			stylistic.configs.customize({
 				indent: 'tab',
 				semi: true,
@@ -48,6 +24,27 @@ export default withNuxt(
 		},
 		rules: {
 			'@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
+			'@stylistic/eol-last': 'off',
+			'@stylistic/member-delimiter-style': ['error', {
+				multiline: { delimiter: 'comma', requireLast: true },
+				singleline: { delimiter: 'comma', requireLast: false },
+			}],
+			'@typescript-eslint/no-unused-vars': 'warn',
+		},
+	},
+	{
+		files: ['**/*.vue'],
+		extends: [
+			...eslintPluginVue.configs['flat/recommended'],
+		],
+		rules: {
+			'vue/multi-word-component-names': 'off',
+			'vue/html-indent': ['error', 'tab'],
+			'vue/script-indent': ['error', 'tab', { baseIndent: 1 }],
+			'@stylistic/indent': 'off',
+			'vue/no-multiple-template-root': 'off',
+			'vue/max-attributes-per-line': 'off',
+			'vue/singleline-html-element-content-newline': 'off',
 		},
 	},
 );
