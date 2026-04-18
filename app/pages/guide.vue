@@ -80,15 +80,6 @@
 		<NuxtLink to="/" class="back" aria-label="Retour à l'accueil">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="24px" height="24px"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" /></svg>
 		</NuxtLink>
-		<label class="scroll-lock-toggle" aria-label="Activer ou désactiver le verrouillage du défilement">
-			<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M80-80v-60h81q-59-72-90-159T40-480q0-94 31-181t90-159H80v-60h200v200h-60v-116q-58 66-89 147t-31 169q0 88 31 169t89 147v-116h60v200H80Zm578-47q-23 8-46.5 7.5T566-131L304-253l18-40q10-20 28-32.5t40-14.5l68-5-112-307q-6-16 1-30.5t23-20.5q16-6 30.5 1t20.5 23l148 407-100 7 131 61q7 3 15 3.5t15-1.5l157-57q31-11 45-41.5t3-61.5l-55-150q-6-16 1-30.5t23-20.5q16-6 30.5 1t20.5 23l55 150q23 63-4.5 122.5T815-184l-157 57Zm-90-265-54-151q-6-16 1-30.5t23-20.5q16-6 30.5 1t20.5 23l55 150-76 28Zm113-41-41-113q-6-16 1-30.5t23-20.5q16-6 30.5 1t20.5 23l41 112-75 28Zm8 88Z" /></svg>
-			<svg class="lock" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-				<path d="M240-160h480v-400H240v400Zm296.5-143.5Q560-327 560-360t-23.5-56.5Q513-440 480-440t-56.5 23.5Q400-393 400-360t23.5 56.5Q447-280 480-280t56.5-23.5ZM240-160v-400 400Zm0 80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h480q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Z" />
-				<path class="tip" transform-origin="600 -640" d="M520-640v-80q0-83 58.5-141.5T720-920q83 0 141.5 58.5T920-720h-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80" />
-				<path class="pip" transform-origin="320 -640" d="M280-640v-80h80v80z" />
-			</svg>
-			<input id="scroll-lock" type="checkbox" checked>
-		</label>
 		<button popovertarget="toc" class="toc-toggle" aria-label="Afficher le sommaire">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="24px" height="24px"><path d="M120-280v-80h560v80H120Zm0-160v-80h560v80H120Zm0-160v-80h560v80H120Zm680 320q-17 0-28.5-11.5T760-320q0-17 11.5-28.5T800-360q17 0 28.5 11.5T840-320q0 17-11.5 28.5T800-280Zm0-160q-17 0-28.5-11.5T760-480q0-17 11.5-28.5T800-520q17 0 28.5 11.5T840-480q0 17-11.5 28.5T800-440Zm0-160q-17 0-28.5-11.5T760-640q0-17 11.5-28.5T800-680q17 0 28.5 11.5T840-640q0 17-11.5 28.5T800-600Z" /></svg>
 		</button>
@@ -748,7 +739,6 @@
 		/* Avoid margin collapsing */
 		display: inline-block;
 		width: 100%;
-		scroll-snap-align: start;
 	}
 	.page-title {
 		font-size: 3rem;
@@ -756,7 +746,7 @@
 		margin: 0;
 		small { font-size: .75em; }
 	}
-	.back, .toc-toggle, .scroll-lock-toggle {
+	.back, .toc-toggle {
 		position: fixed;
 		top: 8px; left: 8px;
 		background: var(--background);
@@ -767,31 +757,6 @@
 	.toc-toggle {
 		left: auto; right: 8px;
 		-webkit-tap-highlight-color: transparent;
-	}
-	.scroll-lock-toggle {
-		display: none;
-		left: auto;
-		right: 48px;
-		input { position: absolute; width: 1px; height: 1px; inset: 0; opacity: 0; }
-		.lock {
-			position: absolute;
-			bottom: 0;
-			right: 0;
-			width: 50%;
-			height: 50%;
-			max-width: none;
-			filter:
-				drop-shadow(-1px 0 0 var(--background))
-				drop-shadow( 1px 0 0 var(--background))
-				drop-shadow(0 -1px 0 var(--background))
-				drop-shadow(0  1px 0 var(--background));
-			.tip { transition: transform .5s; }
-			.pip { transform: scaleY(0); transition: transform .15s; }
-		}
-	}
-	&:has(#scroll-lock:checked) .scroll-lock-toggle .lock {
-		.tip { transform: scaleX(-1); }
-		.pip { transform: scaleY(1); transition-delay: .8s; }
 	}
 	#toc {
 		inset: 7px 7px auto auto;
@@ -898,14 +863,7 @@
 		place-content: center;
 		margin: 0 auto;
 		padding: 48px 16px;
-		scroll-snap-align: center;
 		border-bottom: 1px solid color-mix(in oklch, var(--text), transparent 80%);
-	}
-	@media not (pointer: fine) {
-		.scroll-lock-toggle { display: block; }
-		&:has(#scroll-lock:checked) {
-			scroll-snap-type: y mandatory;
-		}
 	}
 
 	/* 800 for .section max-width + 250 for #toc size */
