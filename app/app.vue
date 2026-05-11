@@ -12,6 +12,7 @@
 		--color-primary-bright: #78a75a;
 		--font-title: "Limelight", serif;
 		--font-main: "Funnel Display", sans-serif;
+		--light-border: color-mix(currentColor, transparent 80%);
 
 		--highlight-base: .9 .1;
 		--definition: oklch(var(--highlight-base) 260);

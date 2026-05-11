@@ -77,14 +77,12 @@
 
 <template>
 	<header>
-		<NuxtLink to="/" class="back" aria-label="Retour à l'accueil">
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="24px" height="24px"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" /></svg>
-		</NuxtLink>
-		<button popovertarget="toc" class="toc-toggle" aria-label="Afficher le sommaire">
+		<Back />
+		<button type="button" popovertarget="toc" class="toc-toggle" aria-label="Afficher le sommaire">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="24px" height="24px"><path d="M120-280v-80h560v80H120Zm0-160v-80h560v80H120Zm0-160v-80h560v80H120Zm680 320q-17 0-28.5-11.5T760-320q0-17 11.5-28.5T800-360q17 0 28.5 11.5T840-320q0 17-11.5 28.5T800-280Zm0-160q-17 0-28.5-11.5T760-480q0-17 11.5-28.5T800-520q17 0 28.5 11.5T840-480q0 17-11.5 28.5T800-440Zm0-160q-17 0-28.5-11.5T760-640q0-17 11.5-28.5T800-680q17 0 28.5 11.5T840-640q0 17-11.5 28.5T800-600Z" /></svg>
 		</button>
 		<nav id="toc" popover>
-			<button popovertarget="toc" popovertargetaction="hide" class="close" aria-label="Fermer le sommaire" />
+			<button type="button" popovertarget="toc" popovertargetaction="hide" class="close" aria-label="Fermer le sommaire" />
 			<ol>
 				<li><NuxtLink to="#quoi">Qu'est-ce que c'est ?</NuxtLink></li>
 				<li><NuxtLink to="#principes">Principes de base</NuxtLink></li>
@@ -689,8 +687,11 @@
 		<section id="ponctuation" class="section">
 			<h3>Ponctuation</h3>
 			<p>Cela dépend des choix stylistiques de l'auteur, mais très souvent la ponctuation doit être ignorée, elle sert seulement à la <span class="highlight underline surface">surface</span>.</p>
-			<p>Cependant, certaines marques de ponctuation peuvent être un indice sur la nature de l'énigme.</p>
-			<p><code>?</code> - un point d'interrogation en fin d'énigme peut parfois indiquer qu'une partie de l'énigme est un peu tirée par les cheveux, par exemple si elle utilise un mot d'une manière non standard (par exemple "couleur" pour dire "quelque chose qui coule").</p>
+			<p>Cependant, certaines marques de ponctuation peuvent être des indices.</p>
+			<p>
+				<code>?</code> - un point d'interrogation en fin d'énigme peut parfois indiquer qu'une partie de l'énigme est un peu tirée par les cheveux. Par exemple, si elle utilise un mot d'une manière non standard ("couleur" pour indiquer "quelque chose qui coule").<br>
+				Cela peut aussi indiquer que la définition est une instance de la réponse plutôt qu'un synonyme ("bleu?" pour la réponse "couleur").
+			</p>
 			<p><code>!</code> - un point d'exclamation en fin d'énigme peut parfois indiquer que l'on a affaire à une énigme tout-en-un.</p>
 			<Aside type="warning">
 				<template #title>Pas toujours</template>
@@ -746,16 +747,13 @@
 		margin: 0;
 		small { font-size: .75em; }
 	}
-	.back, .toc-toggle {
+	.toc-toggle {
 		position: fixed;
-		top: 8px; left: 8px;
+		top: 8px; right: 8px;
 		background: var(--background);
 		border-radius: 50%;
 		padding: 4px;
 		z-index: 9;
-	}
-	.toc-toggle {
-		left: auto; right: 8px;
 		-webkit-tap-highlight-color: transparent;
 	}
 	#toc {
@@ -767,7 +765,7 @@
 		border-radius: 8px;
 		color: var(--text);
 		background: var(--background);
-		border: 1px solid color-mix(in oklch, var(--text), transparent 80%);
+		border: 1px solid var(--light-border);
 		box-shadow: 0 4px 4px #0001;
 		z-index: 8;
 		transition: display .15s allow-discrete, overlay .15s allow-discrete, translate .15s, opacity .15s;
@@ -863,7 +861,7 @@
 		place-content: center;
 		margin: 0 auto;
 		padding: 48px 16px;
-		border-bottom: 1px solid color-mix(in oklch, var(--text), transparent 80%);
+		border-bottom: 1px solid var(--light-border);
 	}
 
 	/* 800 for .section max-width + 250 for #toc size */
@@ -878,7 +876,7 @@
 			height: 100dvh;
 			max-height: none;
 			border: none;
-			border-left: 1px solid color-mix(in oklch, var(--text), transparent 80%);
+			border-left: 1px solid var(--light-border);
 			border-radius: 0;
 			opacity: 1;
 			translate: 0 0;
@@ -1052,15 +1050,13 @@
 		text-underline-offset: 2px;
 	}
 	.main code {
-		border: 1px solid color-mix(currentColor, transparent 80%);
+		border: 1px solid var(--light-border);
 		border-radius: 4px;
 		padding: .1em .2em;
 	}
 	.main em {
 		font-style: normal;
-		text-decoration: underline;
-		text-decoration-style: wavy;
-		text-decoration-color: color-mix(in srgb, currentColor, transparent 50%);
+		text-decoration: underline wavy color-mix(in srgb, currentColor, transparent 50%);
 	}
 	.main details {
 		&::details-content {
@@ -1077,7 +1073,7 @@
 		&[open]::details-content { height: auto; padding: 1px 0; }
 		summary {
 			padding: 2px 0;
-			text-decoration: underline dashed 1px color-mix(in srgb, currentColor 50%, #0000);
+			text-decoration: underline dashed 1px color-mix(in srgb, currentColor, transparent 50%);
 			text-underline-offset: 2px;
 			border-radius: 4px;
 			cursor: pointer;
