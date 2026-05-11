@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-	import type { Range, TypedRange } from '~/utils/ranges.tsx';
+	import type { Range, TypedRange } from '~/utils/ranges';
 
 	const slots = useSlots();
 	const props = defineProps<{
@@ -12,7 +12,10 @@
 			fodder?: { ranges: Range[], note?: string },
 			extra?: { name?: string, range?: Range, content: string }[],
 			answer?: string,
-		},
+		} | undefined,
+	}>();
+	const emit = defineEmits<{
+		(e: 'show-hint', type: string): void,
 	}>();
 
 	let text = slots.default?.()[0]?.children;
@@ -51,13 +54,16 @@
 		Object.fromEntries(Object.entries(shown.value).map(([k, v]) => [`show-${k}`, v]))
 	));
 
-	function show(e: PointerEvent) {
+	function showHint(e: PointerEvent) {
 		const target = e.currentTarget;
 		if (!(target instanceof HTMLElement)) return;
 		const type = target.dataset.type;
 		if (!type) return;
 		shown.value[type] = !shown.value[type];
 		document.getElementById(hintsPopoverId)?.togglePopover(false);
+		if (shown.value[type]) {
+			emit('show-hint', type);
+		}
 	}
 </script>
 
@@ -78,16 +84,15 @@
 			</div>
 		</div>
 		<div class="buttons">
-			<!-- setting explicit anchorName because implicit ones from popover break during closing animation in FF -->
-			<button v-if="props.hints && (hints.indicators || hints.fodder || hints.definition || hints.altDefinition || extraHints.length)" :popovertarget="hintsPopoverId" :style="{ anchorName: `--${hintsPopoverId}` }">indices</button>
-			<div :id="hintsPopoverId" class="choose-hint" popover :style="{ positionAnchor: `--${hintsPopoverId}` }">
-				<button v-if="hints.indicators" data-type="indicators" @click="show">indicateurs</button>
-				<button v-if="hints.fodder" data-type="fodder" @click="show">matière</button>
-				<button v-if="hints.definition" data-type="definition" @click="show">définition</button>
-				<button v-if="hints.altDefinition" data-type="alt-definition" @click="show">autre définition</button>
-				<button v-for="(extra, i) in extraHints" :key="i" :data-type="`extra-${i + 1}`" @click="show">{{ extra.name || `extra ${i + 1}` }}</button>
+			<button v-if="props.hints && (hints.indicators || hints.fodder || hints.definition || hints.altDefinition || extraHints.length)" type="button" class="open-hint-selection" :popovertarget="hintsPopoverId">indices</button>
+			<div :id="hintsPopoverId" class="choose-hint" popover>
+				<button v-if="hints.indicators" type="button" data-type="indicators" @click="showHint">indicateurs</button>
+				<button v-if="hints.fodder" type="button" data-type="fodder" @click="showHint">matière</button>
+				<button v-if="hints.definition" type="button" data-type="definition" @click="showHint">définition</button>
+				<button v-if="hints.altDefinition" type="button" data-type="alt-definition" @click="showHint">autre définition</button>
+				<button v-for="(extra, i) in extraHints" :key="i" type="button" :data-type="`extra-${i + 1}`" @click="showHint">{{ extra.name || `extra ${i + 1}` }}</button>
 			</div>
-			<button v-if="example" data-type="answer" @click="show">solution</button>
+			<button v-if="example" type="button" data-type="answer" @click="showHint">solution</button>
 		</div>
 	</div>
 </template>
@@ -230,11 +235,16 @@
 			}
 		}
 	}
+	.buttons:has(.choose-hint:popover-open) > button.open-hint-selection::before {
+		inset: 0 -4px -4px;
+		border-radius: 0 0 calc(var(--r) + 2px) calc(var(--r) + 2px);
+		visibility: visible;
+	}
 	.choose-hint {
-		margin: 0;
+		margin: -4px -1px 0;
 		inset: auto;
-		position-area: top;
-		position-try-fallbacks: flip-block;
+		position-area: right span-bottom;
+		position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline, bottom, top;
 		display: flex;
 		flex-flow: column nowrap;
 		align-items: start;
@@ -242,8 +252,10 @@
 		padding: 8px;
 		color: var(--color);
 		background: var(--background);
-		border: 1px solid color-mix(in oklch, var(--text), transparent 80%);
-		border-radius: 8px;
+		border: 4px double var(--border);
+		border-radius: 12px;
+		corner-shape: bevel;
+		border-top-left-radius: 0;
 		box-shadow: 0 4px 4px #0001;
 		z-index: 8;
 		transition: display .15s allow-discrete, overlay .15s allow-discrete, translate .15s, opacity .15s;
@@ -251,12 +263,12 @@
 			transition: none;
 		}
 		@starting-style {
-			translate: 0 8px;
+			translate: -8px 0;
 			opacity: 0;
 		}
 		&:not(:popover-open) {
 			display: none;
-			translate: 0 8px;
+			translate: -8px 0;
 			opacity: 0;
 		}
 		> button {
