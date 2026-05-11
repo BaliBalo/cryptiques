@@ -65,9 +65,13 @@
 		padding: 48px 16px;
 	}
 	a {
-		text-decoration: underline;
-		/* text-decoration-style: wavy; */
+		text-decoration: underline color-mix(in srgb, currentColor, transparent 50%);
 		text-underline-offset: 2px;
+		transition: text-decoration-color .3s, text-underline-offset .3s;
+		&:hover, &:focus-visible {
+			text-decoration-color: var(--color-primary);
+			text-underline-offset: 4px;
+		}
 	}
 	.back {
 		position: fixed;
