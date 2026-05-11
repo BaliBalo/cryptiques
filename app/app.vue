@@ -3,6 +3,7 @@
 </template>
 
 <style>
+	@keyframes spin { to { rotate: 1turn; } }
 	:root {
 		--background: #fff;
 		--text: #111;

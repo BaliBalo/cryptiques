@@ -9,6 +9,8 @@
 			},
 		],
 	});
+
+	const { loggedIn } = useUserSession();
 </script>
 
 <template>
@@ -17,6 +19,10 @@
 			<h1>Cryptiques</h1>
 			<p>Un site pour les énigmes cryptiques francophones.</p>
 		</hgroup>
+		<div class="account">
+			<NuxtLink v-if="loggedIn" to="/moi">Mon Profil</NuxtLink>
+			<NuxtLink v-else to="/connexion">Connexion</NuxtLink>
+		</div>
 	</header>
 	<main>
 		<div class="guide-cta">
@@ -24,27 +30,38 @@
 			<p>Nouveau aux cryptiques ou besoin d'un rappel ?</p>
 			<NuxtLink to="/guide" class="guide">Suivez le guide</NuxtLink>
 		</div>
-		<p>Ce site listera bientôt des énigmes cryptiques. Mais pour l'instant, il n'y a qu'un guide.</p>
+		<ClueList />
 	</main>
 </template>
 
 <style>
-@property --transparency {
+@property --index-transparency {
 	syntax: '<percentage>';
 	inherits: false;
 	initial-value: 0%;
 }
-@property --angle {
+@property --index-angle {
 	syntax: '<angle>';
 	inherits: false;
 	initial-value: 0deg;
 }
-@keyframes spin { to { --angle: 1turn; } }
+@keyframes index-angle-spin { to { --index-angle: 1turn; } }
 .page-index {
 	#root {
 		max-width: 800px;
 		margin: 0 auto;
 		padding: 48px 16px;
+	}
+	.account {
+		position: absolute;
+		top: 16px; right: 16px;
+		a {
+			text-decoration: underline wavy color-mix(in srgb, currentColor, transparent 50%);
+			transition: text-decoration-color .15s;
+			&:hover, &:focus-visible {
+				text-decoration-color: var(--color-primary);
+			}
+		}
 	}
 	hgroup {
 		h1 { margin-bottom: 0; }
@@ -85,16 +102,16 @@
 		border: 2px solid #0000;
 		border-radius: 8px;
 		background:
-			linear-gradient(color-mix(in srgb, var(--background), transparent var(--transparency)) 0 0) padding-box,
-			conic-gradient(from var(--angle) in oklch longer hue, oklch(var(--highlight-base) 0), oklch(var(--highlight-base) 0)) border-box
+			linear-gradient(color-mix(in srgb, var(--background), transparent var(--index-transparency)) 0 0) padding-box,
+			conic-gradient(from var(--index-angle) in oklch longer hue, oklch(var(--highlight-base) 0), oklch(var(--highlight-base) 0)) border-box
 		;
-		animation: spin 3s linear infinite paused;
-		transition: --transparency .15s;
+		animation: index-angle-spin 3s linear infinite paused;
+		transition: --index-transparency .15s;
 		@media (prefers-reduced-motion: reduce) {
 			animation: none;
 		}
 		&:hover {
-			--transparency: 10%;
+			--index-transparency: 10%;
 			animation-play-state: running;
 		}
 	}

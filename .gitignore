@@ -6,6 +6,11 @@
 .cache
 dist
 
+secrets.js
+secrets.prod.js
+
+.db_backups/
+
 # Node dependencies
 node_modules
 

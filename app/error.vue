@@ -3,6 +3,8 @@
 
 	const props = defineProps<{ error: NuxtError }>();
 
+	const type = props.error.data && typeof props.error.data === 'object' && 'type' in props.error.data && props.error.data?.type;
+
 	const status = props.error.status || 500;
 </script>
 
@@ -11,11 +13,25 @@
 		<template v-if="status === 404">
 			<h1><span class="definition"><span class="group-1">Pa</span><span class="group-2">ge non</span> <span class="group-3">t</span><span class="group-4">rouvé</span><span class="group-3">e</span></span></h1>
 			<p class="clue"><span class="group-2" tabIndex="0"><span class="fodder">Guenon</span> <span class="indicator">sans</span> <span class="fodder">tension</span></span> suit <span class="group-1" tabIndex="0"><span class="indicator">une paire de</span> <span class="fodder">passants</span></span>, <span class="group-3" tabIndex="0"><span class="fodder">te</span> <span class="indicator">cerne</span></span>, <span class="group-4" tabIndex="0"><span class="fodder">ouvre</span> <span class="indicator">frénétiquement</span></span> <span class="definition" tabIndex="0">ce qui est là</span> (4, 3, 7)</p>
+			<NuxtLink to="/" class="back">Retour à l'accueil</NuxtLink>
+		</template>
+		<template v-else-if="type === 'auth_error'">
+			<h1>Connexion échouée</h1>
+			<p>La connexion a échoué. Veuillez réessayer plus tard ou utilisez un autre moyen de connexion.</p>
+		</template>
+		<template v-else-if="type === 'auth_token_error'">
+			<h1>Lien expiré</h1>
+			<p>Ce lien de connexion a expiré. Veuillez réessayer.</p>
+			<NuxtLink to="/connexion" class="back">Connexion</NuxtLink>
+		</template>
+		<template v-else-if="type === 'banned'">
+			<h1>Banni</h1>
+			<p>Votre compte a été banni. Si vous pensez que c'est une erreur, veuillez utiliser le formulaire de contact.</p>
 		</template>
 		<template v-else>
 			<h1>Erreur</h1>
+			<NuxtLink to="/" class="back">Retour à l'accueil</NuxtLink>
 		</template>
-		<NuxtLink to="/" class="back">Retour à l'accueil</NuxtLink>
 	</main>
 </template>
 

@@ -1,7 +1,9 @@
 {
 	"compilerOptions": {
 		"jsx": "preserve",
-		"jsxImportSource": "vue"
+		"jsxImportSource": "vue",
+		"allowImportingTsExtensions": true,
+		"esModuleInterop": true,
 	},
 	"files": [],
 	"references": [
