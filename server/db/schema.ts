@@ -46,8 +46,8 @@ export const solves = pgTable(
 		createdAt: timestamp().notNull().defaultNow(),
 		clueId: uuid().notNull().references(() => clues.id),
 		userId: uuid().notNull().references(() => users.id),
-		time: integer(),
-		hints: integer(),
+		time: integer().default(0),
+		hints: integer().default(0),
 	},
 	table => [
 		unique().on(table.clueId, table.userId),
