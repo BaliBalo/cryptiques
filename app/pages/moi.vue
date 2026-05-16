@@ -58,7 +58,7 @@
 			</fieldset>
 			<fieldset>
 				<legend>Créez votre énigme</legend>
-				<p>La création d'énigme par les utilisateurs n'est pas encore supportée. Vous pouvez envoyer vos suggestions via <NuxtLink to="/contact">le formulaire de contact</NuxtLink>.</p>
+				<p>La création d'énigme par les utilisateurs n'est pas encore supportée. Vous pouvez envoyer vos suggestions via le <NuxtLink to="/contact">formulaire de contact</NuxtLink>.</p>
 			</fieldset>
 		</template>
 	</main>
