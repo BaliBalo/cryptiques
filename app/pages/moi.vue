@@ -56,6 +56,10 @@
 				<legend>Stats</legend>
 				<p>{{ solveCount }} {{ solveCount > 1 ? 'énigmes résolues' : 'énigme résolue' }}</p>
 			</fieldset>
+			<fieldset>
+				<legend>Créez votre énigme</legend>
+				<p>La création d'énigme par les utilisateurs n'est pas encore supportée. Vous pouvez envoyer vos suggestions via <NuxtLink to="/contact">le formulaire de contact</NuxtLink>.</p>
+			</fieldset>
 		</template>
 	</main>
 </template>
@@ -74,6 +78,13 @@
 	}
 	legend {
 		padding: 0 8px;
+	}
+	a {
+		text-decoration: underline wavy color-mix(in srgb, currentColor, transparent 50%);
+		transition: text-decoration-color .15s;
+		&:hover, &:focus-visible {
+			text-decoration-color: var(--color-primary);
+		}
 	}
 	.details {
 		display: grid;

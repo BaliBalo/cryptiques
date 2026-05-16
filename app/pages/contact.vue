@@ -42,7 +42,8 @@
 			<form action="/api/contact" method="POST" :class="{ sending: status === 'sending', error: status === 'error' }" @submit.prevent="onSubmit">
 				<label>
 					<div>Type de message :</div>
-					<select name="type">
+					<select name="type" :disabled="status === 'sending'">
+						<option value="clue">Proposer une énigme</option>
 						<option value="problem">Signaler un problème</option>
 						<option value="suggestion">Faire une suggestion</option>
 						<option value="other" selected>Autre</option>
