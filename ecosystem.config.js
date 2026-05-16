@@ -4,6 +4,6 @@ export const apps = [
 		port: '28119',
 		exec_mode: 'cluster',
 		instances: 'max',
-		script: './.output/server/index.mjs',
+		script: './.prod/server/index.mjs',
 	},
 ];

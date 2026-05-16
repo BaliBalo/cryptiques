@@ -1,5 +1,6 @@
 {
 	"name": "cryptiques",
+	"version": "1.0.0",
 	"type": "module",
 	"private": true,
 	"scripts": {
@@ -8,7 +9,7 @@
 		"generate": "nuxt generate",
 		"preview": "nuxt preview",
 		"postinstall": "nuxt prepare",
-		"prod": "git pull && { git diff --name-only HEAD HEAD~1 | grep package-lock.json && npm install || :; } && npm run build && pm2 reload cryptiques"
+		"prod": "git pull && { git diff --name-only HEAD HEAD~1 | grep package-lock.json && npm install || :; } && ./update.sh"
 	},
 	"dependencies": {
 		"@electric-sql/pglite": "^0.4.5",
