@@ -113,7 +113,7 @@
 				</div>
 				<template v-else>
 					<NuxtLink v-for="clue in data?.list || []" :key="clue.id" :to="{ name: 'enigme-id', params: { id: clue.id } }" :class="{ clue: true, solved: clue.solved || (clue.id in localSolves) }">
-						<div class="content">{{ clue.clue }}</div>
+						<div class="content">{{ clue.clue }} {{ clue.answerLength }}</div>
 						<!-- <div class="author" :title="clue.author">{{ clue.author }}</div> -->
 						<div class="solves">{{ clue.solves.toLocaleString() }}</div>
 						<div class="score">

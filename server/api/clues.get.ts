@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { db, schema } from '@nuxthub/db';
 import { and, avg, count, desc, eq, exists, ilike, notExists, sql, type SQL } from 'drizzle-orm';
+import { getAnswerLength } from '#shared/utils/answerLength';
 
 const PAGE_SIZE = 25;
 
@@ -73,6 +74,7 @@ export default defineEventHandler(async (event) => {
 	const dbData = await db.select({
 		id: clues.id,
 		content: clues.content,
+		answer: clues.answer,
 		authorName: clues.authorName,
 		createdAt: clues.createdAt,
 		nsfw: clues.nsfw,
@@ -96,6 +98,7 @@ export default defineEventHandler(async (event) => {
 		list: dbData.slice(0, PAGE_SIZE).map(clue => ({
 			id: clue.id,
 			clue: clue.content,
+			answerLength: getAnswerLength(clue.answer),
 			author: clue.authorName,
 			createdAt: clue.createdAt,
 			nsfw: clue.nsfw,

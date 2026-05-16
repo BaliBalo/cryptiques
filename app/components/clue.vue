@@ -1,6 +1,6 @@
 <script setup lang="tsx">
+	import { isSeparator, getAnswerLength } from '#shared/utils/answerLength';
 	import type { Range, TypedRange } from '~/utils/ranges';
-	import { isSeparator } from '~/utils/answerLength';
 	import { seededShuffle } from '~/utils/shuffle';
 
 	const slots = useSlots();

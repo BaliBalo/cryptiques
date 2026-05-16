@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	import { isSeparator } from '~/utils/answerLength';
+	import { isSeparator } from '#shared/utils/answerLength';
 	import { removeDiacritics } from '~/utils/removeDiacritics';
 	import { getLocalSolves, saveSolveLocally, type SolveDetails, removeWIPSolve, getWIPSolve, saveWIPSolve } from '~/utils/localSolves';
 	import { startTimer } from '~/utils/visibleTimer';
