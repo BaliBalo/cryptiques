@@ -16,6 +16,7 @@
 			extra?: { name?: string, range?: Range, content: string }[],
 			answer?: string,
 		} | undefined,
+		solved?: boolean,
 	}>();
 	const emit = defineEmits<{
 		(e: 'show-hint', type: string): void,
@@ -114,7 +115,7 @@
 				<button v-if="hints.definition" type="button" data-type="definition" :disabled="!props.example && shown.definition" @click="onHintClick">définition</button>
 				<button v-if="hints.altDefinition" type="button" data-type="alt-definition" :disabled="!props.example && shown.altDefinition" @click="onHintClick">autre définition</button>
 				<button v-for="(extra, i) in extraHints" :key="i" type="button" :data-type="`extra-${i + 1}`" :disabled="!props.example && shown[`extra-${i + 1}`]" @click="onHintClick">{{ extra.name || `extra ${i + 1}` }}</button>
-				<template v-if="!example && canShowMoreLetterHints">
+				<template v-if="!example && !solved && canShowMoreLetterHints">
 					<hr>
 					<button type="button" data-type="letter" @click="showLetter">lettre</button>
 				</template>

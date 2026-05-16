@@ -302,6 +302,7 @@
 				:by="clue.authorName"
 				:answer="clue.answer"
 				:hints="clue.hints"
+				:solved="!!solveDetails"
 				@show-hint="onShowHint"
 			>
 				{{ clue.content }}
