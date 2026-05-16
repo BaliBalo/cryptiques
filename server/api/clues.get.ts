@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { db, schema } from '@nuxthub/db';
-import { and, avg, count, desc, eq, exists, ilike, notExists, sql, type SQL } from 'drizzle-orm';
+import { and, asc, avg, count, desc, eq, exists, ilike, notExists, sql, type SQL } from 'drizzle-orm';
 import { getAnswerLength } from '#shared/utils/answerLength';
 
 const PAGE_SIZE = 25;
@@ -11,6 +11,7 @@ const querySchema = z.object({
 	offset: z.coerce.number().default(0),
 	search: z.string().optional(),
 	order: z.enum(['new', 'solves', 'rating', 'difficulty']).default('new'),
+	directionSwap: z.stringbool().default(false),
 	nsfw: z.stringbool().default(false),
 	solved: z.stringbool().default(true),
 });
@@ -43,14 +44,16 @@ export default defineEventHandler(async (event) => {
 		));
 	}
 
+	const mainOrderDirection = query.directionSwap ? asc : desc;
+
 	let orderBy: SQL[] = [];
 	switch (query.order) {
 		case 'new':
-			orderBy = [desc(clues.createdAt)];
+			orderBy = [mainOrderDirection(clues.createdAt)];
 			break;
 		case 'solves':
 			orderBy = [
-				desc(solvesSubquery.count).append(sql` nulls last`),
+				mainOrderDirection(solvesSubquery.count).append(sql` nulls last`),
 				desc(clues.createdAt),
 			];
 			break;
@@ -58,14 +61,14 @@ export default defineEventHandler(async (event) => {
 			orderBy = [
 				// (upvotes + 1) / (totalVotes + 2) ; avoids small vote counts getting 100%
 				// Could use some more complex thing: https://www.evanmiller.org/how-not-to-sort-by-average-rating.html
-				desc(sql`(coalesce(${qualitySubquery.upvotes}, 0) + 1)::decimal / (coalesce(${qualitySubquery.upvotes}, 0) + coalesce(${qualitySubquery.downvotes}, 0) + 2)`),
+				mainOrderDirection(sql`(coalesce(${qualitySubquery.upvotes}, 0) + 1)::decimal / (coalesce(${qualitySubquery.upvotes}, 0) + coalesce(${qualitySubquery.downvotes}, 0) + 2)`),
 				desc(clues.createdAt),
 			];
 			break;
 		case 'difficulty':
 			// should this include actual difficulty ? i.e. average time / hints used ?
 			orderBy = [
-				desc(sql`coalesce(${difficultySubquery.difficulty}, 0.5)`),
+				mainOrderDirection(sql`coalesce(${difficultySubquery.difficulty}, 0.5)`),
 				desc(clues.createdAt),
 			];
 			break;

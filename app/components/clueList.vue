@@ -7,6 +7,7 @@
 	const options = useCookie('cryptiques-list-options', {
 		default: () => ({
 			order: 'new',
+			directionSwap: false,
 			nsfw: false,
 			solved: true,
 		}),
@@ -18,10 +19,11 @@
 	const offset = ref(0);
 
 	const orderRef = computed(() => options.value.order);
+	const directionSwapRef = computed(() => options.value.directionSwap);
 	const nsfwRef = computed(() => options.value.nsfw);
 	const solvedRef = computed(() => options.value.solved);
 
-	watch([search, orderRef, nsfwRef, solvedRef], () => {
+	watch([search, orderRef, directionSwapRef, nsfwRef, solvedRef], () => {
 		offset.value = 0;
 	});
 
@@ -30,6 +32,7 @@
 			offset,
 			search,
 			order: orderRef,
+			directionSwap: directionSwapRef,
 			nsfw: nsfwRef,
 			solved: solvedRef,
 		},
@@ -52,15 +55,20 @@
 				<input v-model="search" type="text" placeholder="Rechercher une énigme...">
 			</label> -->
 			<label class="sort">
-				<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" aria-hidden="true">
+				<svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" aria-hidden="true">
 					<path d="M120-240v-80h240v80H120Zm0-200v-80h480v80H120Zm0-200v-80h720v80H120Z" />
 				</svg>
 				<select v-model="options.order" aria-label="Ordre des résultats">
-					<option value="new">Plus récentes</option>
-					<option value="solves">Plus résolues</option>
-					<option value="rating">Mieux notées</option>
-					<option value="difficulty">Plus difficiles</option>
+					<option value="new">{{ options.directionSwap ? 'Plus anciennes' : 'Plus récentes' }}</option>
+					<option value="solves">{{ options.directionSwap ? 'Moins résolues' : 'Plus résolues' }}</option>
+					<option value="rating">{{ options.directionSwap ? 'Moins bien notées' : 'Mieux notées' }}</option>
+					<option value="difficulty">{{ options.directionSwap ? 'Plus faciles' : 'Plus difficiles' }}</option>
 				</select>
+				<button type="button" :class="{ swap: true, active: options.directionSwap }" aria-label="Inverser l'ordre" @click="options.directionSwap = !options.directionSwap">
+					<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" aria-hidden="true">
+						<path d="M320-440v-287L217-624l-57-56 200-200 200 200-57 56-103-103v287h-80ZM600-80 400-280l57-56 103 103v-287h80v287l103-103 57 56L600-80Z" />
+					</svg>
+				</button>
 			</label>
 			<button type="button" class="extra" popovertarget="list-extra-options" aria-label="Options supplémentaires">
 				<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
@@ -180,7 +188,7 @@
 			background: transparent;
 			color: currentColor;
 			font: inherit;
-			padding: 8px 8px 8px 40px;
+			padding: 8px 40px 8px;
 			border: 1px solid var(--light-border);
 			border-radius: 8px;
 			cursor: pointer;
@@ -192,12 +200,24 @@
 			background: var(--background);
 			color: var(--text);
 		}
-		svg {
+		.icon {
 			position: absolute;
 			top: 50%;
 			left: 8px;
 			translate: 0 -50%;
 			pointer-events: none;
+		}
+		.swap {
+			position: absolute;
+			top: 50%;
+			right: 8px;
+			translate: 0 -50%;
+			border: 1px solid var(--light-border);
+			border-radius: 4px;
+			transition: border-color .15s;
+			svg { transition: scale .2s; }
+			&.active svg { scale: 1 -1; }
+			&:hover, &:focus-visible { border-color: currentColor; }
 		}
 	}
 	.extra {
@@ -289,6 +309,8 @@
 		place-content: center;
 		svg { margin: 0 auto; }
 	}
+	.score { min-width: 3rem; }
+	.difficulty { min-width: 32px; }
 	.scoreBar {
 		--color-upvote: #2ecc71;
 		--color-downvote: #e74c3c;
