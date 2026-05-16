@@ -1,5 +1,6 @@
 <script setup lang="ts">
 	import { displayPercentage } from '~/utils/displayPercentage';
+	import { getLocalSolves, type SolveDetails } from '~/utils/localSolves';
 
 	const { loggedIn } = useUserSession();
 
@@ -32,6 +33,12 @@
 			nsfw: nsfwRef,
 			solved: solvedRef,
 		},
+	});
+
+	const localSolves = ref<{ [id: string]: SolveDetails }>({});
+
+	onMounted(() => {
+		localSolves.value = getLocalSolves();
 	});
 </script>
 
@@ -105,7 +112,7 @@
 					Aucune énigme trouvée.
 				</div>
 				<template v-else>
-					<NuxtLink v-for="clue in data?.list || []" :key="clue.id" class="clue" :to="{ name: 'enigme-id', params: { id: clue.id } }">
+					<NuxtLink v-for="clue in data?.list || []" :key="clue.id" :to="{ name: 'enigme-id', params: { id: clue.id } }" :class="{ clue: true, solved: clue.solved || (clue.id in localSolves) }">
 						<div class="content">{{ clue.clue }}</div>
 						<!-- <div class="author" :title="clue.author">{{ clue.author }}</div> -->
 						<div class="solves">{{ clue.solves.toLocaleString() }}</div>
@@ -262,6 +269,9 @@
 		font-weight: bold;
 	}
 	.clue {
+		&.solved .solves {
+			color: var(--color-primary);
+		}
 		&:hover {
 			background: color-mix(currentColor, var(--background) 95%);
 			/* background: var(--light-border); */
