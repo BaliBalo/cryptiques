@@ -588,6 +588,9 @@
 						opacity: 1;
 						translate: 0 0;
 					}
+					&:is(:hover, :focus-visible)::after {
+						translate: 0 0;
+					}
 				}
 			}
 			&:has(button.active) button:not(.active) {
