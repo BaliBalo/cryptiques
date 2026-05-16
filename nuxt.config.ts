@@ -8,7 +8,7 @@ export default defineNuxtConfig({
 		indexable: true,
 	},
 	// spaLoadingTemplate: false,
-	devtools: { enabled: false },
+	// devtools: { enabled: false },
 	experimental: {
 		typedPages: true,
 	},
