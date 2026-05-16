@@ -282,7 +282,7 @@
 	.scoreBar {
 		--color-upvote: #2ecc71;
 		--color-downvote: #e74c3c;
-		--color-uncertainty: #444;
+		--color-uncertainty: #bbb;
 		width: 3rem;
 		height: .5rem;
 		border-radius: 2px;
@@ -296,6 +296,9 @@
 				color-mix(var(--color-downvote), transparent 75%) 0
 			) center, */
 			var(--color-uncertainty);
+		@media (prefers-color-scheme: dark) {
+			--color-uncertainty: #444;
+		}
 	}
 	.clue .difficulty svg { width: 32px; height: auto; }
 	.pagination {
