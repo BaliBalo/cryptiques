@@ -1,9 +1,12 @@
 <script setup lang="tsx">
 	import type { Range, TypedRange } from '~/utils/ranges';
+	import { isSeparator } from '~/utils/answerLength';
+	import { seededShuffle } from '~/utils/shuffle';
 
 	const slots = useSlots();
 	const props = defineProps<{
 		example?: boolean,
+		by?: string,
 		answer: string,
 		hints?: {
 			definition?: { range: Range, note?: string },
@@ -17,6 +20,8 @@
 	const emit = defineEmits<{
 		(e: 'show-hint', type: string): void,
 	}>();
+
+	defineExpose({ setHintsShown });
 
 	let text = slots.default?.()[0]?.children;
 	if (typeof text !== 'string') text = '';
@@ -39,6 +44,9 @@
 	const answer = props.answer;
 	const len = getAnswerLength(answer);
 
+	const letterHintsOrder = computed(() => seededShuffle([...answer].map((c, i) => isSeparator(c) ? null : i).filter(i => i !== null), answer));
+	const canShowMoreLetterHints = computed(() => letterHintsOrder.value.some(i => !shown.value[`letter-${i}`]));
+
 	const toHumanList = (arr: Range[]) => arr.flatMap((range, i, arr) => [
 		!i ? '' : (i === arr.length - 1 ? ' et ' : ', '),
 		<code>{extractRange(text, range)}</code>,
@@ -54,15 +62,29 @@
 		Object.fromEntries(Object.entries(shown.value).map(([k, v]) => [`show-${k}`, v]))
 	));
 
-	function showHint(e: PointerEvent) {
-		const target = e.currentTarget;
-		if (!(target instanceof HTMLElement)) return;
-		const type = target.dataset.type;
-		if (!type) return;
-		shown.value[type] = !shown.value[type];
+	function setHintsShown(hints: string[]) {
+		shown.value = Object.fromEntries(hints.map(hint => [hint, true]));
+	}
+
+	function showHint(type: string) {
+		shown.value[type] = props.example ? !shown.value[type] : true;
 		document.getElementById(hintsPopoverId)?.togglePopover(false);
 		if (shown.value[type]) {
 			emit('show-hint', type);
+		}
+	}
+
+	function onHintClick(e: PointerEvent) {
+		const target = e.currentTarget;
+		if (!(target instanceof HTMLElement)) return;
+		const type = target.dataset.type;
+		if (type) showHint(type);
+	}
+
+	function showLetter() {
+		const nextLetterIndex = letterHintsOrder.value.find(i => !shown.value[`letter-${i}`]);
+		if (nextLetterIndex !== undefined) {
+			showHint(`letter-${nextLetterIndex}`);
 		}
 	}
 </script>
@@ -71,6 +93,7 @@
 	<div class="clue-wrapper" :class="wrapperClass">
 		<div class="clue">
 			<div class="clue-text">
+				<div class="by">{{ by }}</div>
 				<prompt /> {{ len }}
 			</div>
 			<div v-if="hints.indicators" class="hint indicators">{{ indicatorRanges.length > 1 ? 'Les indicateurs sont' : 'L\'indicateur est' }} <indicatorsList />. {{ hints.indicators.note }}</div>
@@ -86,13 +109,17 @@
 		<div class="buttons">
 			<button v-if="props.hints && (hints.indicators || hints.fodder || hints.definition || hints.altDefinition || extraHints.length)" type="button" class="open-hint-selection" :popovertarget="hintsPopoverId">indices</button>
 			<div :id="hintsPopoverId" class="choose-hint" popover>
-				<button v-if="hints.indicators" type="button" data-type="indicators" @click="showHint">indicateurs</button>
-				<button v-if="hints.fodder" type="button" data-type="fodder" @click="showHint">matière</button>
-				<button v-if="hints.definition" type="button" data-type="definition" @click="showHint">définition</button>
-				<button v-if="hints.altDefinition" type="button" data-type="alt-definition" @click="showHint">autre définition</button>
-				<button v-for="(extra, i) in extraHints" :key="i" type="button" :data-type="`extra-${i + 1}`" @click="showHint">{{ extra.name || `extra ${i + 1}` }}</button>
+				<button v-if="hints.indicators" type="button" data-type="indicators" :disabled="!props.example && shown.indicators" @click="onHintClick">indicateurs</button>
+				<button v-if="hints.fodder" type="button" data-type="fodder" :disabled="!props.example && shown.fodder" @click="onHintClick">matière</button>
+				<button v-if="hints.definition" type="button" data-type="definition" :disabled="!props.example && shown.definition" @click="onHintClick">définition</button>
+				<button v-if="hints.altDefinition" type="button" data-type="alt-definition" :disabled="!props.example && shown.altDefinition" @click="onHintClick">autre définition</button>
+				<button v-for="(extra, i) in extraHints" :key="i" type="button" :data-type="`extra-${i + 1}`" :disabled="!props.example && shown[`extra-${i + 1}`]" @click="onHintClick">{{ extra.name || `extra ${i + 1}` }}</button>
+				<template v-if="!example && canShowMoreLetterHints">
+					<hr>
+					<button type="button" data-type="letter" @click="showLetter">lettre</button>
+				</template>
 			</div>
-			<button v-if="example" type="button" data-type="answer" @click="showHint">solution</button>
+			<button v-if="example" type="button" data-type="answer" @click="onHintClick">solution</button>
 		</div>
 	</div>
 </template>
@@ -129,6 +156,13 @@
 		& :deep(.extra-1) { --c: var(--hint-3); }
 		& :deep(.extra-2) { --c: var(--hint-4); }
 		& :deep(.extra-3) { --c: var(--hint-5); }
+	}
+	.by {
+		font-size: .8rem;
+		opacity: 0.75;
+		margin-bottom: .5rem;
+		&::before { content: 'Une énigme de : '; }
+		&:empty { display: none; }
 	}
 	.hint, .answer {
 		--highlight: color-mix(in oklch, currentColor, transparent 90%);
@@ -175,6 +209,7 @@
 			font-size: .8em;
 			text-align: left;
 			color: var(--note);
+			white-space: pre-wrap;
 		}
 	}
 	.show-indicators .indicators,
@@ -282,7 +317,12 @@
 			@media (prefers-reduced-motion: reduce) {
 				transition: none;
 			}
-			&:hover {
+			&:disabled {
+				filter: grayscale(1);
+				opacity: 0.8;
+				cursor: default;
+			}
+			&:not(:disabled):is(:hover, :focus-visible) {
 				background-size: 100% 100%;
 				margin: 0;
 				padding: 0 4px;
@@ -293,9 +333,16 @@
 		[data-type="fodder"] { --highlight: var(--hint-1); }
 		[data-type="definition"] { --highlight: var(--definition); }
 		[data-type="alt-definition"] { --highlight: var(--definition); }
-		[data-type^="extra"] { --highlight: var(--hint-6); }
-		[data-type="extra-1"] { --highlight: var(--hint-3); }
-		[data-type="extra-2"] { --highlight: var(--hint-4); }
-		[data-type="extra-3"] { --highlight: var(--hint-5); }
+		[data-type^="extra"] { --highlight: var(--hint-3); }
+		[data-type="extra-1"] { --highlight: var(--hint-4); }
+		[data-type="extra-2"] { --highlight: var(--hint-5); }
+		[data-type="extra-3"] { --highlight: var(--hint-7); }
+		[data-type="letter"] { --highlight: var(--hint-6); }
+		hr {
+			align-self: stretch;
+			margin: 0 -8px;
+			border: none;
+			border-top: 1px solid var(--light-border);
+		}
 	}
 </style>

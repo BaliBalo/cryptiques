@@ -1,5 +1,5 @@
-export function startTimer() {
-	let total = 0;
+export function startTimer(from = 0) {
+	let total = from;
 	let currentStart = performance.now();
 
 	const listener = () => {

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { db, schema } from '@nuxthub/db';
-import { and, eq, exists, type SQL, sql } from 'drizzle-orm';
+import { and, avg, eq, sql } from 'drizzle-orm';
 
 const { clues, solves, cluesQualityVotes, cluesDifficultyVotes } = schema;
 
@@ -33,9 +33,12 @@ export default defineEventHandler(async (event) => {
 		authorName: clues.authorName,
 		createdAt: clues.createdAt,
 		nsfw: clues.nsfw,
+		averageHintsUsed: sql`coalesce(${avg(solves.hints)}, 0)`.mapWith(Number),
 	})
 		.from(clues)
 		.where(eq(clues.id, query.id))
+		.leftJoin(solves, eq(solves.clueId, clues.id))
+		.groupBy(clues.id)
 		.limit(1);
 
 	if (!clue) {
@@ -45,14 +48,17 @@ export default defineEventHandler(async (event) => {
 		});
 	}
 
-	let userData: { solved: boolean, qualityVote: boolean | null, difficultyVote: string | null } | undefined;
+	let userData: { solvedAt: Date | null, hints: number | null, time: number | null, qualityVote: boolean | null, difficultyVote: string | null } | undefined;
 	if (userId) {
 		[userData] = await db.select({
-			solved: exists(db.select().from(solves).where(and(eq(solves.clueId, clues.id), eq(solves.userId, userId)))).mapWith(Boolean),
+			solvedAt: solves.createdAt,
+			hints: solves.hints,
+			time: solves.time,
 			qualityVote: cluesQualityVotes.like,
 			difficultyVote: cluesDifficultyVotes.difficulty,
 		})
 			.from(clues)
+			.leftJoin(solves, and(eq(solves.clueId, clues.id), eq(solves.userId, userId)))
 			.leftJoin(cluesQualityVotes, and(eq(cluesQualityVotes.clueId, clues.id), eq(cluesQualityVotes.userId, userId)))
 			.leftJoin(cluesDifficultyVotes, and(eq(cluesDifficultyVotes.clueId, clues.id), eq(cluesDifficultyVotes.userId, userId)))
 			.where(eq(clues.id, clue.id))
@@ -71,7 +77,8 @@ export default defineEventHandler(async (event) => {
 		authorName: clue.authorName,
 		createdAt: clue.createdAt,
 		nsfw: clue.nsfw,
-		solved: userData?.solved || false,
+		averageHintsUsed: clue.averageHintsUsed,
+		solve: userData?.solvedAt ? { at: userData.solvedAt.getTime(), hints: userData.hints || 0, time: userData.time || 0 } : null,
 		qualityVote: userData?.qualityVote ?? null,
 		difficultyVote: userData?.difficultyVote == null ? null : +userData.difficultyVote,
 	};

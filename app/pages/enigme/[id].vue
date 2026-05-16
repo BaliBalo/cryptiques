@@ -1,7 +1,7 @@
 <script setup lang="ts">
 	import { isSeparator } from '~/utils/answerLength';
 	import { removeDiacritics } from '~/utils/removeDiacritics';
-	import { getLocalSolves, saveSolveLocally } from '~/utils/localSolves';
+	import { getLocalSolves, saveSolveLocally, type SolveDetails, removeWIPSolve, getWIPSolve, saveWIPSolve } from '~/utils/localSolves';
 	import { startTimer } from '~/utils/visibleTimer';
 
 	const route = useRoute('enigme-id');
@@ -29,18 +29,33 @@
 		],
 	});
 
+	const $clue = useTemplateRef('clue');
+
 	let timer: ReturnType<typeof startTimer> | null = null;
 	const hintsShown = ref<{ [key: string]: boolean }>({});
-	const solved = ref(!!clue.value?.solved);
+	const solveDetails = ref<SolveDetails | null | undefined>(clue.value?.solve);
 	const qualityVote = ref<null | boolean>(clue.value?.qualityVote ?? null);
 	const difficultyVote = ref<null | number>(clue.value?.difficultyVote ?? null);
-	const words = computed(() => clue.value?.answer.split(/([ -])/g).map((word, i, all) => ({ letters: word.split(''), offset: all.slice(0, i).reduce((s, w) => s + w.length, 0) })) || []);
-	const chars = (clue.value?.answer || '').split('');
-	const answer = ref(clue.value?.solved ? chars : chars.fill(''));
+	const words = computed(() => clue.value?.answer.split(/([ -])/g).map((word, i, all) => ({ letters: [...word], offset: all.slice(0, i).reduce((s, w) => s + w.length, 0) })) || []);
+
+	const chars = [...(clue.value?.answer || '')];
+	const answer = ref(solveDetails.value ? chars : chars.slice().fill(''));
+
 	const confetti = ref<{ id: string, color: number, x: number, y: number, angle: number, velocity: number, rotX: number, rotZ: number, duration: number, delay: number }[]>([]);
 
+	const averageHintsUsed = computed(() => Math.round(clue.value?.averageHintsUsed || 0));
+
+	function saveWIP() {
+		if (solveDetails.value) return;
+		saveWIPSolve(route.params.id, {
+			answer: answer.value,
+			hints: Object.keys(hintsShown.value).filter(h => hintsShown.value[h]),
+			time: timer?.getTime() || 0,
+		});
+	}
+
 	function check(e: SubmitEvent) {
-		if (solved.value) return;
+		if (solveDetails.value) return;
 		const actualAnswer = removeDiacritics(clue.value?.answer?.toLowerCase() || '');
 		const valid = answer.value.every((letter, index) => {
 			const desired = actualAnswer[index] || '';
@@ -62,7 +77,15 @@
 	}
 
 	function onShowHint(type: string) {
+		if (solveDetails.value) return;
 		hintsShown.value[type] = true;
+		if (type.startsWith('letter-')) {
+			const index = type.split('-')[1];
+			if (index && !Number.isNaN(+index)) {
+				answer.value[+index] = clue.value?.answer[+index] || '';
+			}
+		}
+		saveWIP();
 	}
 
 	function offsetFrom<T>(list: T[], item: T, amount = 1) {
@@ -70,12 +93,12 @@
 		return index === -1 ? null : list[index + amount];
 	};
 
-	const nextInput = (input: HTMLInputElement) => offsetFrom([...input.closest('.answer')?.querySelectorAll('input') || []], input, 1);
-	const prevInput = (input: HTMLInputElement) => offsetFrom([...input.closest('.answer')?.querySelectorAll('input') || []], input, -1);
-	const firstInput = (input: HTMLInputElement) => input.closest('.answer')?.querySelector('input');
-	const lastInput = (input: HTMLInputElement) => [...input.closest('.answer')?.querySelectorAll('input') || []].at(-1);
-	const startOfWord = (input: HTMLInputElement) => input.closest('.word')?.querySelector('input');
-	const endOfWord = (input: HTMLInputElement) => [...input.closest('.word')?.querySelectorAll('input') || []].at(-1);
+	const nextInput = (input: HTMLInputElement) => offsetFrom([...input.closest('.answer')?.querySelectorAll<HTMLInputElement>('input:not(:disabled)') || []], input, 1);
+	const prevInput = (input: HTMLInputElement) => offsetFrom([...input.closest('.answer')?.querySelectorAll<HTMLInputElement>('input:not(:disabled)') || []], input, -1);
+	const firstInput = (input: HTMLInputElement) => input.closest('.answer')?.querySelector<HTMLInputElement>('input:not(:disabled)');
+	const lastInput = (input: HTMLInputElement) => [...input.closest('.answer')?.querySelectorAll<HTMLInputElement>('input:not(:disabled)') || []].at(-1);
+	const startOfWord = (input: HTMLInputElement) => input.closest('.word')?.querySelector<HTMLInputElement>('input:not(:disabled)');
+	const endOfWord = (input: HTMLInputElement) => [...input.closest('.word')?.querySelectorAll<HTMLInputElement>('input:not(:disabled)') || []].at(-1);
 
 	function onLetterSelectionChange(e: FocusEvent) {
 		const input = e.currentTarget;
@@ -136,40 +159,43 @@
 		if (target.value) {
 			nextInput(target)?.focus();
 		}
+		saveWIP();
 	}
 
-	const rand = (min: number, max: number) => Math.random() * (max - min) + min;
-
-	function solve(automatic = false) {
-		solved.value = true;
+	function solve(solveData?: SolveDetails | null) {
 		if (clue.value) {
-			answer.value = clue.value.answer.split('');
+			answer.value = [...clue.value.answer];
 		}
-		if (!automatic) {
-			saveSolve();
+		if (!solveData) {
+			const time = timer?.getTime();
+			const seconds = time ? Math.round(time / 1000) : undefined;
+			const hints = Object.keys(hintsShown.value).length;
+			solveData = { at: Date.now(), hints, time: seconds };
+			saveSolve(solveData);
+			removeWIPSolve(route.params.id);
 		}
+		solveDetails.value = solveData;
+		timer?.stop();
+		timer = null;
 		celebrate();
 	}
 
-	async function saveSolve() {
+	async function saveSolve(solve: SolveDetails) {
 		if (!clue.value) return;
-		const time = timer?.getTime();
-		const seconds = time ? Math.round(time / 1000) : undefined;
-		timer?.stop();
-		timer = null;
-		const hints = Object.keys(hintsShown.value).length;
 		try {
 			if (!loggedIn.value) {
 				throw new Error('LOGGED_OUT');
 			}
 			await $fetch('/api/solves', {
 				method: 'POST',
-				body: { solves: { [clue.value.id]: { hints, time: seconds } } },
+				body: { solves: { [clue.value.id]: solve } },
 			});
 		} catch {
-			saveSolveLocally(clue.value.id, hints, time);
+			saveSolveLocally(clue.value.id, solve);
 		}
 	}
+
+	const rand = (min: number, max: number) => Math.random() * (max - min) + min;
 
 	function celebrate() {
 		const answerEl = document.querySelector('.answer');
@@ -228,12 +254,41 @@
 		});
 	});
 
+	function onLeave() {
+		saveWIP();
+		timer?.stop();
+		timer = null;
+	}
+
+	onBeforeRouteLeave(onLeave);
+
 	onMounted(() => {
-		if (clue.value?.solved || getLocalSolves()[route.params.id]) {
-			solve(true);
+		window.addEventListener('beforeunload', onLeave);
+		const solveData = clue.value?.solve || getLocalSolves()[route.params.id];
+		if (solveData) {
+			solve(solveData);
 		} else {
-			timer = startTimer();
+			const wip = getWIPSolve(route.params.id);
+			timer = startTimer(wip?.time);
+			if (wip) {
+				answer.value = [...wip.answer];
+				hintsShown.value = Object.fromEntries(wip.hints.map(h => [h, true]));
+				// Not strictly necessary, but wip.answer could be corrupted so ensure the given letters are correct
+				wip.hints.forEach((h) => {
+					if (h.startsWith('letter-')) {
+						const index = h.split('-')[1];
+						if (index && !Number.isNaN(+index)) {
+							answer.value[+index] = clue.value?.answer[+index] || '';
+						}
+					}
+				});
+				$clue.value?.setHintsShown(wip.hints);
+			}
 		}
+	});
+
+	onUnmounted(() => {
+		window.removeEventListener('beforeunload', onLeave);
 	});
 </script>
 
@@ -241,8 +296,10 @@
 	<main>
 		<Back />
 		<p v-if="pending">Chargement de l'énigme...</p>
-		<form v-else-if="clue" :class="{ solved }" @submit.prevent="check">
+		<form v-else-if="clue" :class="{ solved: !!solveDetails }" @submit.prevent="check">
 			<Clue
+				ref="clue"
+				:by="clue.authorName"
 				:answer="clue.answer"
 				:hints="clue.hints"
 				@show-hint="onShowHint"
@@ -253,7 +310,7 @@
 				<span v-for="word in words" :key="word.offset" class="word">
 					<template v-for="(letter, index) in word.letters">
 						<span v-if="isSeparator(letter)" :key="`sep-${index}`" class="answer-sep">{{ letter }}</span>
-						<label v-else :key="`letter-${index}`" class="answer-letter" :data-index="word.offset + index">
+						<label v-else :key="`letter-${index}`" :class="{ 'answer-letter': true, given: hintsShown[`letter-${word.offset + index}`] }" :data-index="word.offset + index">
 							<span class="display">{{ answer[word.offset + index] || '' }}</span>
 							<input
 								type="text"
@@ -262,7 +319,8 @@
 								maxlength="1"
 								:autofocus="index === 0"
 								:name="`letter-${index}`"
-								:disabled="solved"
+								:value="answer[word.offset + index] || ''"
+								:disabled="!!solveDetails || hintsShown[`letter-${word.offset + index}`]"
 								@selectionchange="onLetterSelectionChange"
 								@keydown="onLetterKeyDown"
 								@dragstart.prevent
@@ -286,6 +344,10 @@
 			<div class="results">
 				<p class="answer-notes">{{ clue.hints?.answer }}</p>
 				<div class="congrats">Bravo !</div>
+				<div class="solve-details">
+					<p>Énigme résolue avec {{ solveDetails?.hints || 0 }} {{ solveDetails?.hints && solveDetails.hints > 1 ? 'indices utilisés' : 'indice utilisé' }}.</p>
+					<p v-if="solveDetails?.hints != undefined && solveDetails.hints < averageHintsUsed">C'est {{ averageHintsUsed - solveDetails.hints }} en dessous de la moyenne !</p>
+				</div>
 				<div v-if="loggedIn" class="vote">
 					<p>
 						Cette énigme était-elle de bonne qualité ?<br>
@@ -382,6 +444,9 @@
 		&:focus-within {
 			background: oklch(var(--highlight-base) 135);
 		}
+		&.given {
+			background: var(--hint-6);
+		}
 	}
 	.buttons {
 		display: flex;
@@ -443,6 +508,11 @@
 		text-align: center;
 		font-size: 1.5rem;
 		font-weight: 600;
+	}
+	.solve-details {
+		text-align: center;
+		margin-top: 4px;
+		p { margin: 0; }
 	}
 	.answer-notes {
 		white-space: pre-wrap;

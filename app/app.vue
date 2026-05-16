@@ -23,6 +23,7 @@
 		--hint-4: oklch(var(--highlight-base) 45);
 		--hint-5: oklch(var(--highlight-base) 210);
 		--hint-6: oklch(var(--highlight-base) 0);
+		--hint-7: oklch(var(--highlight-base) 180);
 		@media (prefers-color-scheme: dark) {
 			/* --background: #0d0f12; */
 			--background: #17191d;
