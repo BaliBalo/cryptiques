@@ -9,9 +9,39 @@
 
 	const introSlideshow = useTemplateRef('introSlideshow');
 
-	onMounted(() => {
-		const prefersReducesMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+	const prefersReducesMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
 
+	function scrollIntro(e: MouseEvent) {
+		const button = e.currentTarget;
+		if (!(button instanceof HTMLButtonElement) || !introSlideshow.value) return;
+		const isPrevious = button.classList.contains('previous');
+		const pageWidth = introSlideshow.value.clientWidth;
+		introSlideshow.value.scrollBy({ left: isPrevious ? -pageWidth : pageWidth, behavior: prefersReducesMotion?.matches ? 'instant' : 'smooth' });
+	}
+
+	let setTOCScrollProgress: (() => void) | undefined;
+
+	function checkHashLinkClick(e: MouseEvent) {
+		const hashLink = e.target instanceof Element && e.target.closest('a[href^="#"]');
+		if (!(hashLink instanceof HTMLAnchorElement)) return;
+
+		const id = hashLink.getAttribute('href')?.slice(1) || '';
+		const destination = document.getElementById(id);
+		if (!destination) return;
+
+		e.preventDefault();
+		e.stopPropagation();
+
+		const bounds = destination.getBoundingClientRect();
+		const halfViewportHeight = window.innerHeight / 2;
+		// try to get the element centered but never scroll past the top of the element
+		const top = document.documentElement.scrollTop + bounds.top - Math.max(halfViewportHeight - bounds.height / 2, 0);
+		window.scrollTo({ top, behavior: prefersReducesMotion?.matches ? 'instant' : 'smooth' });
+
+		history.pushState(history.state, '', hashLink.href);
+	}
+
+	onMounted(() => {
 		const allTimelines: string[] = [];
 		const tocLinks = document.querySelectorAll<HTMLLinkElement>('#toc a[href^="#"]');
 		tocLinks.forEach((link) => {
@@ -24,26 +54,6 @@
 		});
 		document.documentElement.style.setProperty('timeline-scope', allTimelines.join(','));
 
-		document.addEventListener('click', async (e) => {
-			const hashLink = e.target instanceof Element && e.target.closest('a[href^="#"]');
-			if (!(hashLink instanceof HTMLAnchorElement)) return;
-
-			const id = hashLink.getAttribute('href')?.slice(1) || '';
-			const destination = document.getElementById(id);
-			if (!destination) return;
-
-			e.preventDefault();
-			e.stopPropagation();
-
-			const bounds = destination.getBoundingClientRect();
-			const halfViewportHeight = window.innerHeight / 2;
-			// try to get the element centered but never scroll past the top of the element
-			const top = document.documentElement.scrollTop + bounds.top - Math.max(halfViewportHeight - bounds.height / 2, 0);
-			window.scrollTo({ top, behavior: prefersReducesMotion.matches ? 'instant' : 'smooth' });
-
-			history.pushState(history.state, '', hashLink.href);
-		}, true);
-
 		if (!CSS.supports('animation-timeline: --works')) {
 			function setIntroScrollProgress() {
 				const el = introSlideshow.value;
@@ -53,7 +63,7 @@
 			introSlideshow.value?.addEventListener('scroll', setIntroScrollProgress);
 			setIntroScrollProgress();
 
-			function setTOCScrollProgress() {
+			setTOCScrollProgress = () => {
 				const wh = window.innerHeight;
 				tocLinks.forEach((link) => {
 					const id = link.getAttribute('href')!.slice(1);
@@ -68,15 +78,22 @@
 					const active = rect.top < wh / 2 && rect.bottom > wh / 2;
 					link.style.setProperty('--active', `${active ? 1 : 0}`);
 				});
-			}
+			};
 			setTOCScrollProgress();
 			document.addEventListener('scroll', setTOCScrollProgress);
+		}
+	});
+
+	onUnmounted(() => {
+		document.documentElement.style.removeProperty('timeline-scope');
+		if (setTOCScrollProgress) {
+			document.removeEventListener('scroll', setTOCScrollProgress);
 		}
 	});
 </script>
 
 <template>
-	<header>
+	<header @click.capture="checkHashLinkClick">
 		<Back />
 		<button type="button" popovertarget="toc" class="toc-toggle" aria-label="Afficher le sommaire">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="24px" height="24px"><path d="M120-280v-80h560v80H120Zm0-160v-80h560v80H120Zm0-160v-80h560v80H120Zm680 320q-17 0-28.5-11.5T760-320q0-17 11.5-28.5T800-360q17 0 28.5 11.5T840-320q0 17-11.5 28.5T800-280Zm0-160q-17 0-28.5-11.5T760-480q0-17 11.5-28.5T800-520q17 0 28.5 11.5T840-480q0 17-11.5 28.5T800-440Zm0-160q-17 0-28.5-11.5T760-640q0-17 11.5-28.5T800-680q17 0 28.5 11.5T840-640q0 17-11.5 28.5T800-600Z" /></svg>
@@ -127,7 +144,7 @@
 			</ol>
 		</nav>
 	</header>
-	<main class="main">
+	<main class="main" @click.capture="checkHashLinkClick">
 		<section class="section">
 			<h1 class="page-title">Guide<br><small>des cryptiques</small></h1>
 		</section>
@@ -200,7 +217,9 @@
 					</div>
 				</div>
 				<div class="static navigation">
+					<button type="button" class="previous" aria-label="Go to the previous page" @click="scrollIntro" />
 					<div class="page" />
+					<button type="button" class="next" aria-label="Go to the next page" @click="scrollIntro" />
 				</div>
 			</div>
 		</section>
@@ -903,6 +922,7 @@
 		display: grid;
 		container-type: inline-size;
 		overflow: auto;
+		scrollbar-width: none;
 		scroll-snap-type: x mandatory;
 		scroll-snap-stop: always;
 		scroll-timeline: --slide-scroll inline;
@@ -1027,17 +1047,28 @@
 			justify-content: center;
 			align-items: center;
 			margin-bottom: 12px;
-			&::before, &::after {
-				content: '';
-				width: 8px;
-				height: 8px;
-				border: 2px solid;
-				border-color: currentColor currentColor #0000 #0000;
+			.previous, .next {
+				padding: 8px;
+				&::before {
+					content: '';
+					display: block;
+					width: 8px;
+					height: 8px;
+					border: 2px solid;
+					border-color: currentColor currentColor #0000 #0000;
+				}
 			}
-			&::before { rotate: -135deg; opacity: clamp(0, var(--scroll) * 10, 1); }
-			&::after { rotate: 45deg; opacity: clamp(0, (8 - var(--scroll)) * 10, 1); }
+			.previous {
+				opacity: clamp(0, var(--scroll) * 10, 1);
+				visibility: if(style(--scroll: 0): hidden; else: visible;);
+				&::before { rotate: -135deg; }
+			}
+			.next {
+				opacity: clamp(0, (8 - var(--scroll)) * 10, 1);
+				visibility: if(style(--scroll: 8): hidden; else: visible;);
+				&::before { rotate: 45deg; }
+			}
 			.page {
-				margin: 0 8px;
 				&::before {
 					counter-reset: active-slide calc(1 + var(--scroll));
 					content: counter(active-slide) ' / ' counter(slides);
