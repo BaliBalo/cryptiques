@@ -240,7 +240,7 @@
 
 		<section id="substitution" class="section">
 			<h3>Substitution</h3>
-			<p>La <em>substitution</em> est la seule technique n'utilisant pas d'<span class="highlight underline color-2">indicateur</span>. Elles consistent à remplacer un mot par un synonyme.</p>
+			<p>La <em>substitution</em> est la seule technique n'utilisant pas d'<span class="highlight underline color-2">indicateur</span>. Elle consiste à remplacer un mot par un synonyme.</p>
 			<Aside type="warning">
 				<template #title>Une technique difficile</template>
 				<p>Puisque n'importe quel mot peut être remplacé sans indication, et qu'il y a souvent beaucoup de synonymes possibles, il peut être difficile de repérer les substitutions. Ne vous inquiétez pas si elles vous échappent au début.</p>
