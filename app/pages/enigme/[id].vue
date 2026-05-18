@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	import { isSeparator } from '#shared/utils/answerLength';
+	import { isSeparator, getAnswerLength } from '#shared/utils/answerLength';
 	import { removeDiacritics } from '~/utils/removeDiacritics';
 	import { getLocalSolves, saveSolveLocally, type SolveDetails, removeWIPSolve, getWIPSolve, saveWIPSolve } from '~/utils/localSolves';
 	import { startTimer } from '~/utils/visibleTimer';
@@ -24,7 +24,7 @@
 		meta: [
 			{
 				name: 'description',
-				content: clue.value?.content,
+				content: clue.value ? `${clue.value.content} ${getAnswerLength(clue.value.answer)}` + (clue.value.authorName ? ` - une énigme de : ${clue.value.authorName}` : '') : 'Une énigme cryptique.',
 			},
 		],
 	});
