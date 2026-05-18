@@ -34,6 +34,7 @@ export default defineNuxtConfig({
 		exclude: [
 			'/auth/success',
 			'/auth/error',
+			'/moi',
 		],
 	},
 	googleFonts: {
