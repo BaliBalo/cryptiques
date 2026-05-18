@@ -1,3 +1,9 @@
+<script setup lang="ts">
+	useSeoMeta({
+		ogImage: 'https://cryptiques.balibalo.xyz/share.png',
+	});
+</script>
+
 <template>
 	<NuxtPage />
 </template>
