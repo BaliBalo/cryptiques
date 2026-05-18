@@ -5,7 +5,7 @@
 		meta: [
 			{
 				name: 'description',
-				content: 'Un site pour les cryptiques francophones.',
+				content: 'Un site pour les "cryptic crosswords" - mais en français !',
 			},
 		],
 	});
@@ -18,7 +18,7 @@
 		<header>
 			<hgroup>
 				<h1>Cryptiques</h1>
-				<p>Un site pour les énigmes cryptiques francophones.</p>
+				<p>Un site pour les énigmes cryptiques françaises.</p>
 			</hgroup>
 			<div class="account">
 				<NuxtLink v-if="loggedIn" to="/moi">Mon Profil</NuxtLink>
