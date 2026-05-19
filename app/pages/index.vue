@@ -129,7 +129,7 @@
 		@media (prefers-reduced-motion: reduce) {
 			animation: none;
 		}
-		&:hover {
+		&:hover, &:focus-visible {
 			--index-transparency: 10%;
 			animation-play-state: running;
 		}

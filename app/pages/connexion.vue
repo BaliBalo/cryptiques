@@ -247,14 +247,12 @@
 		display: flex;
 		width: fit-content;
 		margin: 0 auto;
-		border-color: color-mix(var(--text), transparent 80%);
 		input {
 			padding: 8px 12px;
 			background: var(--background);
 			color: currentColor;
 			font: inherit;
-			border: 1px solid;
-			border-color: inherit;
+			border: 1px solid var(--light-border);
 			border-right: none;
 			border-radius: 8px 0 0 8px;
 			&:disabled { color: color-mix(currentColor, transparent 50%); }
@@ -263,8 +261,7 @@
 			position: relative;
 			padding: 8px 12px;
 			background: var(--background);
-			border: 1px solid;
-			border-color: inherit;
+			border: 1px solid var(--light-border);
 			border-radius: 0 8px 8px 0;
 			transition: border-color .15s;
 			overflow: hidden;
@@ -285,7 +282,7 @@
 			}
 			svg { transition: translate .3s; }
 		}
-		&:after {
+		&::after {
 			content: 'Une erreur est survenue. Veuillez rafraîchir la page et réessayer.';
 			position: absolute;
 			top: 100%;
