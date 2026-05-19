@@ -53,7 +53,7 @@ export default defineEventHandler(async (event) => {
 			break;
 		case 'solves':
 			orderBy = [
-				mainOrderDirection(solvesSubquery.count).append(sql` nulls last`),
+				mainOrderDirection(solvesSubquery.count).append(sql` nulls ${query.directionSwap ? 'first' : 'last'}`),
 				desc(clues.createdAt),
 			];
 			break;
