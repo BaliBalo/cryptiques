@@ -12,10 +12,7 @@
 	});
 
 	if (error.value) {
-		throw createError({
-			statusCode: error.value.statusCode || 500,
-			message: error.value.message || 'An error occurred while fetching the clue.',
-		});
+		showError({ status: 404 });
 	}
 
 	useHead({
