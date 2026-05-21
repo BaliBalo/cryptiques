@@ -43,6 +43,14 @@
 				corner-top-left-shape: scoop;
 				border-top-left-radius: 14px;
 				svg { z-index: -1; }
+				@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+					transition: border-top-left-radius .2s;
+					svg { transition: translate .2s; }
+					&:hover {
+						border-top-left-radius: 11px;
+						svg { translate: -6px -6px; }
+					}
+				}
 			}
 		}
 		.title {
