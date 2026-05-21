@@ -116,6 +116,7 @@
 		display: flex;
 		flex-flow: row wrap;
 		align-items: center;
+		justify-content: center;
 		gap: 32px;
 		margin-bottom: 32px;
 	}
@@ -127,6 +128,7 @@
 		border: 2px solid var(--light-border);
 		border-radius: 16px;
 		background: var(--background);
+		&:first-child:last-child { flex-grow: 0; }
 		.icon {
 			position: absolute;
 			top: -10px;
