@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { db, schema } from '@nuxthub/db';
-import { and, asc, avg, count, desc, eq, exists, ilike, notExists, sql, type SQL } from 'drizzle-orm';
+import { and, asc, avg, count, desc, eq, exists, ilike, isNull, lte, notExists, or, sql, type SQL } from 'drizzle-orm';
 import { getAnswerLength } from '#shared/utils/answerLength';
 
 const PAGE_SIZE = 25;
@@ -32,7 +32,10 @@ export default defineEventHandler(async (event) => {
 		difficulty: avg(cluesDifficultyVotes.difficulty).as('difficulty'),
 	}).from(cluesDifficultyVotes).groupBy(cluesDifficultyVotes.clueId).as('dv');
 
-	const filters: SQL[] = [];
+	const filters = [
+		eq(clues.featured, true),
+		or(isNull(clues.clueOfTheDay), lte(clues.clueOfTheDay, sql`CURRENT_DATE`)),
+	];
 	if (query.search) filters.push(ilike(clues.content, `%${query.search}%`));
 	if (!query.nsfw) filters.push(eq(clues.nsfw, false));
 	if (!query.solved && userId) {
@@ -45,7 +48,6 @@ export default defineEventHandler(async (event) => {
 	}
 
 	const mainOrderDirection = query.directionSwap ? asc : desc;
-
 	let orderBy: SQL[] = [];
 	switch (query.order) {
 		case 'new':

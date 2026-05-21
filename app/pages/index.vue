@@ -1,4 +1,7 @@
 <script setup lang="ts">
+	import { getAnswerLength } from '#shared/utils/answerLength';
+	import { getLocalSolves } from '~/utils/localSolves';
+
 	useHead({
 		title: 'Cryptiques',
 		htmlAttrs: { class: 'page-index' },
@@ -11,6 +14,17 @@
 	});
 
 	const { loggedIn } = useUserSession();
+
+	const { data: clueOfTheDay } = useFetch('/api/clueOfTheDay');
+	const clueOfTheDayLocalSolve = ref(false);
+	const clueOfTheDaySolved = computed(() => clueOfTheDay.value?.solve || clueOfTheDayLocalSolve.value);
+
+	onMounted(() => {
+		if (clueOfTheDay.value) {
+			const localSolves = getLocalSolves();
+			clueOfTheDayLocalSolve.value = !!localSolves[clueOfTheDay.value.id];
+		}
+	});
 </script>
 
 <template>
@@ -26,10 +40,21 @@
 			</div>
 		</header>
 		<main>
-			<div class="guide-cta">
-				<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M440-120v-80h320v-284q0-117-81.5-198.5T480-764q-117 0-198.5 81.5T200-484v244h-40q-33 0-56.5-23.5T80-320v-80q0-21 10.5-39.5T120-469l3-53q8-68 39.5-126t79-101q47.5-43 109-67T480-840q68 0 129 24t109 66.5Q766-707 797-649t40 126l3 52q19 9 29.5 27t10.5 38v92q0 20-10.5 38T840-249v49q0 33-23.5 56.5T760-120H440ZM331.5-411.5Q320-423 320-440t11.5-28.5Q343-480 360-480t28.5 11.5Q400-457 400-440t-11.5 28.5Q377-400 360-400t-28.5-11.5Zm240 0Q560-423 560-440t11.5-28.5Q583-480 600-480t28.5 11.5Q640-457 640-440t-11.5 28.5Q617-400 600-400t-28.5-11.5ZM241-462q-7-106 64-182t177-76q89 0 156.5 56.5T720-519q-91-1-167.5-49T435-698q-16 80-67.5 142.5T241-462Z" /></svg>
-				<p>Nouveau aux cryptiques ou besoin d'un rappel ?</p>
-				<NuxtLink to="/guide" class="guide">Suivez le guide</NuxtLink>
+			<div class="top-split">
+				<div class="guide-cta">
+					<svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M440-120v-80h320v-284q0-117-81.5-198.5T480-764q-117 0-198.5 81.5T200-484v244h-40q-33 0-56.5-23.5T80-320v-80q0-21 10.5-39.5T120-469l3-53q8-68 39.5-126t79-101q47.5-43 109-67T480-840q68 0 129 24t109 66.5Q766-707 797-649t40 126l3 52q19 9 29.5 27t10.5 38v92q0 20-10.5 38T840-249v49q0 33-23.5 56.5T760-120H440ZM331.5-411.5Q320-423 320-440t11.5-28.5Q343-480 360-480t28.5 11.5Q400-457 400-440t-11.5 28.5Q377-400 360-400t-28.5-11.5Zm240 0Q560-423 560-440t11.5-28.5Q583-480 600-480t28.5 11.5Q640-457 640-440t-11.5 28.5Q617-400 600-400t-28.5-11.5ZM241-462q-7-106 64-182t177-76q89 0 156.5 56.5T720-519q-91-1-167.5-49T435-698q-16 80-67.5 142.5T241-462Z" /></svg>
+					<p>Nouveau aux cryptiques ou besoin d'un rappel ?</p>
+					<NuxtLink to="/guide" class="guide">Suivez le guide</NuxtLink>
+				</div>
+				<div v-if="clueOfTheDay" class="clue-of-the-day">
+					<svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Z" /></svg>
+					<div class="intro">
+						<p class="by">Énigme du jour par : {{ clueOfTheDay.authorName }}</p>
+						<svg v-if="clueOfTheDaySolved" class="solved" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"><path d="M288-144v-72h156v-124q-42-8-77.5-33.5T313-434q-73-9-121-62.51T144-622v-26q0-29.7 21.15-50.85Q186.3-720 216-720h72v-96h384v96h72.21Q774-720 795-698.85T816-648v24q0 72-48 126.5T647-434q-18 35-53.5 60.5T516-340v124h156v72H288Zm0-372v-132h-72v24q0 37 19 65.5t53 42.5Zm277 73q35-35 35-85v-216H360v216q0 50 35 85t85 35q50 0 85-35Zm107-73q34-14 53-42.5t19-65.5v-24h-72v132Zm-192-59Z" /></svg>
+					</div>
+					<p class="content">{{ clueOfTheDay.content }} {{ getAnswerLength(clueOfTheDay.answer) }}</p>
+					<NuxtLink :to="{ name: 'enigme-id', params: { id: clueOfTheDay.id } }" class="play">C'est parti !</NuxtLink>
+				</div>
 			</div>
 			<ClueList />
 		</main>
@@ -87,29 +112,89 @@
 		h1 { margin-bottom: 0; }
 		p { font-size: .9em; opacity: 0.75; }
 	}
-	.guide-cta {
-		/* --highlight: #3498db; */
-		--highlight: var(--color-primary-bright);
+	.top-split {
+		display: flex;
+		flex-flow: row wrap;
+		align-items: center;
+		gap: 32px;
+		margin-bottom: 32px;
+	}
+	.guide-cta, .clue-of-the-day {
+		flex: 1 1 calc(50% - 16px);
+		min-width: min(250px, 100%);
 		position: relative;
-		margin: 32px auto;
 		padding: 16px;
-		width: fit-content;
-		border: 2px solid var(--highlight);
+		border: 2px solid var(--light-border);
 		border-radius: 16px;
-		background: color-mix(in srgb, var(--highlight) 10%, var(--background));
-		svg {
+		background: var(--background);
+		.icon {
 			position: absolute;
 			top: -10px;
 			left: -10px;
-			background: var(--highlight);
-			color: var(--background);
+			background: var(--background);
 			border-radius: 50%;
-			scale: -1 1;
 		}
+		p { margin-bottom: 16px; }
 		@supports (corner-shape: scoop) {
 			corner-top-left-shape: scoop;
 			border-top-left-radius: 16px;
-			svg { top: -13px; left: -13px; }
+			.icon { top: -8px; left: -8px; z-index: -1; }
+			@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+				transition: border-top-left-radius .2s;
+				.icon { transition: translate .2s; }
+				&:hover {
+					border-top-left-radius: 12px;
+					.icon { translate: -7px -7px; }
+				}
+			}
+		}
+	}
+	.guide-cta {
+		--highlight: var(--color-primary-bright);
+		border-color: var(--highlight);
+		background: color-mix(in srgb, var(--highlight) 10%, var(--background));
+		.icon {
+			padding: 1px;
+			background: var(--highlight);
+			color: #111;
+			scale: -1 1;
+		}
+	}
+	.clue-of-the-day {
+		.icon {
+			padding: 3px;
+			border: 2px solid var(--light-border);
+		}
+		.intro {
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: space-between;
+			align-items: center;
+			gap: 4px;
+			margin-bottom: 8px;
+		}
+		.by {
+			font-size: .8rem;
+			opacity: 0.75;
+			margin: 0;
+		}
+		.solved {
+			flex: 0 0 auto;
+			color: var(--color-primary-bright);
+		}
+		.play {
+			position: relative;
+			display: block;
+			width: fit-content;
+			margin: 0 auto;
+			padding: 8px 16px;
+			border: 1px solid var(--light-border);
+			border-radius: 8px;
+			transition: border-color .15s, background-color .15s;
+			&:hover, &:focus-visible {
+				border-color: var(--color-primary-bright);
+				background-color: color-mix(in srgb, var(--color-primary-bright) 10%, var(--background));
+			}
 		}
 	}
 	.guide {
