@@ -263,6 +263,7 @@
 		rotate: 45deg;
 	}
 	.clues {
+		--score-width: clamp(32px, (min(100vw, 800px) - 32px) * 0.1, 3rem);
 		display: grid;
 		grid-template-columns: 1fr auto auto auto;
 		gap: 0 16px;
@@ -309,16 +310,16 @@
 		place-content: center;
 		svg { margin: 0 auto; }
 	}
-	.score { min-width: 3rem; }
+	.score { min-width: var(--score-width); }
 	.difficulty { min-width: 32px; }
 	.scoreBar {
 		--color-upvote: #2ecc71;
 		--color-downvote: #e74c3c;
 		--color-uncertainty: #bbb;
-		width: 3rem;
+		--k: 1;
+		width: var(--score-width);
 		height: .5rem;
 		border-radius: 2px;
-		--k: 1;
 		background:
 			linear-gradient(var(--color-upvote) 0 0) left center / round(down, 100% * (var(--up)) / (var(--up) + var(--down) + 2 * var(--k)), 1px) 100% no-repeat,
 			linear-gradient(var(--color-downvote) 0 0) right center / round(down, 100% * (var(--down)) / (var(--up) + var(--down) + 2 * var(--k)), 1px) 100% no-repeat,
