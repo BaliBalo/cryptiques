@@ -37,6 +37,8 @@
 	<footer>
 		<ul>
 			<li><NuxtLink to="/contact">Contact</NuxtLink></li>
+			<li><NuxtLink to="/guide">Guide</NuxtLink></li>
+			<li><NuxtLink to="/outils">Outils</NuxtLink></li>
 			<li>
 				<a href="https://github.com/BaliBalo/cryptiques" target="_blank" rel="noopener noreferrer">
 					<svg height="24" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -46,7 +48,6 @@
 				</a>
 			</li>
 			<li><NuxtLink to="/a-propos">À propos</NuxtLink></li>
-			<li><NuxtLink to="/outils">Outils</NuxtLink></li>
 			<li><NuxtLink to="/politique-de-confidentialite">Politique de confidentialité</NuxtLink></li>
 		</ul>
 	</footer>
