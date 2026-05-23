@@ -3,6 +3,7 @@
 	import { removeDiacritics } from '~/utils/removeDiacritics';
 	import { getLocalSolves, saveSolveLocally, type SolveDetails, removeWIPSolve, getWIPSolve, saveWIPSolve } from '~/utils/localSolves';
 	import { startTimer } from '~/utils/visibleTimer';
+	import { triggerAnimation } from '~/utils/triggerAnimation';
 
 	const route = useRoute('enigme-id');
 	const { loggedIn } = useUserSession();
@@ -61,14 +62,7 @@
 			return removeDiacritics(letter.toLowerCase()) === desired;
 		});
 		if (!valid) {
-			const form = e.currentTarget;
-			if (form instanceof HTMLFormElement) {
-				form.classList.remove('invalid');
-				// eslint-disable-next-line @typescript-eslint/no-unused-expressions
-				form.clientWidth;
-				form.classList.add('invalid');
-			}
-			return;
+			return triggerAnimation(e.currentTarget, 'invalid');
 		}
 		solve();
 	}
@@ -251,6 +245,26 @@
 		});
 	});
 
+	async function share(e: PointerEvent) {
+		// Keep reference before await
+		const element = e.currentTarget;
+		try {
+			if (!clue.value || !solveDetails.value) {
+				throw new Error('Cannot share unsolved clue');
+			}
+			const hints = solveDetails.value.hints || 0;
+			const lines = [
+				`J'ai résolu ${clue.value.isClueOfTheDay ? 'l\'énigme cryptique du jour' : 'cette énigme cryptique'} ${!hints ? 'sans indice' : `avec ${hints} ${hints > 1 ? 'indices' : 'indice'}`} !`,
+				`${clue.value.content} ${getAnswerLength(clue.value.answer)}`,
+				`https://cryptiques.balibalo.com/enigme/${clue.value.id}`,
+			];
+			await navigator.clipboard.writeText(lines.join('\n'));
+			triggerAnimation(element, 'copied');
+		} catch {
+			triggerAnimation(element, 'error');
+		}
+	}
+
 	function onLeave() {
 		saveWIP();
 		timer?.stop();
@@ -346,6 +360,7 @@
 					<p>Énigme résolue avec {{ solveDetails?.hints || 0 }} {{ solveDetails?.hints && solveDetails.hints > 1 ? 'indices utilisés' : 'indice utilisé' }}.</p>
 					<p v-if="solveDetails?.hints != undefined && solveDetails.hints < averageHintsUsed">C'est {{ averageHintsUsed - solveDetails.hints }} en dessous de la moyenne !</p>
 				</div>
+				<button type="button" class="share" @click="share">Partager</button>
 				<div v-if="loggedIn" class="vote">
 					<p>
 						Cette énigme était-elle de bonne qualité ?<br>
@@ -384,11 +399,11 @@
 		padding: 48px 16px;
 		overflow: hidden;
 	}
-	@keyframes clue-error-answer-shake {
+	@keyframes clue-error-shake {
 		10%, 30%, 50%, 70%, 90% { translate: -6px 0; }
 		20%, 40%, 60%, 80% { translate: 6px 0; }
 	}
-	@keyframes clue-error-answer-color {
+	@keyframes clue-error-color {
 		5%, 50% { color : #e74c3c; }
 	}
 	.answer {
@@ -401,9 +416,9 @@
 		line-height: 2.2;
 	}
 	.invalid .answer {
-		animation: clue-error-answer-shake .75s, clue-error-answer-color 1s;
+		animation: clue-error-shake .75s, clue-error-color 1s;
 		@media (prefers-reduced-motion: reduce) {
-			animation: clue-error-answer-color 1s;
+			animation: clue-error-color 1s;
 		}
 	}
 	.word { display: inline-block; }
@@ -512,10 +527,54 @@
 		margin-top: 4px;
 		p { margin: 0; }
 	}
+	.share {
+		position: relative;
+		display: block;
+		margin: 8px auto;
+		padding: 8px 16px;
+		border: 1px solid var(--light-border);
+		border-radius: 8px;
+		transition: border-color .15s;
+		&:hover, &:focus-visible {
+			border-color: currentColor;
+		}
+		&.copied::before {
+			content: 'Copié !';
+			position: absolute;
+			bottom: 100%;
+			left: 50%;
+			padding: 8px 16px;
+			background-color: color-mix(in srgb, var(--color-primary-bright) 10%, var(--background));
+			color: var(--text);
+			border: 1px solid var(--color-primary-bright);
+			border-radius: 8px;
+			box-shadow: 0 1px 8px rgb(0 0 0 / 10%);
+			white-space: nowrap;
+			pointer-events: none;
+			opacity: 0;
+			visibility: hidden;
+			translate: -50% -8px;
+			transition: opacity 1s 1s, visibility 2s, translate 2s linear;
+			@starting-style {
+				opacity: 1;
+				visibility: visible;
+				translate: -50% 8px;
+			}
+			@media (prefers-reduced-motion: reduce) {
+				transition: opacity 1s 1s, visibility 2s;
+			}
+		}
+		&.error {
+			animation: clue-error-shake .75s, clue-error-color 1s;
+			@media (prefers-reduced-motion: reduce) {
+				animation: clue-error-color 1s;
+			}
+		}
+	}
 	.answer-notes {
 		white-space: pre-wrap;
 		&::before {
-			content: 'Détails :';
+			content: 'Explications :';
 			display: block;
 			text-decoration: underline wavy var(--light-border);
 			margin-bottom: 4px;

@@ -29,6 +29,7 @@ export async function getClueData(where: string | SQL, event?: Parameters<typeof
 		createdAt: clues.createdAt,
 		nsfw: clues.nsfw,
 		averageHintsUsed: sql`coalesce(${avg(solves.hints)}, 0)`.mapWith(Number),
+		isClueOfTheDay: sql`${clues.clueOfTheDay} = CURRENT_DATE`.mapWith(Boolean),
 	})
 		.from(clues)
 		.where(typeof where === 'string' ? eq(clues.id, where) : where)
@@ -73,5 +74,6 @@ export async function getClueData(where: string | SQL, event?: Parameters<typeof
 		solve: userData?.solvedAt ? { at: userData.solvedAt.getTime(), hints: userData.hints || 0, time: userData.time || 0 } : null,
 		qualityVote: userData?.qualityVote ?? null,
 		difficultyVote: userData?.difficultyVote == null ? null : +userData.difficultyVote,
+		isClueOfTheDay: clue.isClueOfTheDay,
 	};
 }
