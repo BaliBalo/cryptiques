@@ -276,8 +276,8 @@
 				</li>
 				<li>
 					<details>
-						<summary>Alphabet phonétique</summary>
-						<p>Alpha, Bravo, Charlie, ...</p>
+						<summary>Alphabet radio</summary>
+						<p>Alfa, Bravo, Charlie, ...</p>
 						<p>Par exemple, <code>bravo</code> peut être remplacé par <code>B</code>.</p>
 					</details>
 				</li>
