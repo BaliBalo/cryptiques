@@ -99,6 +99,7 @@ export default defineEventHandler(async (event) => {
 		.offset(query.offset);
 
 	return {
+		pageSize: PAGE_SIZE,
 		hasMore: dbData.length > PAGE_SIZE,
 		list: dbData.slice(0, PAGE_SIZE).map(clue => ({
 			id: clue.id,

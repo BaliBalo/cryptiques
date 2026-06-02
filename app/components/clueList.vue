@@ -136,8 +136,8 @@
 						</div>
 					</NuxtLink>
 					<div class="pagination">
-						<button v-if="offset > 0" type="button" @click="offset = Math.max(0, offset - (data?.list.length || 1))">Précédent</button>
-						<button v-if="data?.hasMore" type="button" @click="offset += data?.list.length || 1">Suivant</button>
+						<button v-if="offset > 0" type="button" @click="offset = Math.max(0, offset - (data?.pageSize || 10))">Précédent</button>
+						<button v-if="data?.hasMore" type="button" @click="offset += data?.pageSize || 10">Suivant</button>
 					</div>
 				</template>
 			</template>
