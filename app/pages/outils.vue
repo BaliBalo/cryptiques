@@ -27,6 +27,9 @@
 			<li>
 				<a href="https://www.anagrammeur.com/" target="_blank" rel="noopener noreferrer">Anagrammeur</a>, pour trouver des anagrammes (possible avec Qat mais ce site est plus simple d'utilisation)
 			</li>
+			<li>
+				<a href="http://www.lexique.org/" target="_blank" rel="noopener noreferrer">Lexique</a>, liste de bases de données lexicales, avec possibilité de téléchargement ou de recherche en ligne
+			</li>
 		</ul>
 		<h2>Cryptiques Français</h2>
 		<ul>
