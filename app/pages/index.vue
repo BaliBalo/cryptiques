@@ -238,7 +238,7 @@
 			display: flex;
 			flex-flow: row nowrap;
 			gap: .5em;
-			opacity: 0.5;
+			opacity: 0.75;
 			transition: opacity .15s;
 			&:hover, &:focus-visible { opacity: 1; }
 			svg { height: 1lh; }
