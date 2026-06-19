@@ -353,7 +353,7 @@
 			<div class="buttons">
 				<button type="submit">Vérifier</button>
 			</div>
-			<div class="results">
+			<div v-if="solveDetails" class="results">
 				<p class="answer-notes">{{ clue.hints?.answer }}</p>
 				<div class="congrats">Bravo !</div>
 				<div class="solve-details">
