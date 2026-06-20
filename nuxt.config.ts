@@ -1,5 +1,7 @@
 import secrets from './secrets';
 
+const DEV = process.env.NODE_ENV !== 'production';
+
 export default defineNuxtConfig({
 	compatibilityDate: '2025-07-15',
 	site: {
@@ -57,6 +59,7 @@ export default defineNuxtConfig({
 		session: {
 			password: secrets.secretKey,
 			maxAge: 60 * 60 * 24 * 365,
+			cookie: { secure: !DEV },
 		},
 		oauth: secrets.oauth,
 		public: {
