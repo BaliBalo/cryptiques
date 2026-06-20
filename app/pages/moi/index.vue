@@ -123,15 +123,15 @@
 	.logout {
 		display: inline-flex;
 		justify-content: center;
-		gap: .5em;
-		padding: 6px 10px;
+		gap: 4px;
+		padding: 4px 8px;
 		font-size: .8rem;
 		font-family: var(--font-main);
 		border: 1px solid var(--light-border);
-		border-radius: 8px;
+		border-radius: 4px;
 		transition: border-color .15s;
 		svg {
-			height: 1lh;
+			height: 16px;
 			width: auto;
 		}
 		&:hover {
