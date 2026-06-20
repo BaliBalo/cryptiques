@@ -102,6 +102,7 @@
 	function onMagicLinkSubmit(e: SubmitEvent) {
 		const form = e.currentTarget;
 		if (form instanceof HTMLFormElement) {
+			e.preventDefault();
 			sendMagicLink(form);
 		}
 	}
@@ -154,7 +155,7 @@
 			</div>
 			<div class="sep">ou</div>
 			<p>Recevez un lien de connexion par email (à ouvrir avec le même navigateur) :</p>
-			<form class="magic-link" :class="{ sending: sendingMagicLink, error: magicLinkError }" action="/api/send-auth-email" method="post" @submit.prevent="onMagicLinkSubmit">
+			<form class="magic-link" :class="{ sending: sendingMagicLink, error: magicLinkError }" action="/api/send-auth-email" method="post" @submit="onMagicLinkSubmit">
 				<input type="email" name="email" autocomplete="email" placeholder="moi@gmail.com" required :disabled="sendingMagicLink">
 				<button type="submit" :disabled="sendingMagicLink">
 					<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" aria-label="Envoyer">
