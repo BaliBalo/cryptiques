@@ -30,6 +30,11 @@ export default defineNuxtConfig({
 		'nuxt-auth-utils',
 		// 'nuxt-api-shield',
 	],
+	vue: {
+		compilerOptions: {
+			isCustomElement: tag => ['inline-input'].includes(tag),
+		},
+	},
 	sitemap: {
 		zeroRuntime: true,
 		xsl: false,
