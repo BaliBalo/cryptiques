@@ -43,3 +43,17 @@ export function wrapRanges(text: string, ranges: TypedRange[]) {
 export function extractRange(str: string, range: Range) {
 	return str.slice(...range);
 }
+
+export function mergeRanges(ranges: Range[]) {
+	ranges.sort((a, b) => a[0] - b[0]);
+	const merged: Range[] = [];
+	for (const range of ranges) {
+		const last = merged.at(-1);
+		if (!last || last[1] <= range[0]) {
+			merged.push(range);
+		} else {
+			last[1] = Math.max(last[1], range[1]);
+		}
+	}
+	return merged;
+}
