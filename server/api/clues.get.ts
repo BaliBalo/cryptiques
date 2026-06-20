@@ -14,6 +14,7 @@ const querySchema = z.object({
 	directionSwap: z.stringbool().default(false),
 	nsfw: z.stringbool().default(false),
 	solved: z.stringbool().default(true),
+	authorId: z.string().optional(),
 });
 
 export default defineEventHandler(async (event) => {
@@ -32,10 +33,15 @@ export default defineEventHandler(async (event) => {
 		difficulty: avg(cluesDifficultyVotes.difficulty).as('difficulty'),
 	}).from(cluesDifficultyVotes).groupBy(cluesDifficultyVotes.clueId).as('dv');
 
-	const filters = [
-		eq(clues.featured, true),
-		or(isNull(clues.clueOfTheDay), lte(clues.clueOfTheDay, sql`CURRENT_DATE`)),
-	];
+	const filters = [];
+	if (query.authorId) {
+		filters.push(eq(clues.author, query.authorId));
+	} else {
+		filters.push(
+			eq(clues.featured, true),
+			or(isNull(clues.clueOfTheDay), lte(clues.clueOfTheDay, sql`CURRENT_DATE`)),
+		);
+	}
 	if (query.search) filters.push(ilike(clues.content, `%${query.search}%`));
 	if (!query.nsfw) filters.push(eq(clues.nsfw, false));
 	if (!query.solved && userId) {
@@ -83,6 +89,8 @@ export default defineEventHandler(async (event) => {
 		authorName: clues.authorName,
 		createdAt: clues.createdAt,
 		nsfw: clues.nsfw,
+		featured: clues.featured,
+		clueOfTheDay: clues.clueOfTheDay,
 		solves: sql`coalesce(${solvesSubquery.count}, 0)`.mapWith(Number),
 		upvotes: sql`coalesce(${qualitySubquery.upvotes}, 0)`.mapWith(Number),
 		downvotes: sql`coalesce(${qualitySubquery.downvotes}, 0)`.mapWith(Number),
@@ -108,6 +116,8 @@ export default defineEventHandler(async (event) => {
 			author: clue.authorName,
 			createdAt: clue.createdAt,
 			nsfw: clue.nsfw,
+			featured: clue.featured,
+			clueOfTheDay: clue.clueOfTheDay,
 			solves: clue.solves,
 			upvotes: clue.upvotes,
 			downvotes: clue.downvotes,
