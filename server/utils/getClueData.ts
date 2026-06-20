@@ -1,19 +1,8 @@
-import { z } from 'zod';
 import { db, schema } from '@nuxthub/db';
 import { and, avg, eq, sql, type SQL } from 'drizzle-orm';
+import { hintsSchema } from '#shared/utils/hintsSchema';
 
 const { clues, solves, cluesQualityVotes, cluesDifficultyVotes } = schema;
-
-const range = z.tuple([z.number(), z.number()]);
-const note = z.string().optional();
-const hintsSchema = z.object({
-	definition: z.object({ range, note }).optional(),
-	altDefinition: z.object({ range, note }).optional(),
-	indicators: z.object({ ranges: z.array(range), note }).optional(),
-	fodder: z.object({ ranges: z.array(range), note }).optional(),
-	extra: z.array(z.object({ name: z.string().optional(), range: range.optional(), content: z.string() })).optional(),
-	answer: z.string().optional(),
-});
 
 export async function getClueData(where: string | SQL, event?: Parameters<typeof getUserSession>[0]) {
 	const session = event && await getUserSession(event);

@@ -1,6 +1,7 @@
 <script setup lang="tsx">
 	import { isSeparator, getAnswerLength } from '#shared/utils/answerLength';
 	import type { Range, TypedRange } from '~/utils/ranges';
+	import type { Hints } from '#shared/utils/hintsSchema';
 	import { seededShuffle } from '~/utils/shuffle';
 
 	const slots = useSlots();
@@ -8,14 +9,7 @@
 		example?: boolean,
 		by?: string,
 		answer: string,
-		hints?: {
-			definition?: { range: Range, note?: string },
-			altDefinition?: { range: Range, note?: string },
-			indicators?: { ranges: Range[], note?: string },
-			fodder?: { ranges: Range[], note?: string },
-			extra?: { name?: string, range?: Range, content: string }[],
-			answer?: string,
-		} | undefined,
+		hints?: Hints | undefined,
 		solved?: boolean,
 	}>();
 	const emit = defineEmits<{
