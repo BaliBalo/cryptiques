@@ -107,13 +107,13 @@ export class InlineInput extends (window?.HTMLElement || Object) {
 	connectedCallback() {
 		this.contentEditable = 'plaintext-only';
 		this.addEventListener('beforeinput', this._onBeforeInput);
-		this.addEventListener('input', this._onContentUpdate);
+		this.addEventListener('input', this._onContentUpdate, { capture: true });
 		document.addEventListener('selectionchange', this._checkSelection);
 	}
 
 	disconnectedCallback() {
 		this.removeEventListener('beforeinput', this._onBeforeInput);
-		this.removeEventListener('input', this._onContentUpdate);
+		this.removeEventListener('input', this._onContentUpdate, { capture: true });
 		document.removeEventListener('selectionchange', this._checkSelection);
 	}
 };
