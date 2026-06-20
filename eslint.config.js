@@ -40,7 +40,7 @@ export default withNuxt(
 		rules: {
 			'vue/multi-word-component-names': 'off',
 			'vue/html-indent': ['error', 'tab'],
-			'vue/script-indent': ['error', 'tab', { baseIndent: 1 }],
+			'vue/script-indent': ['error', 'tab', { baseIndent: 1, switchCase: 1 }],
 			'@stylistic/indent': 'off',
 			'vue/no-multiple-template-root': 'off',
 			'vue/max-attributes-per-line': 'off',
