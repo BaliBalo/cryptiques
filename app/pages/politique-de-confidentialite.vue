@@ -45,4 +45,5 @@
 		border-top: 1px solid;
 		opacity: 0.5;
 	}
+	a { text-decoration: underline; }
 </style>
