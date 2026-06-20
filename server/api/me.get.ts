@@ -1,5 +1,5 @@
 import { db, schema } from '@nuxthub/db';
-import { eq } from 'drizzle-orm';
+import { count, eq, sql } from 'drizzle-orm';
 
 export default defineEventHandler(async (event) => {
 	const { user } = await requireUserSession(event);
@@ -11,6 +11,10 @@ export default defineEventHandler(async (event) => {
 		});
 	}
 	const solveCount = await db.$count(schema.solves, eq(schema.solves.userId, user.id));
+	const [createdCount] = await db.select({
+		total: count().as('total'),
+		featured: count().append(sql` filter (where ${schema.clues.featured} = true)`).as('featured'),
+	}).from(schema.clues).where(eq(schema.clues.author, user.id)).limit(1);
 	// const solves = await db.select({
 	// 	at: schema.solves.createdAt,
 	// 	time: schema.solves.time,
@@ -26,5 +30,6 @@ export default defineEventHandler(async (event) => {
 		name: dbUser.name || null,
 		createdAt: dbUser.createdAt.getTime(),
 		solveCount: solveCount,
+		createdCount: createdCount || { total: 0, featured: 0 },
 	};
 });
