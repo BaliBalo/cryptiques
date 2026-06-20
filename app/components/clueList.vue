@@ -297,6 +297,7 @@
 		top: 0;
 		background: var(--background);
 		font-weight: bold;
+		z-index: 1;
 	}
 	.clue {
 		position: relative;
