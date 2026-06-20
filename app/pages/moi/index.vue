@@ -1,4 +1,6 @@
 <script setup lang="tsx">
+	import { displayDate } from '~/utils/displayDate';
+
 	definePageMeta({
 		middleware: 'logged-in-only',
 	});
@@ -6,12 +8,16 @@
 	const { loggedIn, clear: logout } = useUserSession();
 
 	useHead({
-		title: 'Mon Profil | Cryptiques',
+		title: 'Mon profil | Cryptiques',
 		htmlAttrs: { class: 'page-moi' },
 	});
 
 	const { data: userData, error } = await useFetch('/api/me');
 	const solveCount = computed(() => userData.value?.solveCount || 0);
+	const createdCount = computed(() => userData.value?.createdCount?.total || 0);
+	// const featuredCount = computed(() => userData.value?.createdCount?.featured || 0);
+
+	const accountCreationFormatted = computed(() => !userData.value?.createdAt ? 'Inconnue' : displayDate(userData.value.createdAt));
 
 	onMounted(() => {
 		mergeLocalSolves();
@@ -50,15 +56,19 @@
 				<div class="label">Adresse e-mail</div>
 				<div class="value"><addWBR :str="userData?.email || ''" /></div>
 				<div class="label">Création du compte</div>
-				<div class="value">{{ !userData?.createdAt ? 'Inconnue' : new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' }).format(new Date(userData.createdAt)) }}</div>
+				<div class="value">{{ accountCreationFormatted }}</div>
 			</fieldset>
 			<fieldset>
 				<legend>Stats</legend>
 				<p>{{ solveCount }} {{ solveCount > 1 ? 'énigmes résolues' : 'énigme résolue' }}</p>
 			</fieldset>
-			<fieldset>
-				<legend>Créez votre énigme</legend>
-				<p>La création d'énigme par les utilisateurs n'est pas encore supportée. Vous pouvez envoyer vos suggestions via le <NuxtLink to="/contact">formulaire de contact</NuxtLink>.</p>
+			<fieldset class="created">
+				<legend>Vos énigmes</legend>
+				<p v-if="createdCount">{{ createdCount }} {{ createdCount > 1 ? 'énigmes créées' : 'énigme créée' }}</p>
+				<div class="actions">
+					<NuxtLink v-if="createdCount" to="/moi/enigmes">Voir vos énigmes</NuxtLink>
+					<NuxtLink to="/enigme/creer">Créer une énigme</NuxtLink>
+				</div>
 			</fieldset>
 		</template>
 	</main>
@@ -74,7 +84,10 @@
 		margin-bottom: 1lh;
 		border: 1px solid var(--light-border);
 		border-radius: 8px;
-		p:last-child { margin-bottom: 0; }
+		p {
+			margin-bottom: 8px;
+			&:last-child { margin-bottom: 0; }
+		}
 	}
 	legend {
 		padding: 0 8px;
@@ -97,6 +110,14 @@
 			grid-column: 2;
 			text-align: right;
 			overflow-wrap: anywhere;
+		}
+	}
+	.created {
+		.actions {
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-around;
+			gap: 8px;
 		}
 	}
 	.logout {

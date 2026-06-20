@@ -42,6 +42,8 @@ export default defineNuxtConfig({
 			'/auth/success',
 			'/auth/error',
 			'/moi',
+			'/moi/enigmes',
+			'/enigme/creer',
 		],
 	},
 	googleFonts: {
