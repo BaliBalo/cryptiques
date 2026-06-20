@@ -101,7 +101,7 @@
 			<div v-if="hints.fodder" class="hint fodder">La matière est <fodderList />. {{ hints.fodder.note }}</div>
 			<div v-if="hints.definition" class="hint definition">{{ hints.altDefinition ? 'Une' : 'La' }} définition est <code>{{ extractRange(text, hints.definition.range) }}</code>. {{ hints.definition.note }}</div>
 			<div v-if="hints.altDefinition" class="hint alt-definition">L'autre définition est <code>{{ extractRange(text, hints.altDefinition.range) }}</code>. {{ hints.altDefinition.note }}</div>
-			<div v-for="(extra, i) in extraHints" :key="i" class="hint extra" :class="{ [`extra-${i + 1}`]: true }">{{ extra.content }}</div>
+			<div v-for="(extra, i) in extraHints" :key="i" :class="`hint extra extra-${i + 1}`">{{ extra.content }}</div>
 			<div v-if="example" class="answer">
 				{{ answer }}
 				<div v-if="hints.answer" class="details">{{ hints.answer }}</div>
@@ -153,10 +153,10 @@
 		& :deep(.alt-definition) { --c: var(--definition); }
 		& :deep(.indicator) { --c: var(--hint-2); }
 		& :deep(.fodder) { --c: var(--hint-1); }
-		& :deep(.extra) { --c: var(--hint-6); }
-		& :deep(.extra-1) { --c: var(--hint-3); }
-		& :deep(.extra-2) { --c: var(--hint-4); }
-		& :deep(.extra-3) { --c: var(--hint-5); }
+		& :deep(.extra) { --c: var(--hint-3); }
+		& :deep(.extra-1) { --c: var(--hint-4); }
+		& :deep(.extra-2) { --c: var(--hint-5); }
+		& :deep(.extra-3) { --c: var(--hint-7); }
 	}
 	.by {
 		font-size: .8rem;
@@ -194,10 +194,10 @@
 		&.alt-definition { --highlight: var(--definition); }
 		&.indicators { --highlight: var(--hint-2); }
 		&.fodder { --highlight: var(--hint-1); }
-		&.extra { --highlight: var(--hint-6); }
-		&.extra-1 { --highlight: var(--hint-3); }
-		&.extra-2 { --highlight: var(--hint-4); }
-		&.extra-3 { --highlight: var(--hint-5); }
+		&.extra { --highlight: var(--hint-3); }
+		&.extra-1 { --highlight: var(--hint-4); }
+		&.extra-2 { --highlight: var(--hint-5); }
+		&.extra-3 { --highlight: var(--hint-7); }
 	}
 	.answer {
 		text-align: center;
