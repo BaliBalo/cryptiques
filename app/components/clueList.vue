@@ -4,6 +4,10 @@
 
 	const { loggedIn } = useUserSession();
 
+	const props = defineProps<{
+		authorId?: string,
+	}>();
+
 	const options = useCookie('cryptiques-list-options', {
 		default: () => ({
 			order: 'new',
@@ -22,7 +26,6 @@
 	const directionSwapRef = computed(() => options.value.directionSwap);
 	const nsfwRef = computed(() => options.value.nsfw);
 	const solvedRef = computed(() => options.value.solved);
-
 	watch([search, orderRef, directionSwapRef, nsfwRef, solvedRef], () => {
 		offset.value = 0;
 	});
@@ -35,6 +38,7 @@
 			directionSwap: directionSwapRef,
 			nsfw: nsfwRef,
 			solved: solvedRef,
+			authorId: props.authorId,
 		},
 	});
 
@@ -46,7 +50,7 @@
 </script>
 
 <template>
-	<div class="wrapper">
+	<div class="wrapper" :class="{ 'show-featured': !!props.authorId }">
 		<div class="filters">
 			<!-- <label class="search">
 				<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
@@ -120,8 +124,13 @@
 					Aucune énigme trouvée.
 				</div>
 				<template v-else>
-					<NuxtLink v-for="clue in data?.list || []" :key="clue.id" :to="{ name: 'enigme-id', params: { id: clue.id } }" :class="{ clue: true, solved: clue.solved || (clue.id in localSolves) }">
-						<div class="content">{{ clue.clue }} {{ clue.answerLength }}</div>
+					<NuxtLink
+						v-for="clue in data?.list || []"
+						:key="clue.id"
+						:to="{ name: 'enigme-id', params: { id: clue.id } }"
+						:class="{ clue: true, featured: clue.featured, solved: clue.solved || (clue.id in localSolves) }"
+					>
+						<div class="content" :data-clue-of-the-day="clue.clueOfTheDay">{{ clue.clue }} {{ clue.answerLength }}</div>
 						<!-- <div class="author" :title="clue.author">{{ clue.author }}</div> -->
 						<div class="solves">{{ clue.solves.toLocaleString() }}</div>
 						<div class="score">
@@ -290,13 +299,39 @@
 		font-weight: bold;
 	}
 	.clue {
+		position: relative;
 		&.solved .solves {
 			color: var(--color-primary);
 		}
 		&:hover {
 			background: color-mix(currentColor, var(--background) 95%);
-			/* background: var(--light-border); */
-			/* border-bottom-color: currentColor; */
+		}
+	}
+	.show-featured .clue.featured {
+		.content::before {
+			content: '';
+			--text-height: 1.2em;
+			margin-inline-end: 4px;
+			margin-block: 8px;
+			font-size: .75rem;
+			line-height: 24px;
+			padding-block: calc((24px - var(--text-height)) / 2);
+			padding-inline: 24px 0;
+			color: #000;
+			background:
+				#f1c40f
+				url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="%23000"%3E%3Cpath d="M240-40v-329L110-580l185-300h370l185 300-130 211v329l-240-80-240 80Zm80-111 160-53 160 53v-129H320v129Zm20-649L204-580l136 220h280l136-220-136-220H340Zm98 383L296-558l57-57 85 85 169-170 57 56-226 227ZM320-280h320-320Z"/%3E%3C/svg%3E')
+				2px center / 20px 20px no-repeat
+			;
+			mask:
+				radial-gradient(closest-side, #000 calc(100% - 1px), #0000 100%) left center / 24px 24px no-repeat,
+				linear-gradient(#000 0 0) 12px center / calc(100% - 12px - var(--text-height) / 2 + 1px) var(--text-height) no-repeat,
+				radial-gradient(farthest-side at left, #000 calc(100% - 1px), #0000 100%) right center / calc(var(--text-height) / 2) var(--text-height) no-repeat
+			;
+		}
+		.content[data-clue-of-the-day]::before {
+			content: attr(data-clue-of-the-day);
+			padding-inline-end: calc(var(--text-height) / 2);
 		}
 	}
 	/* .author {
