@@ -54,15 +54,16 @@ export default defineEventHandler(async (event) => {
 	}
 
 	const mainOrderDirection = query.directionSwap ? asc : desc;
+	const clueDate = userId ? clues.createdAt : sql`coalesce(${clues.clueOfTheDay}, ${clues.createdAt})`;
 	let orderBy: SQL[] = [];
 	switch (query.order) {
 		case 'new':
-			orderBy = [mainOrderDirection(clues.createdAt)];
+			orderBy = [mainOrderDirection(clueDate)];
 			break;
 		case 'solves':
 			orderBy = [
 				mainOrderDirection(solvesSubquery.count).append(sql` nulls ${query.directionSwap ? 'first' : 'last'}`),
-				desc(clues.createdAt),
+				desc(clueDate),
 			];
 			break;
 		case 'rating':
@@ -70,14 +71,14 @@ export default defineEventHandler(async (event) => {
 				// (upvotes + 1) / (totalVotes + 2) ; avoids small vote counts getting 100%
 				// Could use some more complex thing: https://www.evanmiller.org/how-not-to-sort-by-average-rating.html
 				mainOrderDirection(sql`(coalesce(${qualitySubquery.upvotes}, 0) + 1)::decimal / (coalesce(${qualitySubquery.upvotes}, 0) + coalesce(${qualitySubquery.downvotes}, 0) + 2)`),
-				desc(clues.createdAt),
+				desc(clueDate),
 			];
 			break;
 		case 'difficulty':
 			// should this include actual difficulty ? i.e. average time / hints used ?
 			orderBy = [
 				mainOrderDirection(sql`coalesce(${difficultySubquery.difficulty}, 0.5)`),
-				desc(clues.createdAt),
+				desc(clueDate),
 			];
 			break;
 	}
