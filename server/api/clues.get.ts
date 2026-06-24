@@ -54,7 +54,7 @@ export default defineEventHandler(async (event) => {
 	}
 
 	const mainOrderDirection = query.directionSwap ? asc : desc;
-	const clueDate = userId ? clues.createdAt : sql`coalesce(${clues.clueOfTheDay}, ${clues.createdAt})`;
+	const clueDate = query.authorId ? clues.createdAt : sql`coalesce(${clues.clueOfTheDay}, ${clues.createdAt})`;
 	let orderBy: SQL[] = [];
 	switch (query.order) {
 		case 'new':
