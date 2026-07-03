@@ -91,10 +91,16 @@
 				<div class="by">{{ by }}</div>
 				<prompt /> {{ len }}
 			</div>
-			<div v-if="hints.indicators" class="hint indicators">{{ indicatorRanges.length > 1 ? 'Les indicateurs sont' : 'L\'indicateur est' }} <indicatorsList />. {{ hints.indicators.note }}</div>
-			<div v-if="hints.fodder" class="hint fodder">La matière est <fodderList />. {{ hints.fodder.note }}</div>
-			<div v-if="hints.definition" class="hint definition">{{ hints.altDefinition ? 'Une' : 'La' }} définition est <code>{{ extractRange(text, hints.definition.range) }}</code>. {{ hints.definition.note }}</div>
-			<div v-if="hints.altDefinition" class="hint alt-definition">L'autre définition est <code>{{ extractRange(text, hints.altDefinition.range) }}</code>. {{ hints.altDefinition.note }}</div>
+			<div v-if="hints.indicators" class="hint indicators">
+				<template v-if="indicatorRanges.length">{{ indicatorRanges.length > 1 ? 'Les indicateurs sont' : 'L\'indicateur est' }} <indicatorsList />. </template>
+				{{ hints.indicators.note }}
+			</div>
+			<div v-if="hints.fodder" class="hint fodder">
+				<template v-if="fodderRanges.length">La matière est <fodderList />. </template>
+				{{ hints.fodder.note }}
+			</div>
+			<div v-if="hints.definition?.range" class="hint definition">{{ hints.altDefinition ? 'Une' : 'La' }} définition est <code>{{ extractRange(text, hints.definition.range) }}</code>. {{ hints.definition.note }}</div>
+			<div v-if="hints.altDefinition?.range" class="hint alt-definition">L'autre définition est <code>{{ extractRange(text, hints.altDefinition.range) }}</code>. {{ hints.altDefinition.note }}</div>
 			<div v-for="(extra, i) in extraHints" :key="i" :class="`hint extra extra-${i + 1}`">{{ extra.content }}</div>
 			<div v-if="example" class="answer">
 				{{ answer }}
@@ -106,8 +112,8 @@
 			<div :id="hintsPopoverId" class="choose-hint" popover>
 				<button v-if="hints.indicators" type="button" data-type="indicators" :disabled="!props.example && shown.indicators" @click="onHintClick">indicateurs</button>
 				<button v-if="hints.fodder" type="button" data-type="fodder" :disabled="!props.example && shown.fodder" @click="onHintClick">matière</button>
-				<button v-if="hints.definition" type="button" data-type="definition" :disabled="!props.example && shown.definition" @click="onHintClick">définition</button>
-				<button v-if="hints.altDefinition" type="button" data-type="alt-definition" :disabled="!props.example && shown.altDefinition" @click="onHintClick">autre définition</button>
+				<button v-if="hints.definition?.range" type="button" data-type="definition" :disabled="!props.example && shown.definition" @click="onHintClick">définition</button>
+				<button v-if="hints.altDefinition?.range" type="button" data-type="alt-definition" :disabled="!props.example && shown.altDefinition" @click="onHintClick">autre définition</button>
 				<button v-for="(extra, i) in extraHints" :key="i" type="button" :data-type="`extra-${i + 1}`" :disabled="!props.example && shown[`extra-${i + 1}`]" @click="onHintClick">{{ extra.name || `extra ${i + 1}` }}</button>
 				<template v-if="!example && !solved && canShowMoreLetterHints">
 					<hr>
