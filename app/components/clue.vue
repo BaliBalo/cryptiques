@@ -91,18 +91,18 @@
 				<div class="by">{{ by }}</div>
 				<prompt /> {{ len }}
 			</div>
-			<div v-if="hints.indicators" class="hint indicators">
+			<div v-if="hints.indicators" class="hint indicators" data-nosnippet>
 				<template v-if="indicatorRanges.length">{{ indicatorRanges.length > 1 ? 'Les indicateurs sont' : 'L\'indicateur est' }} <indicatorsList />. </template>
 				{{ hints.indicators.note }}
 			</div>
-			<div v-if="hints.fodder" class="hint fodder">
+			<div v-if="hints.fodder" class="hint fodder" data-nosnippet>
 				<template v-if="fodderRanges.length">La matière est <fodderList />. </template>
 				{{ hints.fodder.note }}
 			</div>
-			<div v-if="hints.definition?.range" class="hint definition">{{ hints.altDefinition ? 'Une' : 'La' }} définition est <code>{{ extractRange(text, hints.definition.range) }}</code>. {{ hints.definition.note }}</div>
-			<div v-if="hints.altDefinition?.range" class="hint alt-definition">L'autre définition est <code>{{ extractRange(text, hints.altDefinition.range) }}</code>. {{ hints.altDefinition.note }}</div>
-			<div v-for="(extra, i) in extraHints" :key="i" :class="`hint extra extra-${i + 1}`">{{ extra.content }}</div>
-			<div v-if="example" class="answer">
+			<div v-if="hints.definition?.range" class="hint definition" data-nosnippet>{{ hints.altDefinition ? 'Une' : 'La' }} définition est <code>{{ extractRange(text, hints.definition.range) }}</code>. {{ hints.definition.note }}</div>
+			<div v-if="hints.altDefinition?.range" class="hint alt-definition" data-nosnippet>L'autre définition est <code>{{ extractRange(text, hints.altDefinition.range) }}</code>. {{ hints.altDefinition.note }}</div>
+			<div v-for="(extra, i) in extraHints" :key="i" :class="`hint extra extra-${i + 1}`" data-nosnippet>{{ extra.content }}</div>
+			<div v-if="example" class="answer" data-nosnippet>
 				{{ answer }}
 				<div v-if="hints.answer" class="details">{{ hints.answer }}</div>
 			</div>
