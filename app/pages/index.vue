@@ -17,12 +17,12 @@
 
 	const { data: clueOfTheDay } = useFetch('/api/clueOfTheDay');
 	const clueOfTheDayLocalSolve = ref(false);
-	const clueOfTheDaySolved = computed(() => clueOfTheDay.value?.solve || clueOfTheDayLocalSolve.value);
+	const clueOfTheDaySolved = computed(() => clueOfTheDay.value?.clue?.solve || clueOfTheDayLocalSolve.value);
 
 	onMounted(() => {
-		if (clueOfTheDay.value) {
+		if (clueOfTheDay.value?.clue) {
 			const localSolves = getLocalSolves();
-			clueOfTheDayLocalSolve.value = !!localSolves[clueOfTheDay.value.id];
+			clueOfTheDayLocalSolve.value = !!localSolves[clueOfTheDay.value.clue.id];
 		}
 	});
 </script>
@@ -46,14 +46,14 @@
 					<p>Nouveau aux cryptiques ou besoin d'un rappel ?</p>
 					<NuxtLink to="/guide" class="guide">Suivez le guide</NuxtLink>
 				</div>
-				<div v-if="clueOfTheDay" class="clue-of-the-day">
+				<div v-if="clueOfTheDay?.clue" class="clue-of-the-day">
 					<svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Z" /></svg>
 					<div class="intro">
-						<p class="by">Énigme du jour par : {{ clueOfTheDay.authorName }}</p>
+						<p class="by">Énigme du jour<template v-if="clueOfTheDay.clue.authorName"> par : {{ clueOfTheDay.clue.authorName }}</template></p>
 						<svg v-if="clueOfTheDaySolved" class="solved" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"><path d="M288-144v-72h156v-124q-42-8-77.5-33.5T313-434q-73-9-121-62.51T144-622v-26q0-29.7 21.15-50.85Q186.3-720 216-720h72v-96h384v96h72.21Q774-720 795-698.85T816-648v24q0 72-48 126.5T647-434q-18 35-53.5 60.5T516-340v124h156v72H288Zm0-372v-132h-72v24q0 37 19 65.5t53 42.5Zm277 73q35-35 35-85v-216H360v216q0 50 35 85t85 35q50 0 85-35Zm107-73q34-14 53-42.5t19-65.5v-24h-72v132Zm-192-59Z" /></svg>
 					</div>
-					<p class="content">{{ clueOfTheDay.content }} {{ getAnswerLength(clueOfTheDay.answer) }}</p>
-					<NuxtLink :to="{ name: 'enigme-id', params: { id: clueOfTheDay.id } }" class="play">C'est parti !</NuxtLink>
+					<p class="content">{{ clueOfTheDay.clue.content }} {{ getAnswerLength(clueOfTheDay.clue.answer) }}</p>
+					<NuxtLink :to="{ name: 'enigme-id', params: { id: clueOfTheDay.clue.id } }" class="play">C'est parti !</NuxtLink>
 				</div>
 			</div>
 			<ClueList />
