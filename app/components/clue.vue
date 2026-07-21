@@ -319,7 +319,7 @@
 				transition: none;
 			}
 			&:disabled {
-				filter: grayscale(1);
+				filter: grayscale(100%);
 				opacity: 0.8;
 				cursor: default;
 			}

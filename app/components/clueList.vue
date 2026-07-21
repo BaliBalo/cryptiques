@@ -1,5 +1,7 @@
 <script setup lang="ts">
+	import { refDebounced, useDebounceFn } from '@vueuse/core';
 	import { displayPercentage } from '~/utils/displayPercentage';
+	import { displayNumber } from '~/utils/displayNumber';
 	import { getLocalSolves, type SolveDetails } from '~/utils/localSolves';
 
 	const { loggedIn } = useUserSession();
@@ -19,21 +21,22 @@
 		sameSite: true,
 	});
 
-	const search = ref('');
 	const offset = ref(0);
-
+	const search = ref('');
+	const searchDebounced = refDebounced(search, 500);
 	const orderRef = computed(() => options.value.order);
 	const directionSwapRef = computed(() => options.value.directionSwap);
 	const nsfwRef = computed(() => options.value.nsfw);
 	const solvedRef = computed(() => options.value.solved);
-	watch([search, orderRef, directionSwapRef, nsfwRef, solvedRef], () => {
+
+	watch([searchDebounced, orderRef, directionSwapRef, nsfwRef, solvedRef], () => {
 		offset.value = 0;
-	});
+	}, { flush: 'sync' });
 
 	const { data, pending, error } = await useFetch('/api/clues', {
 		query: {
 			offset,
-			search,
+			search: searchDebounced,
 			order: orderRef,
 			directionSwap: directionSwapRef,
 			nsfw: nsfwRef,
@@ -44,20 +47,32 @@
 
 	const localSolves = ref<{ [id: string]: SolveDetails }>({});
 
+	const clues = computed(() => (data.value?.list || []).map((clue) => {
+		const rawScore = (!clue.upvotes && !clue.downvotes) ? 0.5 : clue.upvotes / (clue.upvotes + clue.downvotes);
+		// const adjustedScore = (clue.upvotes + 1) / (clue.upvotes + clue.downvotes + 2);
+		return {
+			...clue,
+			difficultyDisplay: !clue.difficultyVotes ? 'Aucun vote de difficulté' : `Difficulté : ${displayPercentage(clue.difficulty)} (${displayNumber(clue.difficultyVotes, 'vote')})`,
+			scoreDisplay: (!clue.upvotes && !clue.downvotes) ? 'Aucun vote de satisfaction' : `Satisfaction : ${displayPercentage(rawScore)} (${displayNumber(clue.upvotes, 'positif')} / ${displayNumber(clue.downvotes, 'négatif')})`,
+		};
+	}));
+
+	const showFeatured = computed(() => !!props.authorId);
+
 	onMounted(() => {
 		localSolves.value = getLocalSolves();
 	});
 </script>
 
 <template>
-	<div class="wrapper" :class="{ 'show-featured': !!props.authorId }">
+	<div class="wrapper">
 		<div class="filters">
-			<!-- <label class="search">
+			<label class="search" :class="{ hasSearch: !!search }">
 				<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
 					<path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
 				</svg>
 				<input v-model="search" type="text" placeholder="Rechercher une énigme...">
-			</label> -->
+			</label>
 			<label class="sort">
 				<svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" aria-hidden="true">
 					<path d="M120-240v-80h240v80H120Zm0-200v-80h480v80H120Zm0-200v-80h720v80H120Z" />
@@ -68,7 +83,7 @@
 					<option value="rating">{{ options.directionSwap ? 'Moins bien notées' : 'Mieux notées' }}</option>
 					<option value="difficulty">{{ options.directionSwap ? 'Plus faciles' : 'Plus difficiles' }}</option>
 				</select>
-				<button type="button" :class="{ swap: true, active: options.directionSwap }" aria-label="Inverser l'ordre" @click="options.directionSwap = !options.directionSwap">
+				<button type="button" :class="{ swap: true, active: options.directionSwap }" aria-label="Inverser l'ordre" title="Inverser l'ordre" @click="options.directionSwap = !options.directionSwap">
 					<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" aria-hidden="true">
 						<path d="M320-440v-287L217-624l-57-56 200-200 200 200-57 56-103-103v287h-80ZM600-80 400-280l57-56 103 103v-287h80v287l103-103 57 56L600-80Z" />
 					</svg>
@@ -97,7 +112,6 @@
 			<template v-else>
 				<div class="header">
 					<div class="content">Énigme</div>
-					<!-- <div class="author">Par</div> -->
 					<div class="solves">
 						<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
 							<title>Nombre de résolutions</title>
@@ -125,23 +139,37 @@
 				</div>
 				<template v-else>
 					<NuxtLink
-						v-for="clue in data?.list || []"
+						v-for="clue in clues"
 						:key="clue.id"
 						:to="{ name: 'enigme-id', params: { id: clue.id } }"
-						:class="{ clue: true, featured: clue.featured, solved: clue.solved || (clue.id in localSolves) }"
+						:class="{ clue: true, solved: clue.solved || (clue.id in localSolves) }"
 					>
-						<div class="content" :data-clue-of-the-day="clue.clueOfTheDay">{{ clue.clue }} {{ clue.answerLength }}</div>
-						<!-- <div class="author" :title="clue.author">{{ clue.author }}</div> -->
-						<div class="solves">{{ clue.solves.toLocaleString() }}</div>
+						<div class="content">
+							<div v-if="showFeatured && clue.featured" class="featured-indicator">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" height="24px" width="24px">
+									<path d="M240-40v-329L110-580l185-300h370l185 300-130 211v329l-240-80-240 80Zm80-111 160-53 160 53v-129H320v129Zm20-649L204-580l136 220h280l136-220-136-220H340Zm98 383L296-558l57-57 85 85 169-170 57 56-226 227ZM320-280h320-320Z" />
+								</svg>
+								<div class="clue-of-the-day">{{ clue.clueOfTheDay }}</div>
+							</div>
+							<svg v-if="clue.solved || (clue.id in localSolves)" class="solved-icon" xmlns="http://www.w3.org/2000/svg" height="24px" width="24px" viewBox="0 -960 960 960" aria-label="Énigme résolue">
+								<path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
+							</svg>
+							<span class="inner">
+								{{ clue.clue }} {{ clue.answerLength }}
+								<span v-if="clue.author" class="by">— {{ clue.author }}</span>
+							</span>
+						</div>
+						<div class="solves" :aria-label="displayNumber(clue.solves, 'résolution')">{{ displayNumber(clue.solves) }}</div>
 						<div class="score">
 							<div
 								class="scoreBar"
 								:style="{ '--up': clue.upvotes, '--down': clue.downvotes }"
-								:title="`${displayPercentage((clue.upvotes + 1) / (clue.upvotes + clue.downvotes + 2))} (${clue.upvotes.toLocaleString('fr-FR')} / ${clue.downvotes.toLocaleString('fr-FR')})`"
+								:title="clue.scoreDisplay"
+								:aria-label="clue.scoreDisplay"
 							/>
 						</div>
-						<div class="difficulty">
-							<Thermometer :p="clue.difficulty" :title="displayPercentage(clue.difficulty)" />
+						<div class="difficulty" :data-count="clue.difficultyVotes">
+							<Thermometer :p="clue.difficulty" :title="clue.difficultyDisplay" />
 						</div>
 					</NuxtLink>
 					<div class="pagination">
@@ -184,7 +212,7 @@
 			border-bottom: 1px solid var(--light-border);
 			outline: none;
 		}
-		&:focus-within {
+		&:focus-within, &.hasSearch {
 			flex-grow: 1;
 			input { padding-inline: 8px; }
 		}
@@ -301,46 +329,51 @@
 	}
 	.clue {
 		position: relative;
-		&.solved .solves {
-			color: var(--color-primary);
-		}
+		&.solved .solves { color: var(--color-primary); }
 		&:hover {
 			background: color-mix(currentColor, var(--background) 95%);
 		}
 	}
-	.show-featured .clue.featured {
-		.content::before {
-			content: '';
-			--text-height: 1.2em;
-			margin-inline-end: 4px;
-			margin-block: 8px;
-			font-size: .75rem;
-			line-height: 24px;
-			padding-block: calc((24px - var(--text-height)) / 2);
-			padding-inline: 24px 0;
+	.content {
+		.featured-indicator {
+			--bg: #f1c40f;
+			display: inline-flex;
+			align-items: center;
 			color: #000;
-			background:
-				#f1c40f
-				url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="%23000"%3E%3Cpath d="M240-40v-329L110-580l185-300h370l185 300-130 211v329l-240-80-240 80Zm80-111 160-53 160 53v-129H320v129Zm20-649L204-580l136 220h280l136-220-136-220H340Zm98 383L296-558l57-57 85 85 169-170 57 56-226 227ZM320-280h320-320Z"/%3E%3C/svg%3E')
-				2px center / 20px 20px no-repeat
-			;
-			mask:
-				radial-gradient(closest-side, #000 calc(100% - 1px), #0000 100%) left center / 24px 24px no-repeat,
-				linear-gradient(#000 0 0) 12px center / calc(100% - 12px - var(--text-height) / 2 + 1px) var(--text-height) no-repeat,
-				radial-gradient(farthest-side at left, #000 calc(100% - 1px), #0000 100%) right center / calc(var(--text-height) / 2) var(--text-height) no-repeat
-			;
+			vertical-align: middle;
+			margin-inline-end: .25rem;
+			> svg {
+				width: 24px;
+				height: 24px;
+				padding: 2px;
+				background: var(--bg);
+				border-radius: 50%;
+			}
+			.clue-of-the-day {
+				font-size: .75rem;
+				padding-inline: 4px 6px;
+				margin-left: -4px;
+				background: var(--bg);
+				border-radius: 0 99px 99px 0;
+			}
+			.clue-of-the-day:empty { display: none; }
 		}
-		.content[data-clue-of-the-day]::before {
-			content: attr(data-clue-of-the-day);
-			padding-inline-end: calc(var(--text-height) / 2);
+		.solved-icon {
+			display: inline;
+			height: 1lh;
+			width: auto;
+			vertical-align: middle;
+			color: var(--color-primary);
+			margin-inline-end: .25rem;
+		}
+		.inner {
+			vertical-align: middle;
+		}
+		.by {
+			font-size: .75em;
+			opacity: .8;
 		}
 	}
-	/* .author {
-		max-width: 120px;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	} */
 	.solves, .score, .difficulty {
 		text-align: center;
 		place-content: center;
@@ -359,17 +392,20 @@
 		background:
 			linear-gradient(var(--color-upvote) 0 0) left center / round(down, 100% * (var(--up)) / (var(--up) + var(--down) + 2 * var(--k)), 1px) 100% no-repeat,
 			linear-gradient(var(--color-downvote) 0 0) right center / round(down, 100% * (var(--down)) / (var(--up) + var(--down) + 2 * var(--k)), 1px) 100% no-repeat,
-			/* linear-gradient(
+			linear-gradient(
 				to right,
-				color-mix(var(--color-upvote), transparent 75%) calc(100% * (var(--up) + var(--k)) / (var(--up) + var(--down) + 2 * var(--k))),
+				color-mix(var(--color-upvote), transparent 75%) calc(100% * (var(--up) / max(var(--up) + var(--down), 1) + clamp(0, 1 - var(--up) - var(--down), 1) * 0.5)),
 				color-mix(var(--color-downvote), transparent 75%) 0
-			) center, */
+			) center,
 			var(--color-uncertainty);
 		@media (prefers-color-scheme: dark) {
 			--color-uncertainty: #444;
 		}
 	}
-	.clue .difficulty svg { width: 32px; height: auto; }
+	.clue .difficulty {
+		> svg { width: 32px; height: auto; }
+		&[data-count="0"] > svg { filter: grayscale(100%); }
+	}
 	.pagination {
 		display: flex;
 		flex-flow: row wrap;

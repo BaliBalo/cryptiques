@@ -31,6 +31,7 @@ export default defineEventHandler(async (event) => {
 	const difficultySubquery = db.select({
 		clueId: cluesDifficultyVotes.clueId,
 		difficulty: avg(cluesDifficultyVotes.difficulty).as('difficulty'),
+		difficultyVotes: count(cluesDifficultyVotes.difficulty).as('difficultyVotes'),
 	}).from(cluesDifficultyVotes).groupBy(cluesDifficultyVotes.clueId).as('dv');
 
 	const filters = [];
@@ -96,6 +97,7 @@ export default defineEventHandler(async (event) => {
 		upvotes: sql`coalesce(${qualitySubquery.upvotes}, 0)`.mapWith(Number),
 		downvotes: sql`coalesce(${qualitySubquery.downvotes}, 0)`.mapWith(Number),
 		difficulty: sql`coalesce(${difficultySubquery.difficulty}, 0.5)`.mapWith(Number),
+		difficultyVotes: sql`coalesce(${difficultySubquery.difficultyVotes}, 0)`.mapWith(Number),
 		solved: !userId ? sql<false>`FALSE` : exists(db.select().from(solves).where(and(eq(solves.clueId, clues.id), eq(solves.userId, userId)))).mapWith(Boolean),
 	})
 		.from(clues)
@@ -123,6 +125,7 @@ export default defineEventHandler(async (event) => {
 			upvotes: clue.upvotes,
 			downvotes: clue.downvotes,
 			difficulty: clue.difficulty,
+			difficultyVotes: clue.difficultyVotes,
 			solved: clue.solved,
 		})),
 	};
