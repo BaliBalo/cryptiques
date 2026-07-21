@@ -28,6 +28,7 @@ export default defineNuxtConfig({
 		'@nuxtjs/google-fonts',
 		'@nuxthub/core',
 		'nuxt-auth-utils',
+		'@vueuse/nuxt',
 		// 'nuxt-api-shield',
 	],
 	vue: {
@@ -36,7 +37,7 @@ export default defineNuxtConfig({
 		},
 	},
 	sitemap: {
-		zeroRuntime: true,
+		// zeroRuntime: true,
 		xsl: false,
 		exclude: [
 			'/auth/success',

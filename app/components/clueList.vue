@@ -1,5 +1,4 @@
 <script setup lang="ts">
-	import { refDebounced, useDebounceFn } from '@vueuse/core';
 	import { displayPercentage } from '~/utils/displayPercentage';
 	import { displayNumber } from '~/utils/displayNumber';
 	import { getLocalSolves, type SolveDetails } from '~/utils/localSolves';

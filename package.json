@@ -12,29 +12,30 @@
 		"prod": "git pull && { git diff --name-only HEAD HEAD~1 | grep package-lock.json && npm install || :; } && ./update.sh"
 	},
 	"dependencies": {
-		"@electric-sql/pglite": "^0.5.3",
+		"@electric-sql/pglite": "^0.5.4",
 		"@nuxt/eslint": "^1.16.0",
-		"@nuxthub/core": "^0.10.7",
+		"@nuxthub/core": "^0.10.8",
 		"@nuxtjs/google-fonts": "^3.2.0",
-		"@nuxtjs/sitemap": "^8.2.1",
+		"@nuxtjs/sitemap": "^8.2.3",
+		"@vueuse/nuxt": "^14.3.0",
 		"drizzle-kit": "^0.31.10",
 		"drizzle-orm": "^0.45.2",
 		"jsonwebtoken": "^9.0.3",
-		"nodemailer": "^9.0.1",
-		"nuxt": "^4.4.8",
+		"nodemailer": "^9.0.3",
+		"nuxt": "^4.5.0",
 		"nuxt-auth-utils": "^0.5.29",
 		"postgres": "^3.4.9",
-		"vue": "^3.5.38",
-		"vue-router": "^5.1.0"
+		"vue": "^3.5.40",
+		"vue-router": "^5.2.0"
 	},
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
 		"@stylistic/eslint-plugin": "^5.10.0",
 		"@types/jsonwebtoken": "^9.0.10",
 		"@types/nodemailer": "^8.0.1",
-		"eslint": "^10.5.0",
-		"eslint-plugin-vue": "^10.9.2",
-		"globals": "^17.6.0",
-		"typescript-eslint": "^8.61.1"
+		"eslint": "^10.7.0",
+		"eslint-plugin-vue": "^10.10.0",
+		"globals": "^17.7.0",
+		"typescript-eslint": "^8.65.0"
 	}
 }
