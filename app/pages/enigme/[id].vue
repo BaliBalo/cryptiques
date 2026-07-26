@@ -256,7 +256,7 @@
 			const lines = [
 				`J'ai résolu ${clue.value.isClueOfTheDay ? 'l\'énigme cryptique du jour' : 'cette énigme cryptique'} ${!hints ? 'sans indice' : `avec ${hints} ${hints > 1 ? 'indices' : 'indice'}`} !`,
 				`${clue.value.content} ${getAnswerLength(clue.value.answer)}`,
-				`https://cryptiques.balibalo.com/enigme/${clue.value.id}`,
+				`https://cryptiques.balibalo.xyz/enigme/${clue.value.id}`,
 			];
 			await navigator.clipboard.writeText(lines.join('\n'));
 			triggerAnimation(element, 'copied');
