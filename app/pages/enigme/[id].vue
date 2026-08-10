@@ -16,11 +16,11 @@
 		showError({ status: 404 });
 	}
 
+	const clueContentWithLength = clue.value ? `${clue.value.content} ${getAnswerLength(clue.value.answer)}` : '';
 	useHead({
-		title: 'Énigme cryptique',
+		title: 'Énigme | Cryptiques',
 		htmlAttrs: { class: 'page-clue' },
 	});
-	const clueContentWithLength = clue.value ? `${clue.value.content} ${getAnswerLength(clue.value.answer)}` : '';
 	useSeoMeta({
 		description: clue.value ? clueContentWithLength + (clue.value.authorName ? ` - une énigme de : ${clue.value.authorName}` : '') : 'Une énigme cryptique.',
 		ogTitle: clue.value ? clueContentWithLength : 'Énigme cryptique',
@@ -302,6 +302,7 @@
 				});
 				$clue.value?.setHintsShown(wip.hints);
 			}
+			document.querySelector<HTMLInputElement>('input:not(:disabled)')?.focus();
 		}
 	});
 
