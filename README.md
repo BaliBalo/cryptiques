@@ -36,6 +36,7 @@ export default {
 		host: 'SMTP_HOST',
 		auth: { user: 'SMTP_USERNAME', pass: 'SMTP_PASSWORD' },
 	},
+	ogImageSecret: 'SECRET',
 };
 ```
 

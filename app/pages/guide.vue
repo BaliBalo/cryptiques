@@ -4,7 +4,9 @@
 		htmlAttrs: { class: 'page-guide' },
 	});
 	useSeoMeta({
-		description: 'Guide des cryptiques : découvrez les techniques, principes et astuces pour résoudre ces énigmes originaires du Royaume-Uni.',
+		description: 'Guide pour les cryptiques : principes et techniques pour résoudre ces énigmes.',
+		ogTitle: 'Guide pour les cryptiques',
+		ogDescription: 'Connaissez-vous les mots croisés cryptiques ? Découvrez-en les principes dans ce guide.',
 	});
 
 	const introSlideshow = useTemplateRef('introSlideshow');
@@ -146,16 +148,16 @@
 	</header>
 	<main class="main" @click.capture="checkHashLinkClick">
 		<section class="section">
-			<h1 class="page-title">Guide<br><small>des cryptiques</small></h1>
+			<h1 class="page-title">Guide<br><small>pour les cryptiques</small></h1>
 		</section>
 
 		<section id="quoi" class="section">
 			<h2>Qu'est-ce que c'est ?</h2>
-			<p>Les cryptiques, généralement présentés sous forme de mots croisés, sont une forme de casse-tête originaire du Royaume-Uni.</p>
+			<p>Les cryptiques, souvent présentés sous forme de "mots croisés cryptiques", sont une forme de casse-tête originaire du Royaume-Uni.</p>
 			<p>Voyons tout d'abord quelques principes de base via un exemple.</p>
 			<Aside type="warning">
 				<template #title>Une note sur les termes utilisés</template>
-				<p>Les cryptiques n'étant pas encore très populaires dans le monde francophone, beaucoup de termes dans ce guide sont inspirés de leurs équivalents anglais, ou simplement inventés pour ce guide. Il se peut qu'ils changent à l'avenir. Si vous avez des suggestions d'améliorations, n'hésitez pas à les partager via <a href="https://github.com/BaliBalo/cryptiques/issues" target="_blank" rel="noopener noreferrer">un ticket sur GitHub</a>.</p>
+				<p>Les cryptiques n'étant pas encore très populaires dans le monde francophone, beaucoup de termes dans ce guide sont inspirés de leurs équivalents anglais, ou simplement inventés pour ce guide. Il se peut qu'ils changent à l'avenir. Si vous avez des suggestions d'améliorations, n'hésitez pas à les partager, par exemple via <a href="https://github.com/BaliBalo/cryptiques/issues" target="_blank" rel="noopener noreferrer">un ticket sur GitHub</a>.</p>
 			</Aside>
 		</section>
 

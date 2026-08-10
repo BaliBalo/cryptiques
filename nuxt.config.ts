@@ -30,6 +30,7 @@ export default defineNuxtConfig({
 		'nuxt-auth-utils',
 		'@vueuse/nuxt',
 		// 'nuxt-api-shield',
+		'nuxt-og-image',
 	],
 	vue: {
 		compilerOptions: {
@@ -61,6 +62,11 @@ export default defineNuxtConfig({
 		db: {
 			dialect: 'postgresql',
 			connection: { url: 'db' in secrets && typeof secrets.db === 'string' ? secrets.db : undefined },
+		},
+	},
+	ogImage: {
+		security: {
+			secret: secrets.ogImageSecret,
 		},
 	},
 	runtimeConfig: {

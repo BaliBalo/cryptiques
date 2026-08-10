@@ -8,7 +8,7 @@
 		meta: [
 			{
 				name: 'description',
-				content: 'Un site pour les "cryptic crosswords" - mais en français !',
+				content: 'Résolvez des énigmes cryptiques quotidiennes en français, basées sur les cryptic crosswords anglais ! Découvrez aussi un guide pour les nouveaux joueurs.',
 			},
 		],
 	});

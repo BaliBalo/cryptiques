@@ -17,14 +17,21 @@
 	}
 
 	useHead({
-		title: 'Cryptiques',
+		title: 'Énigme cryptique',
 		htmlAttrs: { class: 'page-clue' },
-		meta: [
-			{
-				name: 'description',
-				content: clue.value ? `${clue.value.content} ${getAnswerLength(clue.value.answer)}` + (clue.value.authorName ? ` - une énigme de : ${clue.value.authorName}` : '') : 'Une énigme cryptique.',
-			},
-		],
+	});
+	const clueContentWithLength = clue.value ? `${clue.value.content} ${getAnswerLength(clue.value.answer)}` : '';
+	useSeoMeta({
+		description: clue.value ? clueContentWithLength + (clue.value.authorName ? ` - une énigme de : ${clue.value.authorName}` : '') : 'Une énigme cryptique.',
+		ogTitle: clue.value ? clueContentWithLength : 'Énigme cryptique',
+		ogDescription: clue.value?.authorName ? `Une énigme cryptique de : ${clue.value.authorName}` : 'Une énigme cryptique.',
+	});
+	// Avoid answer showing in the share image query string
+	const censoredAnswer = clue.value?.answer.replace(/./g, c => isSeparator(c) ? c : 'x') || '';
+	defineOgImage('Clue.takumi', {
+		content: clue.value?.content || '',
+		answer: censoredAnswer,
+		authorName: clue.value?.authorName || '',
 	});
 
 	const $clue = useTemplateRef('clue');
