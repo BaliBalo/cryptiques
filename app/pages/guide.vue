@@ -95,651 +95,653 @@
 </script>
 
 <template>
-	<header @click.capture="checkHashLinkClick">
-		<Back />
-		<button type="button" popovertarget="toc" class="toc-toggle" aria-label="Afficher le sommaire">
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="24px" height="24px"><path d="M120-280v-80h560v80H120Zm0-160v-80h560v80H120Zm0-160v-80h560v80H120Zm680 320q-17 0-28.5-11.5T760-320q0-17 11.5-28.5T800-360q17 0 28.5 11.5T840-320q0 17-11.5 28.5T800-280Zm0-160q-17 0-28.5-11.5T760-480q0-17 11.5-28.5T800-520q17 0 28.5 11.5T840-480q0 17-11.5 28.5T800-440Zm0-160q-17 0-28.5-11.5T760-640q0-17 11.5-28.5T800-680q17 0 28.5 11.5T840-640q0 17-11.5 28.5T800-600Z" /></svg>
-		</button>
-		<nav id="toc" popover>
-			<button type="button" popovertarget="toc" popovertargetaction="hide" class="close" aria-label="Fermer le sommaire" />
-			<ol>
-				<li><NuxtLink to="#quoi">Qu'est-ce que c'est ?</NuxtLink></li>
-				<li><NuxtLink to="#principes">Principes de base</NuxtLink></li>
-				<li>
-					<NuxtLink to="#techniques">Techniques courantes</NuxtLink>
-					<ol>
-						<li><NuxtLink to="#positionnement">Positionnement</NuxtLink></li>
-						<li><NuxtLink to="#substitution">Substitution</NuxtLink></li>
-						<li>
-							<NuxtLink to="#anagrammes">Anagrammes</NuxtLink>
-							<ol>
-								<li><NuxtLink to="#anagrammes-spéciaux">Anagrammes spéciaux</NuxtLink></li>
-							</ol>
-						</li>
-						<li><NuxtLink to="#sélection">Sélection</NuxtLink></li>
-						<li><NuxtLink to="#insertion">Insertion</NuxtLink></li>
-						<li><NuxtLink to="#suppression">Suppression</NuxtLink></li>
-						<li><NuxtLink to="#cachés">Cachés</NuxtLink></li>
-						<li><NuxtLink to="#homophones">Homophones</NuxtLink></li>
-					</ol>
-				</li>
-				<li>
-					<NuxtLink to="#exceptions">Exceptions</NuxtLink>
-					<ol>
-						<li><NuxtLink to="#doubles-définitions">Doubles définitions</NuxtLink></li>
-						<li><NuxtLink to="#définition-cryptique">Définition cryptique</NuxtLink></li>
-						<li><NuxtLink to="#tout-en-un">Tout-en-un</NuxtLink></li>
-						<li><NuxtLink to="#rébus">Rébus</NuxtLink></li>
-					</ol>
-				</li>
-				<li>
-					<NuxtLink to="#divers">Autres détails</NuxtLink>
-					<ol>
-						<li><NuxtLink to="#mots-de-liaison">Mots de liaison</NuxtLink></li>
-						<li><NuxtLink to="#ponctuation">Ponctuation</NuxtLink></li>
-						<li><NuxtLink to="#accents">Accents</NuxtLink></li>
-						<li><NuxtLink to="#mots-à-double-usage">Mots à double usage</NuxtLink></li>
-						<li><NuxtLink to="#mots-superflus">Mots superflus</NuxtLink></li>
-					</ol>
-				</li>
-				<li><NuxtLink to="#outils">Liens utiles</NuxtLink></li>
-			</ol>
-		</nav>
-	</header>
-	<main class="main" @click.capture="checkHashLinkClick">
-		<section class="section">
-			<h1 class="page-title">Guide<br><small>pour les cryptiques</small></h1>
-		</section>
+	<div class="guide-content">
+		<header @click.capture="checkHashLinkClick">
+			<Back />
+			<button type="button" popovertarget="toc" class="toc-toggle" aria-label="Afficher le sommaire">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="24px" height="24px"><path d="M120-280v-80h560v80H120Zm0-160v-80h560v80H120Zm0-160v-80h560v80H120Zm680 320q-17 0-28.5-11.5T760-320q0-17 11.5-28.5T800-360q17 0 28.5 11.5T840-320q0 17-11.5 28.5T800-280Zm0-160q-17 0-28.5-11.5T760-480q0-17 11.5-28.5T800-520q17 0 28.5 11.5T840-480q0 17-11.5 28.5T800-440Zm0-160q-17 0-28.5-11.5T760-640q0-17 11.5-28.5T800-680q17 0 28.5 11.5T840-640q0 17-11.5 28.5T800-600Z" /></svg>
+			</button>
+			<nav id="toc" popover>
+				<button type="button" popovertarget="toc" popovertargetaction="hide" class="close" aria-label="Fermer le sommaire" />
+				<ol>
+					<li><NuxtLink to="#quoi">Qu'est-ce que c'est ?</NuxtLink></li>
+					<li><NuxtLink to="#principes">Principes de base</NuxtLink></li>
+					<li>
+						<NuxtLink to="#techniques">Techniques courantes</NuxtLink>
+						<ol>
+							<li><NuxtLink to="#positionnement">Positionnement</NuxtLink></li>
+							<li><NuxtLink to="#substitution">Substitution</NuxtLink></li>
+							<li>
+								<NuxtLink to="#anagrammes">Anagrammes</NuxtLink>
+								<ol>
+									<li><NuxtLink to="#anagrammes-spéciaux">Anagrammes spéciaux</NuxtLink></li>
+								</ol>
+							</li>
+							<li><NuxtLink to="#sélection">Sélection</NuxtLink></li>
+							<li><NuxtLink to="#insertion">Insertion</NuxtLink></li>
+							<li><NuxtLink to="#suppression">Suppression</NuxtLink></li>
+							<li><NuxtLink to="#cachés">Cachés</NuxtLink></li>
+							<li><NuxtLink to="#homophones">Homophones</NuxtLink></li>
+						</ol>
+					</li>
+					<li>
+						<NuxtLink to="#exceptions">Exceptions</NuxtLink>
+						<ol>
+							<li><NuxtLink to="#doubles-définitions">Doubles définitions</NuxtLink></li>
+							<li><NuxtLink to="#définition-cryptique">Définition cryptique</NuxtLink></li>
+							<li><NuxtLink to="#tout-en-un">Tout-en-un</NuxtLink></li>
+							<li><NuxtLink to="#rébus">Rébus</NuxtLink></li>
+						</ol>
+					</li>
+					<li>
+						<NuxtLink to="#divers">Autres détails</NuxtLink>
+						<ol>
+							<li><NuxtLink to="#mots-de-liaison">Mots de liaison</NuxtLink></li>
+							<li><NuxtLink to="#ponctuation">Ponctuation</NuxtLink></li>
+							<li><NuxtLink to="#accents">Accents</NuxtLink></li>
+							<li><NuxtLink to="#mots-à-double-usage">Mots à double usage</NuxtLink></li>
+							<li><NuxtLink to="#mots-superflus">Mots superflus</NuxtLink></li>
+						</ol>
+					</li>
+					<li><NuxtLink to="#outils">Liens utiles</NuxtLink></li>
+				</ol>
+			</nav>
+		</header>
+		<main class="main" @click.capture="checkHashLinkClick">
+			<section class="section">
+				<h1 class="page-title">Guide<br><small>pour les cryptiques</small></h1>
+			</section>
 
-		<section id="quoi" class="section">
-			<h2>Qu'est-ce que c'est ?</h2>
-			<p>Les cryptiques, souvent présentés sous forme de "mots croisés cryptiques", sont une forme de casse-tête originaire du Royaume-Uni.</p>
-			<p>Voyons tout d'abord quelques principes de base via un exemple.</p>
-			<Aside type="warning">
-				<template #title>Une note sur les termes utilisés</template>
-				<p>Les cryptiques n'étant pas encore très populaires dans le monde francophone, beaucoup de termes dans ce guide sont inspirés de leurs équivalents anglais, ou simplement inventés pour ce guide. Il se peut qu'ils changent à l'avenir. Si vous avez des suggestions d'améliorations, n'hésitez pas à les partager, par exemple via <a href="https://github.com/BaliBalo/cryptiques/issues" target="_blank" rel="noopener noreferrer">un ticket sur GitHub</a>.</p>
-			</Aside>
-		</section>
+			<section id="quoi" class="section">
+				<h2>Qu'est-ce que c'est ?</h2>
+				<p>Les cryptiques, souvent présentés sous forme de "mots croisés cryptiques", sont une forme de casse-tête originaire du Royaume-Uni.</p>
+				<p>Voyons tout d'abord quelques principes de base via un exemple.</p>
+				<Aside type="warning">
+					<template #title>Une note sur les termes utilisés</template>
+					<p>Les cryptiques n'étant pas encore très populaires dans le monde francophone, beaucoup de termes dans ce guide sont inspirés de leurs équivalents anglais, ou simplement inventés pour ce guide. Il se peut qu'ils changent à l'avenir. Si vous avez des suggestions d'améliorations, n'hésitez pas à les partager, par exemple via <a href="https://github.com/BaliBalo/cryptiques/issues" target="_blank" rel="noopener noreferrer">un ticket sur GitHub</a>.</p>
+				</Aside>
+			</section>
 
-		<section id="principes" class="section">
-			<div ref="introSlideshow" class="intro-slideshow">
-				<div class="static">
-					<div class="clue">
-						<span class="clue-highlight surface"><span class="clue-highlight wordplay"><span class="clue-highlight indicator-1">Fin de</span> <span class="clue-highlight fodder-1">troubl<span class="clue-highlight fodder-1-sel">e</span></span> <span class="clue-highlight indicator-3">après</span> <span class="clue-highlight fodder-2">mai</span> <span class="clue-highlight indicator-2">turbulent</span></span> <span class="clue-highlight linking">pour</span> <span class="clue-highlight definition">une proche</span></span> <span class="clue-highlight length">(4)</span>
+			<section id="principes" class="section">
+				<div ref="introSlideshow" class="intro-slideshow">
+					<div class="static">
+						<div class="clue">
+							<span class="clue-highlight surface"><span class="clue-highlight wordplay"><span class="clue-highlight indicator-1">Fin de</span> <span class="clue-highlight fodder-1">troubl<span class="clue-highlight fodder-1-sel">e</span></span> <span class="clue-highlight indicator-3">après</span> <span class="clue-highlight fodder-2">mai</span> <span class="clue-highlight indicator-2">turbulent</span></span> <span class="clue-highlight linking">pour</span> <span class="clue-highlight definition">une proche</span></span> <span class="clue-highlight length">(4)</span>
+						</div>
+						<div class="answer">
+							<span class="letter a">a</span>
+							<span class="letter m">m</span>
+							<span class="letter i">i</span>
+							<span class="letter e">e</span>
+						</div>
 					</div>
-					<div class="answer">
-						<span class="letter a">a</span>
-						<span class="letter m">m</span>
-						<span class="letter i">i</span>
-						<span class="letter e">e</span>
+					<div class="slides">
+						<div class="slide">
+							<p>Voilà une énigme cryptique classique.</p>
+							<p>La grande majorité des énigmes a cette forme.</p>
+						</div>
+						<div class="slide">
+							<p>Les chiffres entre parenthèses à la fin indiquent la <span class="highlight length">longueur</span> de la réponse, ici 4 lettres.</p>
+							<p>Les espaces et traits d'union sont également indiqués. Par exemple, "au revoir" serait (2, 6) et "pique-nique" serait (6-5).</p>
+						</div>
+						<div class="slide">
+							<p>L'ensemble du texte forme la <span class="highlight surface">surface</span> (abréviation pour "lecture de surface") : c'est le sens apparent de la phrase.</p>
+							<p>La surface ressemble donc à une phrase plus ou moins normale. Mais attention, ce qu'elle semble dire a souvent peu de rapport avec la réponse !</p>
+						</div>
+						<div class="slide">
+							<p>Chaque énigme contient une <span class="highlight definition">définition</span>, que l'on pourrait trouver dans une grille de mots croisés traditionnelle.</p>
+							<p>Cette définition est toujours au début ou à la fin de l'énigme.</p>
+						</div>
+						<div class="slide">
+							<p>Chaque énigme comporte aussi une <span class="highlight wordplay">recette</span>. Elle contient une série d'instructions qui mènent à la même solution que la définition.</p>
+							<p>La recette peut par exemple inclure des manipulations de lettres, des synonymes, des homophones, etc.</p>
+							<p>Chacune de ces opérations y est explicitement décrite si on lit les choses de la bonne façon.</p>
+						</div>
+						<div class="slide">
+							<p>La définition et la recette peuvent parfois être reliées par un <span class="highlight linking">mot de liaison</span>.</p>
+							<p>Ce mot de liaison est en quelque sorte le "=" qui relie les deux parties de l'énigme.</p>
+							<p>C'est souvent l'un des seuls mots qui peut être ignoré.</p>
+						</div>
+						<div class="slide">
+							<p>Voici la recette de cette énigme :</p>
+							<p><span class="highlight underline color-1">fin de</span> est un <em>indicateur</em> : c'est une instruction qui nous dit de prendre la dernière lettre d'un mot voisin.</p>
+							<p><span class="highlight fodder color-1">trouble</span> est la <em>matière</em> utilisée par l'indicateur.</p>
+							<p>"fin de trouble" nous donne donc la lettre E.</p>
+						</div>
+						<div class="slide">
+							<p><span class="highlight underline color-2">turbulent</span> est un autre <em>indicateur</em>, qui nous dit cette fois de mélanger des lettres voisines.</p>
+							<p><span class="highlight fodder color-2">mai</span> est la <em>matière</em> utilisée ici.</p>
+							<p>"mai turbulent" nous dit donc d'utiliser une anagramme de "mai" dans la réponse.</p>
+						</div>
+						<div class="slide">
+							<p><span class="highlight underline color-3">après</span> est un indicateur de position : il nous dit simplement que le E vient après l'anagramme.</p>
+							<p>En suivant ces instructions, on obtient le mot <code>amie</code>, correspondant à la définition <span class="highlight definition">une proche</span>.</p>
+							<p>C'est donc notre solution !</p>
+						</div>
+					</div>
+					<div class="static navigation">
+						<button type="button" class="previous" aria-label="Go to the previous page" @click="scrollIntro" />
+						<div class="page" />
+						<button type="button" class="next" aria-label="Go to the next page" @click="scrollIntro" />
 					</div>
 				</div>
-				<div class="slides">
-					<div class="slide">
-						<p>Voilà une énigme cryptique classique.</p>
-						<p>La grande majorité des énigmes a cette forme.</p>
-					</div>
-					<div class="slide">
-						<p>Les chiffres entre parenthèses à la fin indiquent la <span class="highlight length">longueur</span> de la réponse, ici 4 lettres.</p>
-						<p>Les espaces et traits d'union sont également indiqués. Par exemple, "au revoir" serait (2, 6) et "pique-nique" serait (6-5).</p>
-					</div>
-					<div class="slide">
-						<p>L'ensemble du texte forme la <span class="highlight surface">surface</span> (abréviation pour "lecture de surface") : c'est le sens apparent de la phrase.</p>
-						<p>La surface ressemble donc à une phrase plus ou moins normale. Mais attention, ce qu'elle semble dire a souvent peu de rapport avec la réponse !</p>
-					</div>
-					<div class="slide">
-						<p>Chaque énigme contient une <span class="highlight definition">définition</span>, que l'on pourrait trouver dans une grille de mots croisés traditionnelle.</p>
-						<p>Cette définition est toujours au début ou à la fin de l'énigme.</p>
-					</div>
-					<div class="slide">
-						<p>Chaque énigme comporte aussi une <span class="highlight wordplay">recette</span>. Elle contient une série d'instructions qui mènent à la même solution que la définition.</p>
-						<p>La recette peut par exemple inclure des manipulations de lettres, des synonymes, des homophones, etc.</p>
-						<p>Chacune de ces opérations y est explicitement décrite si on lit les choses de la bonne façon.</p>
-					</div>
-					<div class="slide">
-						<p>La définition et la recette peuvent parfois être reliées par un <span class="highlight linking">mot de liaison</span>.</p>
-						<p>Ce mot de liaison est en quelque sorte le "=" qui relie les deux parties de l'énigme.</p>
-						<p>C'est souvent l'un des seuls mots qui peut être ignoré.</p>
-					</div>
-					<div class="slide">
-						<p>Voici la recette de cette énigme :</p>
-						<p><span class="highlight underline color-1">fin de</span> est un <em>indicateur</em> : c'est une instruction qui nous dit de prendre la dernière lettre d'un mot voisin.</p>
-						<p><span class="highlight fodder color-1">trouble</span> est la <em>matière</em> utilisée par l'indicateur.</p>
-						<p>"fin de trouble" nous donne donc la lettre E.</p>
-					</div>
-					<div class="slide">
-						<p><span class="highlight underline color-2">turbulent</span> est un autre <em>indicateur</em>, qui nous dit cette fois de mélanger des lettres voisines.</p>
-						<p><span class="highlight fodder color-2">mai</span> est la <em>matière</em> utilisée ici.</p>
-						<p>"mai turbulent" nous dit donc d'utiliser une anagramme de "mai" dans la réponse.</p>
-					</div>
-					<div class="slide">
-						<p><span class="highlight underline color-3">après</span> est un indicateur de position : il nous dit simplement que le E vient après l'anagramme.</p>
-						<p>En suivant ces instructions, on obtient le mot <code>amie</code>, correspondant à la définition <span class="highlight definition">une proche</span>.</p>
-						<p>C'est donc notre solution !</p>
-					</div>
-				</div>
-				<div class="static navigation">
-					<button type="button" class="previous" aria-label="Go to the previous page" @click="scrollIntro" />
-					<div class="page" />
-					<button type="button" class="next" aria-label="Go to the next page" @click="scrollIntro" />
-				</div>
-			</div>
-		</section>
+			</section>
 
-		<section id="techniques" class="section">
-			<h2>Techniques courantes</h2>
-			<p>La <span class="highlight underline wordplay">recette</span> (parfois appelée "jeu de mots") d'une énigme contient une ou plusieurs <em>techniques</em>.</p>
-			<p>Une <em>technique</em> comprend en général un <span class="highlight underline color-2">indicateur</span> (l'action à effectuer) et de la <span class="highlight underline color-1">matière</span> (les mots dont on utilise les lettres pour effectuer l'action).</p>
-			<p>Un <span class="highlight underline color-2">indicateur</span> ne peut pas être sa propre <span class="highlight underline color-1">matière</span>.</p>
-			<p>Dans les chapitres qui suivent, nous allons passer en revue les techniques couramment utilisées.</p>
-		</section>
+			<section id="techniques" class="section">
+				<h2>Techniques courantes</h2>
+				<p>La <span class="highlight underline wordplay">recette</span> (parfois appelée "jeu de mots") d'une énigme contient une ou plusieurs <em>techniques</em>.</p>
+				<p>Une <em>technique</em> comprend en général un <span class="highlight underline color-2">indicateur</span> (l'action à effectuer) et de la <span class="highlight underline color-1">matière</span> (les mots dont on utilise les lettres pour effectuer l'action).</p>
+				<p>Un <span class="highlight underline color-2">indicateur</span> ne peut pas être sa propre <span class="highlight underline color-1">matière</span>.</p>
+				<p>Dans les chapitres qui suivent, nous allons passer en revue les techniques couramment utilisées.</p>
+			</section>
 
-		<section id="positionnement" class="section">
-			<h3>Positionnement</h3>
-			<p>Les résultats de plusieurs techniques sont souvent mis bout à bout.</p>
-			<p>Ce n'est pas toujours considéré comme une technique à part entière, mais c'est un outil classique que l'on appelle <em>positionnement</em>.</p>
-			<p>Si les parties à enchaîner sont dans le bon ordre, il n'y aura pas nécessairement d'<span class="highlight underline color-2">indicateur</span> ; mais il peut y en avoir un quand même (surtout si cela améliore la <span class="highlight underline surface">surface</span>). Par exemple, <code>A <span class="highlight underline color-2">avec</span> B</code> pour <code>AB</code>.</p>
-			<p>Si elles sont à mettre dans l'ordre inverse, cela sera indiqué. Par exemple, <code>A <span class="highlight underline color-2">à la suite de</span> B</code> pour <code>BA</code>.</p>
-			<Aside type="info">
-				<template #title>Pas nécessairement remplacés</template>
-				<p>Certains mots peuvent être utilisés tels quels dans la réponse, sans aucune opération pour les transformer.</p>
-			</Aside>
-			<p>Un exemple complet :</p>
-			<Clue
-				example
-				answer="robinet"
-				:hints="{
-					indicators: { ranges: [[3, 8]], note: 'C\'est un indicateur de positionnement.' },
-					fodder: { ranges: [[0, 2], [9, 14]], note: 'On utilisera ces mots tels quels.' },
-					definition: { range: [15, 29], note: 'On cherche donc quelque chose qui peut contrôler l\'eau.' },
-					answer: 'ROBIN + ET, tout simplement.',
-				}"
-			>
-				Et après Robin contrôle l'eau
-			</Clue>
-		</section>
+			<section id="positionnement" class="section">
+				<h3>Positionnement</h3>
+				<p>Les résultats de plusieurs techniques sont souvent mis bout à bout.</p>
+				<p>Ce n'est pas toujours considéré comme une technique à part entière, mais c'est un outil classique que l'on appelle <em>positionnement</em>.</p>
+				<p>Si les parties à enchaîner sont dans le bon ordre, il n'y aura pas nécessairement d'<span class="highlight underline color-2">indicateur</span> ; mais il peut y en avoir un quand même (surtout si cela améliore la <span class="highlight underline surface">surface</span>). Par exemple, <code>A <span class="highlight underline color-2">avec</span> B</code> pour <code>AB</code>.</p>
+				<p>Si elles sont à mettre dans l'ordre inverse, cela sera indiqué. Par exemple, <code>A <span class="highlight underline color-2">à la suite de</span> B</code> pour <code>BA</code>.</p>
+				<Aside type="info">
+					<template #title>Pas nécessairement remplacés</template>
+					<p>Certains mots peuvent être utilisés tels quels dans la réponse, sans aucune opération pour les transformer.</p>
+				</Aside>
+				<p>Un exemple complet :</p>
+				<Clue
+					example
+					answer="robinet"
+					:hints="{
+						indicators: { ranges: [[3, 8]], note: 'C\'est un indicateur de positionnement.' },
+						fodder: { ranges: [[0, 2], [9, 14]], note: 'On utilisera ces mots tels quels.' },
+						definition: { range: [15, 29], note: 'On cherche donc quelque chose qui peut contrôler l\'eau.' },
+						answer: 'ROBIN + ET, tout simplement.',
+					}"
+				>
+					Et après Robin contrôle l'eau
+				</Clue>
+			</section>
 
-		<section id="substitution" class="section">
-			<h3>Substitution</h3>
-			<p>La <em>substitution</em> est la seule technique n'utilisant pas d'<span class="highlight underline color-2">indicateur</span>. Elle consiste à remplacer un mot par un synonyme.</p>
-			<Aside type="warning">
-				<template #title>Une technique difficile</template>
-				<p>Puisque n'importe quel mot peut être remplacé sans indication, et qu'il y a souvent beaucoup de synonymes possibles, il peut être difficile de repérer les substitutions. Ne vous inquiétez pas si elles vous échappent au début.</p>
-			</Aside>
-			<p>À quelques exceptions près, les synonymes utilisés seront attestés dans un dictionnaire.</p>
-			<p>Voici quelques catégories d'abréviations couramment utilisées, puisqu'elles permettent de représenter certains mots ou concepts de manière concise :</p>
-			<ul class="expandable">
-				<li>
-					<details>
-						<summary>Numérotation romaine</summary>
-						<p>I, II, III, IV, V, ...</p>
-						<p>Par exemple, <code>51</code> peut être remplacé par <code>LI</code>.</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>Alphabet radio</summary>
-						<p>Alfa, Bravo, Charlie, ...</p>
-						<p>Par exemple, <code>bravo</code> peut être remplacé par <code>B</code>.</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>Unités de mesure</summary>
-						<p>s, L, m, g, ...</p>
-						<p>Par exemple, <code>litre</code> peut être remplacé par <code>L</code>.</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>Symboles chimiques</summary>
-						<p>H, C, O, N, ...</p>
-						<p>Par exemple, <code>hydrogène</code> peut être remplacé par <code>H</code>.</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>Codes de pays</summary>
-						<p>FR, US, DE, IT, ...</p>
-						<p>Par exemple, <code>France</code> peut être remplacé par <code>FR</code>.</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>Tailles de vêtements</summary>
-						<p>XS, S, M, L, XL</p>
-						<p>Par exemple, <code>petit</code> peut être remplacé par <code>S</code>.</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>Pièces d'échecs</summary>
-						<p>R, D, T, F, C, P</p>
-						<p>Par exemple, <code>tour</code> peut être remplacé par <code>T</code>.</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>Symboles musicaux</summary>
-						<p>Par exemple, <code>sol</code> peut être remplacé par <code>G</code> (notes anglaises).</p>
-						<p><code>p</code> et <code>f</code> peuvent aussi être des remplacements pour <code>doux</code> et <code>fort</code> respectivement (de "piano" et "forte")</p>
-					</details>
-				</li>
-			</ul>
-			<p>Un exemple :</p>
-			<Clue
-				example
-				answer="vipères"
-				:hints="{
-					fodder: { ranges: [[0, 3], [4, 9]], note: 'On utilisera des synonymes de ces mots.' },
-					definition: { range: [10, 18] },
-					answer: 'Six est remplacé par VI (son écriture en nombres romains), et papas par pères.',
-				}"
-			>
-				Six papas serpents
-			</Clue>
-		</section>
-		<section id="anagrammes" class="section">
-			<h3>Anagrammes</h3>
-			<p>Les <em>anagrammes</em> consistent à réarranger les lettres de la <span class="highlight underline color-1">matière</span>.</p>
-			<Aside type="info">
-				<template #title>Juste une collection de lettres</template>
-				<p>Le résultat d'une anagramme n'a pas forcément besoin d'être directement un mot valide en lui-même, il peut être utilisé avec d'autres techniques pour former la réponse.</p>
-			</Aside>
-			<p>Beaucoup de termes peuvent servir d'<span class="highlight underline color-2">indicateur</span> pour les anagrammes. Il est important de savoir les reconnaître. En général, tous les mots se rapprochant d'un de ces thèmes peuvent être utilisés :</p>
-			<ul class="expandable">
-				<li>
-					<details>
-						<summary>Changement</summary>
-						<p>Modifié, organisé, transformé, mis à neuf, ...</p>
-						<p>Anagrammer un mot, c'est le changer.</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>Mouvement</summary>
-						<p>Agité, frénétique, dansant, ...</p>
-						<p>On peut imaginer les lettres du mot (et par extension, le mot lui-même) en mouvement, bougeant d'une place à l'autre.</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>Destruction</summary>
-						<p>En miettes, cassé, anéanti, éparpillé, ...</p>
-						<p>Si un mot est détruit, on peut imaginer ses lettres dispersées et donc dans un ordre différent.</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>Fausseté</summary>
-						<p>Incorrect, faux, trompeur, ...</p>
-						<p>Si un mot est faux, on peut imaginer que sa vraie version est un autre arrangement de ses lettres.</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>Préparation</summary>
-						<p>Préparé, cuisiné, ...</p>
-						<p>On peut imaginer les lettres du mot comme des éléments à assembler, ou des ingrédients à mélanger.</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>Folie</summary>
-						<p>Fou, dingue, délirant, ...</p>
-						<p>La folie est souvent associée au chaos ou au désordre.</p>
-					</details>
-				</li>
-			</ul>
-			<p>Un exemple :</p>
-			<Clue
-				example
-				answer="littoral"
-				:hints="{
-					indicators: { ranges: [[9, 17]], note: 'C\'est un indicateur d\'anagramme.' },
-					fodder: { ranges: [[0, 8]] },
-					definition: { range: [18, 32] },
-				}"
-			>
-				Tortilla cuisinée au bord de mer
-			</Clue>
-		</section>
-		<section id="anagrammes-spéciaux" class="section">
-			<h4>Anagrammes spéciaux</h4>
-			<p>Certains <span class="highlight underline color-2">indicateurs</span> donnent des informations plus précises sur la façon de réarranger les lettres.</p>
-			<p>Ils peuvent indiquer qu’il faut inverser le mot, le trier par ordre alphabétique, échanger des lettres spécifiques...</p>
-			<p>Un exemple :</p>
-			<Clue
-				example
-				answer="réunis"
-				:hints="{
-					indicators: { ranges: [[7, 25]], note: 'C\'est un indicateur de renversement (un type d\'anagramme où les lettres sont exactement dans l\'ordre inverse).' },
-					fodder: { ranges: [[0, 6]] },
-					definition: { range: [26, 34] },
-					answer: 'C\'est SINUER écrit à l\'envers.',
-				}"
-			>
-				Sinuer de droite à gauche ensemble
-			</Clue>
-		</section>
-		<section id="sélection" class="section">
-			<h3>Sélection</h3>
-			<p>Les techniques de <em>sélection</em> consistent à n'utiliser (ou supprimer) que certaines lettres de la <span class="highlight underline color-1">matière</span>.</p>
-			<p>Il y en a plusieurs types. Voici les plus communs :</p>
-			<ul class="expandable">
-				<li>
-					<details>
-						<summary>Début</summary>
-						<p>Ne prendre en compte que la ou les premières lettres de mots alentour.</p>
-						<p>Indicateurs : début, première, initiale, ...</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>Fin</summary>
-						<p>Ne prendre en compte que la ou les dernières lettres de mots alentour.</p>
-						<p>Indicateurs : fin, dernière, finale, bout, ...</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>Centre</summary>
-						<p>Ne prendre en compte que la ou les lettres centrales de mots alentour.</p>
-						<p>Indicateurs : milieu, centre, cœur, ...</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>Extérieur</summary>
-						<p>Ne prendre en compte que les lettres externes (première et dernière) de mots alentour.</p>
-						<p>Indicateurs : enrobant, vêtements, contour, murs, ...</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>Intérieur</summary>
-						<p>Ne prendre en compte que les lettres internes (celles qui ne sont pas aux extrémités) de mots alentour.</p>
-						<p>Indicateurs : tronc, nu, démembré, ...</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>Alterné</summary>
-						<p>Ne prendre en compte que les lettres alternées de mots alentour.</p>
-						<p>Indicateurs : paire, impaire, alternatif, régulièrement, tous les deux, ...</p>
-					</details>
-				</li>
-			</ul>
-			<Aside type="info">
-				<template #title>Gardez un œil sur les accords</template>
-				<p>Chacun de ces indicateurs peut s'appliquer à un ou plusieurs mots.</p>
-				<p>Le fait que l'indicateur soit singulier ou pluriel est en général un bon indice pour le déduire.</p>
-			</Aside>
-			<p>Un exemple :</p>
-			<Clue
-				example
-				answer="pacte"
-				:hints="{
-					indicators: { ranges: [[0, 8]], note: 'C\'est un indicateur de sélection qui nous dit de prendre les premières lettres de la matière associée.' },
-					fodder: { ranges: [[9, 38]], note: 'On n\'utilisera que certaines lettres telles que spécifiées par l\'indicateur.' },
-					definition: { range: [51, 61] },
-					answer: 'Ce sont les premières lettres des mots de &quot;Pas Au Cinéma Très Expressifs&quot;.',
-				}"
-			>
-				Premiers pas au cinéma très expressifs fournissent un contrat
-			</Clue>
-		</section>
-		<section id="insertion" class="section">
-			<h3>Insertion</h3>
-			<p>Les techniques d'<em>insertion</em> consistent à ajouter de la <span class="highlight underline color-1">matière</span> dans un autre bout de <span class="highlight underline color-1">matière</span>.</p>
-			<p>Quelques <span class="highlight underline color-2">indicateurs</span> possibles : dans, ajouter, introduire, autour de, ...</p>
-			<p>Les lettres à insérer peuvent être spécifiées via un indicateur de sélection, ou un mot complet (en général via une substitution).</p>
-			<p>Un exemple :</p>
-			<Clue
-				example
-				answer="coquille"
-				:hints="{
-					indicators: { ranges: [[9, 17]], note: 'C\'est un indicateur d\'insertion, on placera donc un des mots dans l\'autre.' },
-					fodder: { ranges: [[5, 8], [19, 24]] },
-					definition: { range: [0, 4] },
-					answer: '&quot;qui&quot; est ajouté au milieu du mot &quot;colle&quot; pour donner CO(qui)LLE ; une coquille est une faute typographique, aussi appelée typo.',
-				}"
-			>
-				Typo qui est dans "colle"
-			</Clue>
-		</section>
-		<section id="suppression" class="section">
-			<h3>Suppression</h3>
-			<p>Très proches des insertions, les techniques de <em>suppression</em> consistent à retirer certaines lettres de la <span class="highlight underline color-1">matière</span>.</p>
-			<p>Quelques <span class="highlight underline color-2">indicateurs</span> possibles : sans, privé de, dépourvu de, abandonne, ...</p>
-			<p>Un exemple :</p>
-			<Clue
-				example
-				answer="open"
-				:hints="{
-					indicators: { ranges: [[10, 14]], note: 'C\'est un indicateur de suppression.' },
-					fodder: { ranges: [[0, 9], [15, 22]], note: 'On utilisera une substitution d\'un de ces mots pour l\'utiliser comme indiqué par l\'indicateur.' },
-					definition: { range: [28, 49] },
-					answer: 'En mathématiques, le rapport entre deux nombres est leur ratio. Si on retire &quot;ratio&quot; d\'OPERATION, on obtient OPEN, le nom de certains tournois de tennis.',
-				}"
-			>
-				Opération sans rapport avec compétition de tennis
-			</Clue>
-		</section>
-		<section id="cachés" class="section">
-			<h3>Cachés</h3>
-			<p>Les techniques de <em>mots cachés</em> consistent à trouver la solution écrite telle quelle dans la <span class="highlight underline color-1">matière</span> (en ignorant les espaces et la ponctuation).</p>
-			<Aside type="info">
-				<template #title>Attention aux espaces</template>
-				<p>Les cachés peuvent parfois être au milieu d'un seul mot, mais ils sont souvent dispersés sur plusieurs mots pour être plus difficiles à repérer.</p>
-			</Aside>
-			<p>Quelques <span class="highlight underline color-2">indicateurs</span> possibles : dans, couvre, cache, capturé, morceau, avalé, ...</p>
-			<p>Un exemple :</p>
-			<Clue
-				example
-				answer="correct"
-				:hints="{
-					indicators: { ranges: [[6, 16]], note: 'On cherche donc la réponse cachée dans la matière, dans le bon ordre.' },
-					fodder: { ranges: [[17, 36]] },
-					definition: { range: [0, 5] },
-					answer: 'On peut voir la réponse cachée plus facilement en retirant l\'espace: déCORRECTangulaire.',
-				}"
-			>
-				Juste caché dans décor rectangulaire
-			</Clue>
-		</section>
-		<section id="homophones" class="section">
-			<h3>Homophones</h3>
-			<p>Les techniques d'<em>homophones</em> consistent à remplacer un mot par un autre qui se prononce de la même façon.</p>
-			<Aside type="info">
-				<template #title>Souvent remplacé</template>
-				<p>Le mot servant d'homophone est presque toujours une substitution, puisque la réponse serait souvent trop évidente sinon.</p>
-			</Aside>
-			<p>Les <span class="highlight underline color-2">indicateurs</span> relèvent généralement du domaine de la parole : au téléphone, à voix haute, entendu, dit, ...</p>
-			<p>Un exemple :</p>
-			<Clue
-				example
-				answer="vert"
-				:hints="{
-					indicators: { ranges: [[35, 47]], note: 'C\'est un indicateur d\'homophone. On cherche donc un mot qui se prononce de la même façon qu\'un autre mot.' },
-					fodder: { ranges: [[17, 34]], note: 'On utilisera un synonyme court.' },
-					definition: { range: [0, 8] },
-					answer: 'Un vers est un bout de poésie. C\'est aussi un homophone de &quot;vert&quot; (qui peut être utilisé pour décrire un écolo).',
-				}"
-			>
-				Un écolo compose un bout de poésie à voix haute
-			</Clue>
-		</section>
-		<section id="exceptions" class="section">
-			<h2>Exceptions</h2>
-			<p>Il y a quelques rares exceptions au format classique <span class="highlight underline definition">définition</span> / <span class="highlight underline wordplay">recette</span>, telles que les suivantes :</p>
-		</section>
-		<section id="doubles-définitions" class="section">
-			<h3>Doubles définitions</h3>
-			<p>Les énigmes à <em>doubles définitions</em> présentent une seconde <span class="highlight underline definition">définition</span> au lieu d'une recette.</p>
-			<p>La réponse doit souvent être interprétée de deux façons différentes pour correspondre aux deux définitions.</p>
-			<p>Un exemple :</p>
-			<Clue
-				example
-				answer="bien"
-				:hints="{
-					definition: { range: [0, 9] },
-					altDefinition: { range: [10, 24] },
-					answer: 'Une propriété est un bien ; bien veut aussi dire en bonne forme dans la phrase &quot;je suis bien&quot;.',
-				}"
-			>
-				Propriété en bonne forme
-			</Clue>
-		</section>
-		<section id="définition-cryptique" class="section">
-			<h3>Définition cryptique</h3>
-			<p>Les <em>définitions cryptiques</em> sont des énigmes sans <span class="highlight underline wordplay">recette</span>, mais dont la <span class="highlight underline definition">définition</span> est formulée d'une manière assez inattendue.</p>
-			<Aside type="info">
-				<template #title>Plus souvent dans une grille</template>
-				<p>Cette technique se prête mieux aux grilles de mots croisés, où les lettres de croisement peuvent aider à identifier la réponse. En dehors, il est rare que ces énigmes soient assez claires pour être considérées justes.</p>
-			</Aside>
-			<p>Un exemple :</p>
-			<Clue
-				example
-				answer="nonagénaire"
-				:hints="{
-					// definition: { range: [0, 23], note: 'Bah oui, on est dans le chapitre des définitions cryptiques.' },
-					extra: [
-						{ name: 'interprétation', range: [17, 21], content: 'Neuf doit être interprété comme le chiffre 9.' },
-					],
-					answer: 'Un nonagénaire est une personne âgée avec au moins un 9 dans l\'âge. (auteur : Robert Scipion)',
-				}"
-			>
-				Du vieux avec du neuf ?
-			</Clue>
-		</section>
-		<section id="tout-en-un" class="section">
-			<h3>Tout-en-un</h3>
-			<p>Les énigmes <em>tout-en-un</em> (aussi appelées <code>&lit</code>, de l'anglais "and literally so") sont des énigmes dans lesquelles la <span class="highlight underline definition">définition</span> et la <span class="highlight underline wordplay">recette</span> sont combinées en une seule phrase.</p>
-			<p>C'est-à-dire que la <span class="highlight underline definition">définition</span> est l'énigme entière, et la <span class="highlight underline wordplay">recette</span> aussi.</p>
-			<Aside type="info">
-				<template #title>Une technique rare</template>
-				<p>Les énigmes tout-en-un sont difficiles à créer ! Elles sont donc beaucoup moins fréquentes.</p>
-			</Aside>
-			<p>Il y a aussi des énigmes "semi-&lit", dans lesquelles l'énigme entière est la <span class="highlight underline definition">définition</span>, mais seulement une partie est la <span class="highlight underline wordplay">recette</span>.</p>
-			<p>Un exemple :</p>
-			<Clue
-				example
-				answer="jésus"
-				:hints="{
-					indicators: { ranges: [[8, 15]], note: 'Si quelque chose est mort, alors cette chose n\'est plus. Cela peut donc être un indicateur de suppression.' },
-					fodder: { ranges: [[0, 7], [15, 24]], note: 'Une partie sera remplacée par un synonyme court.' },
-					definition: { range: [0, 26], note: 'C\'est une énigme tout-en-un, donc l\'énigme entière est la définition, mais aussi la recette.' },
-					answer: '&quot;Un romain&quot; peut décrire la lettre i (1, en chiffres romains). Si on prend le texte &quot;JE SUIS&quot; et que l\'on retire le i (et l\'espace), on obtient JESUS, quelqu\'un fameusement tué par les Romains.',
-				}"
-			>
-				Je suis mort d'un Romain !
-			</Clue>
-		</section>
-		<section id="rébus" class="section">
-			<h3>Rébus</h3>
-			<p>Dans une énigme de type <em>rébus</em>, la réponse décrit ce qui se passe dans l'énigme.</p>
-			<Aside type="info">
-				<template #title>Astuce pour les repérer</template>
-				<p>Si vous voyez des choses bizarres dans l'énigme, par exemple une capitalisation étrange ou des symboles inhabituels, il s'agit probablement d'un rébus.</p>
-			</Aside>
-			<p>Un exemple :</p>
-			<Clue
-				example
-				answer="coup"
-				:hints="{
-					definition: { range: [0, 6] },
-					extra: [
-						{ name: 'rébus', range: [20, 25], content: 'Il y a deux lettres qui peuvent compléter le mot _alme. La réponse décrira ces deux possibilités.' },
-					],
-					answer: 'La lettre manquante pourrait être C ou P. Donc, sans les espaces, &quot;CouP&quot;, et un coup peut être une astuce.',
-				}"
-			>
-				Astuce pour trouver _alme
-			</Clue>
-		</section>
-		<section id="divers" class="section">
-			<h2>Autres détails</h2>
-			<p>Nous avons passé en revue toutes les techniques principales utilisées dans les cryptiques.</p>
-			<Aside type="success">
-				<template #title>Vous êtes prêt !</template>
-				<p>Vous avez maintenant les outils nécessaires pour aborder les énigmes cryptiques.</p>
-				<p>Ce que ce guide ne pourra pas vous fournir, mais dont vous aurez besoin, est l'expérience !</p>
-				<p>Alors, lancez-vous et amusez-vous à résoudre des cryptiques !</p>
-			</Aside>
-			<p>Il reste quand même quelques notes diverses à aborder, pouvant potentiellement vous aider.</p>
-		</section>
-		<section id="mots-de-liaison" class="section">
-			<h3>Mots de liaison</h3>
-			<p>Les <em>mots de liaison</em>, comme indiqué plus haut, lient la <span class="highlight underline definition">définition</span> et la <span class="highlight underline wordplay">recette</span> (ou les deux définitions).</p>
-			<p>Ils indiquent soit que les deux sont égaux, soit qu'ils décrivent l'un comme l'autre la réponse, soit encore que l'un mène à l'autre.</p>
-			<p>Voici une liste non-exhaustive de mots de liaison, et leur justification possible :</p>
-			<ul class="expandable">
-				<li>
-					<details>
-						<summary>est, égal, vaut</summary>
-						<p><code>A = B</code></p>
-						<p>Indique que les deux parties de l'énigme produisent des résultats égaux.</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>donne, produit, fait, créé, pour, rend, dans</summary>
-						<p><code>A → B</code></p>
-						<p>Indique que la première partie de l'énigme mène à la seconde.</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>par, de, avec</summary>
-						<p><code>A ← B</code></p>
-						<p>Indique que la seconde partie de l'énigme mène à la première.</p>
-					</details>
-				</li>
-				<li>
-					<details>
-						<summary>ou, et, comme, ainsi que</summary>
-						<p><code>A ; B</code></p>
-						<p>Indique que la réponse finale peut être définie par la première partie mais aussi par la seconde.</p>
-					</details>
-				</li>
-			</ul>
-		</section>
-		<section id="ponctuation" class="section">
-			<h3>Ponctuation</h3>
-			<p>Cela dépend des choix stylistiques de l'auteur, mais très souvent la ponctuation doit être ignorée, elle sert seulement à la <span class="highlight underline surface">surface</span>.</p>
-			<p>Cependant, certaines marques de ponctuation peuvent être des indices.</p>
-			<p>
-				<code>?</code> - un point d'interrogation en fin d'énigme peut parfois indiquer qu'une partie de l'énigme est un peu tirée par les cheveux. Par exemple, si elle utilise un mot d'une manière non standard ("couleur" pour indiquer "quelque chose qui coule").<br>
-				Cela peut aussi indiquer que la définition est une instance de la réponse plutôt qu'un synonyme ("bleu?" pour la réponse "couleur").
-			</p>
-			<p><code>!</code> - un point d'exclamation en fin d'énigme peut parfois indiquer que l'on a affaire à une énigme tout-en-un.</p>
-			<Aside type="warning">
-				<template #title>Pas toujours</template>
-				<p><code>?</code> et <code>!</code> peuvent parfois être utilisés sans la signification ci-dessus, juste pour la forme.</p>
-			</Aside>
-		</section>
-		<section id="accents" class="section">
-			<h3>Accents</h3>
-			<p>Il n'y a pas vraiment de standard établi pour la cohérence des accents, par exemple si "début d'été" doit représenter un "é" dans la réponse ou peut aussi représenter un "e" ou "è".</p>
-			<p>Cela dit, les accents sont généralement ignorés dans les réponses de mots croisés classiques, il serait donc raisonnable de les ignorer ici aussi.</p>
-			<p>En tout cas, quand vous cherchez une réponse, ne partez donc pas du principe que les accents doivent correspondre.</p>
-		</section>
-		<section id="mots-à-double-usage" class="section">
-			<h3>Mots à double usage</h3>
-			<p>Comme indiqué plus haut, un <span class="highlight underline color-2">indicateur</span> ne peut pas être sa propre <span class="highlight underline color-1">matière</span>. Cela dit, un même mot peut être coupé en deux, une partie du mot servant d'indicateur pour l'autre partie.</p>
-			<p>Par exemple, <span class="highlight underline color-1">mara</span><span class="highlight underline color-2">bout</span> pourrait être le bout de "mara", un A.</p>
-		</section>
-		<section id="mots-superflus" class="section">
-			<h3>Mots superflus</h3>
-			<p>Une bonne énigme cryptique n'aura pas de mots superflus. Chaque mot doit servir à la <span class="highlight underline definition">définition</span> ou à la <span class="highlight underline wordplay">recette</span> (en tant qu'<span class="highlight underline color-2">indicateur</span> ou <span class="highlight underline color-1">matière</span>), ou être un <span class="highlight underline linking">mot de liaison</span>.</p>
-			<p>Si votre raisonnement vous conduit à un mot n'appartenant à aucune de ces catégories, vous êtes donc sûrement sur la mauvaise piste !</p>
-		</section>
-		<section id="outils" class="section">
-			<h2>Liens utiles</h2>
-			<p>Une liste de liens utiles est disponible sur la page <NuxtLink to="/outils">Outils</NuxtLink>.</p>
-		</section>
-	</main>
+			<section id="substitution" class="section">
+				<h3>Substitution</h3>
+				<p>La <em>substitution</em> est la seule technique n'utilisant pas d'<span class="highlight underline color-2">indicateur</span>. Elle consiste à remplacer un mot par un synonyme.</p>
+				<Aside type="warning">
+					<template #title>Une technique difficile</template>
+					<p>Puisque n'importe quel mot peut être remplacé sans indication, et qu'il y a souvent beaucoup de synonymes possibles, il peut être difficile de repérer les substitutions. Ne vous inquiétez pas si elles vous échappent au début.</p>
+				</Aside>
+				<p>À quelques exceptions près, les synonymes utilisés seront attestés dans un dictionnaire.</p>
+				<p>Voici quelques catégories d'abréviations couramment utilisées, puisqu'elles permettent de représenter certains mots ou concepts de manière concise :</p>
+				<ul class="expandable">
+					<li>
+						<details>
+							<summary>Numérotation romaine</summary>
+							<p>I, II, III, IV, V, ...</p>
+							<p>Par exemple, <code>51</code> peut être remplacé par <code>LI</code>.</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>Alphabet radio</summary>
+							<p>Alfa, Bravo, Charlie, ...</p>
+							<p>Par exemple, <code>bravo</code> peut être remplacé par <code>B</code>.</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>Unités de mesure</summary>
+							<p>s, L, m, g, ...</p>
+							<p>Par exemple, <code>litre</code> peut être remplacé par <code>L</code>.</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>Symboles chimiques</summary>
+							<p>H, C, O, N, ...</p>
+							<p>Par exemple, <code>hydrogène</code> peut être remplacé par <code>H</code>.</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>Codes de pays</summary>
+							<p>FR, US, DE, IT, ...</p>
+							<p>Par exemple, <code>France</code> peut être remplacé par <code>FR</code>.</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>Tailles de vêtements</summary>
+							<p>XS, S, M, L, XL</p>
+							<p>Par exemple, <code>petit</code> peut être remplacé par <code>S</code>.</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>Pièces d'échecs</summary>
+							<p>R, D, T, F, C, P</p>
+							<p>Par exemple, <code>tour</code> peut être remplacé par <code>T</code>.</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>Symboles musicaux</summary>
+							<p>Par exemple, <code>sol</code> peut être remplacé par <code>G</code> (notes anglaises).</p>
+							<p><code>p</code> et <code>f</code> peuvent aussi être des remplacements pour <code>doux</code> et <code>fort</code> respectivement (de "piano" et "forte")</p>
+						</details>
+					</li>
+				</ul>
+				<p>Un exemple :</p>
+				<Clue
+					example
+					answer="vipères"
+					:hints="{
+						fodder: { ranges: [[0, 3], [4, 9]], note: 'On utilisera des synonymes de ces mots.' },
+						definition: { range: [10, 18] },
+						answer: 'Six est remplacé par VI (son écriture en nombres romains), et papas par pères.',
+					}"
+				>
+					Six papas serpents
+				</Clue>
+			</section>
+			<section id="anagrammes" class="section">
+				<h3>Anagrammes</h3>
+				<p>Les <em>anagrammes</em> consistent à réarranger les lettres de la <span class="highlight underline color-1">matière</span>.</p>
+				<Aside type="info">
+					<template #title>Juste une collection de lettres</template>
+					<p>Le résultat d'une anagramme n'a pas forcément besoin d'être directement un mot valide en lui-même, il peut être utilisé avec d'autres techniques pour former la réponse.</p>
+				</Aside>
+				<p>Beaucoup de termes peuvent servir d'<span class="highlight underline color-2">indicateur</span> pour les anagrammes. Il est important de savoir les reconnaître. En général, tous les mots se rapprochant d'un de ces thèmes peuvent être utilisés :</p>
+				<ul class="expandable">
+					<li>
+						<details>
+							<summary>Changement</summary>
+							<p>Modifié, organisé, transformé, mis à neuf, ...</p>
+							<p>Anagrammer un mot, c'est le changer.</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>Mouvement</summary>
+							<p>Agité, frénétique, dansant, ...</p>
+							<p>On peut imaginer les lettres du mot (et par extension, le mot lui-même) en mouvement, bougeant d'une place à l'autre.</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>Destruction</summary>
+							<p>En miettes, cassé, anéanti, éparpillé, ...</p>
+							<p>Si un mot est détruit, on peut imaginer ses lettres dispersées et donc dans un ordre différent.</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>Fausseté</summary>
+							<p>Incorrect, faux, trompeur, ...</p>
+							<p>Si un mot est faux, on peut imaginer que sa vraie version est un autre arrangement de ses lettres.</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>Préparation</summary>
+							<p>Préparé, cuisiné, ...</p>
+							<p>On peut imaginer les lettres du mot comme des éléments à assembler, ou des ingrédients à mélanger.</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>Folie</summary>
+							<p>Fou, dingue, délirant, ...</p>
+							<p>La folie est souvent associée au chaos ou au désordre.</p>
+						</details>
+					</li>
+				</ul>
+				<p>Un exemple :</p>
+				<Clue
+					example
+					answer="littoral"
+					:hints="{
+						indicators: { ranges: [[9, 17]], note: 'C\'est un indicateur d\'anagramme.' },
+						fodder: { ranges: [[0, 8]] },
+						definition: { range: [18, 32] },
+					}"
+				>
+					Tortilla cuisinée au bord de mer
+				</Clue>
+			</section>
+			<section id="anagrammes-spéciaux" class="section">
+				<h4>Anagrammes spéciaux</h4>
+				<p>Certains <span class="highlight underline color-2">indicateurs</span> donnent des informations plus précises sur la façon de réarranger les lettres.</p>
+				<p>Ils peuvent indiquer qu’il faut inverser le mot, le trier par ordre alphabétique, échanger des lettres spécifiques...</p>
+				<p>Un exemple :</p>
+				<Clue
+					example
+					answer="réunis"
+					:hints="{
+						indicators: { ranges: [[7, 25]], note: 'C\'est un indicateur de renversement (un type d\'anagramme où les lettres sont exactement dans l\'ordre inverse).' },
+						fodder: { ranges: [[0, 6]] },
+						definition: { range: [26, 34] },
+						answer: 'C\'est SINUER écrit à l\'envers.',
+					}"
+				>
+					Sinuer de droite à gauche ensemble
+				</Clue>
+			</section>
+			<section id="sélection" class="section">
+				<h3>Sélection</h3>
+				<p>Les techniques de <em>sélection</em> consistent à n'utiliser (ou supprimer) que certaines lettres de la <span class="highlight underline color-1">matière</span>.</p>
+				<p>Il y en a plusieurs types. Voici les plus communs :</p>
+				<ul class="expandable">
+					<li>
+						<details>
+							<summary>Début</summary>
+							<p>Ne prendre en compte que la ou les premières lettres de mots alentour.</p>
+							<p>Indicateurs : début, première, initiale, ...</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>Fin</summary>
+							<p>Ne prendre en compte que la ou les dernières lettres de mots alentour.</p>
+							<p>Indicateurs : fin, dernière, finale, bout, ...</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>Centre</summary>
+							<p>Ne prendre en compte que la ou les lettres centrales de mots alentour.</p>
+							<p>Indicateurs : milieu, centre, cœur, ...</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>Extérieur</summary>
+							<p>Ne prendre en compte que les lettres externes (première et dernière) de mots alentour.</p>
+							<p>Indicateurs : enrobant, vêtements, contour, murs, ...</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>Intérieur</summary>
+							<p>Ne prendre en compte que les lettres internes (celles qui ne sont pas aux extrémités) de mots alentour.</p>
+							<p>Indicateurs : tronc, nu, démembré, ...</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>Alterné</summary>
+							<p>Ne prendre en compte que les lettres alternées de mots alentour.</p>
+							<p>Indicateurs : paire, impaire, alternatif, régulièrement, tous les deux, ...</p>
+						</details>
+					</li>
+				</ul>
+				<Aside type="info">
+					<template #title>Gardez un œil sur les accords</template>
+					<p>Chacun de ces indicateurs peut s'appliquer à un ou plusieurs mots.</p>
+					<p>Le fait que l'indicateur soit singulier ou pluriel est en général un bon indice pour le déduire.</p>
+				</Aside>
+				<p>Un exemple :</p>
+				<Clue
+					example
+					answer="pacte"
+					:hints="{
+						indicators: { ranges: [[0, 8]], note: 'C\'est un indicateur de sélection qui nous dit de prendre les premières lettres de la matière associée.' },
+						fodder: { ranges: [[9, 38]], note: 'On n\'utilisera que certaines lettres telles que spécifiées par l\'indicateur.' },
+						definition: { range: [51, 61] },
+						answer: 'Ce sont les premières lettres des mots de &quot;Pas Au Cinéma Très Expressifs&quot;.',
+					}"
+				>
+					Premiers pas au cinéma très expressifs fournissent un contrat
+				</Clue>
+			</section>
+			<section id="insertion" class="section">
+				<h3>Insertion</h3>
+				<p>Les techniques d'<em>insertion</em> consistent à ajouter de la <span class="highlight underline color-1">matière</span> dans un autre bout de <span class="highlight underline color-1">matière</span>.</p>
+				<p>Quelques <span class="highlight underline color-2">indicateurs</span> possibles : dans, ajouter, introduire, autour de, ...</p>
+				<p>Les lettres à insérer peuvent être spécifiées via un indicateur de sélection, ou un mot complet (en général via une substitution).</p>
+				<p>Un exemple :</p>
+				<Clue
+					example
+					answer="coquille"
+					:hints="{
+						indicators: { ranges: [[9, 17]], note: 'C\'est un indicateur d\'insertion, on placera donc un des mots dans l\'autre.' },
+						fodder: { ranges: [[5, 8], [19, 24]] },
+						definition: { range: [0, 4] },
+						answer: '&quot;qui&quot; est ajouté au milieu du mot &quot;colle&quot; pour donner CO(qui)LLE ; une coquille est une faute typographique, aussi appelée typo.',
+					}"
+				>
+					Typo qui est dans "colle"
+				</Clue>
+			</section>
+			<section id="suppression" class="section">
+				<h3>Suppression</h3>
+				<p>Très proches des insertions, les techniques de <em>suppression</em> consistent à retirer certaines lettres de la <span class="highlight underline color-1">matière</span>.</p>
+				<p>Quelques <span class="highlight underline color-2">indicateurs</span> possibles : sans, privé de, dépourvu de, abandonne, ...</p>
+				<p>Un exemple :</p>
+				<Clue
+					example
+					answer="open"
+					:hints="{
+						indicators: { ranges: [[10, 14]], note: 'C\'est un indicateur de suppression.' },
+						fodder: { ranges: [[0, 9], [15, 22]], note: 'On utilisera une substitution d\'un de ces mots pour l\'utiliser comme indiqué par l\'indicateur.' },
+						definition: { range: [28, 49] },
+						answer: 'En mathématiques, le rapport entre deux nombres est leur ratio. Si on retire &quot;ratio&quot; d\'OPERATION, on obtient OPEN, le nom de certains tournois de tennis.',
+					}"
+				>
+					Opération sans rapport avec compétition de tennis
+				</Clue>
+			</section>
+			<section id="cachés" class="section">
+				<h3>Cachés</h3>
+				<p>Les techniques de <em>mots cachés</em> consistent à trouver la solution écrite telle quelle dans la <span class="highlight underline color-1">matière</span> (en ignorant les espaces et la ponctuation).</p>
+				<Aside type="info">
+					<template #title>Attention aux espaces</template>
+					<p>Les cachés peuvent parfois être au milieu d'un seul mot, mais ils sont souvent dispersés sur plusieurs mots pour être plus difficiles à repérer.</p>
+				</Aside>
+				<p>Quelques <span class="highlight underline color-2">indicateurs</span> possibles : dans, couvre, cache, capturé, morceau, avalé, ...</p>
+				<p>Un exemple :</p>
+				<Clue
+					example
+					answer="correct"
+					:hints="{
+						indicators: { ranges: [[6, 16]], note: 'On cherche donc la réponse cachée dans la matière, dans le bon ordre.' },
+						fodder: { ranges: [[17, 36]] },
+						definition: { range: [0, 5] },
+						answer: 'On peut voir la réponse cachée plus facilement en retirant l\'espace: déCORRECTangulaire.',
+					}"
+				>
+					Juste caché dans décor rectangulaire
+				</Clue>
+			</section>
+			<section id="homophones" class="section">
+				<h3>Homophones</h3>
+				<p>Les techniques d'<em>homophones</em> consistent à remplacer un mot par un autre qui se prononce de la même façon.</p>
+				<Aside type="info">
+					<template #title>Souvent remplacé</template>
+					<p>Le mot servant d'homophone est presque toujours une substitution, puisque la réponse serait souvent trop évidente sinon.</p>
+				</Aside>
+				<p>Les <span class="highlight underline color-2">indicateurs</span> relèvent généralement du domaine de la parole : au téléphone, à voix haute, entendu, dit, ...</p>
+				<p>Un exemple :</p>
+				<Clue
+					example
+					answer="vert"
+					:hints="{
+						indicators: { ranges: [[35, 47]], note: 'C\'est un indicateur d\'homophone. On cherche donc un mot qui se prononce de la même façon qu\'un autre mot.' },
+						fodder: { ranges: [[17, 34]], note: 'On utilisera un synonyme court.' },
+						definition: { range: [0, 8] },
+						answer: 'Un vers est un bout de poésie. C\'est aussi un homophone de &quot;vert&quot; (qui peut être utilisé pour décrire un écolo).',
+					}"
+				>
+					Un écolo compose un bout de poésie à voix haute
+				</Clue>
+			</section>
+			<section id="exceptions" class="section">
+				<h2>Exceptions</h2>
+				<p>Il y a quelques rares exceptions au format classique <span class="highlight underline definition">définition</span> / <span class="highlight underline wordplay">recette</span>, telles que les suivantes :</p>
+			</section>
+			<section id="doubles-définitions" class="section">
+				<h3>Doubles définitions</h3>
+				<p>Les énigmes à <em>doubles définitions</em> présentent une seconde <span class="highlight underline definition">définition</span> au lieu d'une recette.</p>
+				<p>La réponse doit souvent être interprétée de deux façons différentes pour correspondre aux deux définitions.</p>
+				<p>Un exemple :</p>
+				<Clue
+					example
+					answer="bien"
+					:hints="{
+						definition: { range: [0, 9] },
+						altDefinition: { range: [10, 24] },
+						answer: 'Une propriété est un bien ; bien veut aussi dire en bonne forme dans la phrase &quot;je suis bien&quot;.',
+					}"
+				>
+					Propriété en bonne forme
+				</Clue>
+			</section>
+			<section id="définition-cryptique" class="section">
+				<h3>Définition cryptique</h3>
+				<p>Les <em>définitions cryptiques</em> sont des énigmes sans <span class="highlight underline wordplay">recette</span>, mais dont la <span class="highlight underline definition">définition</span> est formulée d'une manière assez inattendue.</p>
+				<Aside type="info">
+					<template #title>Plus souvent dans une grille</template>
+					<p>Cette technique se prête mieux aux grilles de mots croisés, où les lettres de croisement peuvent aider à identifier la réponse. En dehors, il est rare que ces énigmes soient assez claires pour être considérées justes.</p>
+				</Aside>
+				<p>Un exemple :</p>
+				<Clue
+					example
+					answer="nonagénaire"
+					:hints="{
+						// definition: { range: [0, 23], note: 'Bah oui, on est dans le chapitre des définitions cryptiques.' },
+						extra: [
+							{ name: 'interprétation', range: [17, 21], content: 'Neuf doit être interprété comme le chiffre 9.' },
+						],
+						answer: 'Un nonagénaire est une personne âgée avec au moins un 9 dans l\'âge. (auteur : Robert Scipion)',
+					}"
+				>
+					Du vieux avec du neuf ?
+				</Clue>
+			</section>
+			<section id="tout-en-un" class="section">
+				<h3>Tout-en-un</h3>
+				<p>Les énigmes <em>tout-en-un</em> (aussi appelées <code>&lit</code>, de l'anglais "and literally so") sont des énigmes dans lesquelles la <span class="highlight underline definition">définition</span> et la <span class="highlight underline wordplay">recette</span> sont combinées en une seule phrase.</p>
+				<p>C'est-à-dire que la <span class="highlight underline definition">définition</span> est l'énigme entière, et la <span class="highlight underline wordplay">recette</span> aussi.</p>
+				<Aside type="info">
+					<template #title>Une technique rare</template>
+					<p>Les énigmes tout-en-un sont difficiles à créer ! Elles sont donc beaucoup moins fréquentes.</p>
+				</Aside>
+				<p>Il y a aussi des énigmes "semi-&lit", dans lesquelles l'énigme entière est la <span class="highlight underline definition">définition</span>, mais seulement une partie est la <span class="highlight underline wordplay">recette</span>.</p>
+				<p>Un exemple :</p>
+				<Clue
+					example
+					answer="jésus"
+					:hints="{
+						indicators: { ranges: [[8, 15]], note: 'Si quelque chose est mort, alors cette chose n\'est plus. Cela peut donc être un indicateur de suppression.' },
+						fodder: { ranges: [[0, 7], [15, 24]], note: 'Une partie sera remplacée par un synonyme court.' },
+						definition: { range: [0, 26], note: 'C\'est une énigme tout-en-un, donc l\'énigme entière est la définition, mais aussi la recette.' },
+						answer: '&quot;Un romain&quot; peut décrire la lettre i (1, en chiffres romains). Si on prend le texte &quot;JE SUIS&quot; et que l\'on retire le i (et l\'espace), on obtient JESUS, quelqu\'un fameusement tué par les Romains.',
+					}"
+				>
+					Je suis mort d'un Romain !
+				</Clue>
+			</section>
+			<section id="rébus" class="section">
+				<h3>Rébus</h3>
+				<p>Dans une énigme de type <em>rébus</em>, la réponse décrit ce qui se passe dans l'énigme.</p>
+				<Aside type="info">
+					<template #title>Astuce pour les repérer</template>
+					<p>Si vous voyez des choses bizarres dans l'énigme, par exemple une capitalisation étrange ou des symboles inhabituels, il s'agit probablement d'un rébus.</p>
+				</Aside>
+				<p>Un exemple :</p>
+				<Clue
+					example
+					answer="coup"
+					:hints="{
+						definition: { range: [0, 6] },
+						extra: [
+							{ name: 'rébus', range: [20, 25], content: 'Il y a deux lettres qui peuvent compléter le mot _alme. La réponse décrira ces deux possibilités.' },
+						],
+						answer: 'La lettre manquante pourrait être C ou P. Donc, sans les espaces, &quot;CouP&quot;, et un coup peut être une astuce.',
+					}"
+				>
+					Astuce pour trouver _alme
+				</Clue>
+			</section>
+			<section id="divers" class="section">
+				<h2>Autres détails</h2>
+				<p>Nous avons passé en revue toutes les techniques principales utilisées dans les cryptiques.</p>
+				<Aside type="success">
+					<template #title>Vous êtes prêt !</template>
+					<p>Vous avez maintenant les outils nécessaires pour aborder les énigmes cryptiques.</p>
+					<p>Ce que ce guide ne pourra pas vous fournir, mais dont vous aurez besoin, est l'expérience !</p>
+					<p>Alors, lancez-vous et amusez-vous à résoudre des cryptiques !</p>
+				</Aside>
+				<p>Il reste quand même quelques notes diverses à aborder, pouvant potentiellement vous aider.</p>
+			</section>
+			<section id="mots-de-liaison" class="section">
+				<h3>Mots de liaison</h3>
+				<p>Les <em>mots de liaison</em>, comme indiqué plus haut, lient la <span class="highlight underline definition">définition</span> et la <span class="highlight underline wordplay">recette</span> (ou les deux définitions).</p>
+				<p>Ils indiquent soit que les deux sont égaux, soit qu'ils décrivent l'un comme l'autre la réponse, soit encore que l'un mène à l'autre.</p>
+				<p>Voici une liste non-exhaustive de mots de liaison, et leur justification possible :</p>
+				<ul class="expandable">
+					<li>
+						<details>
+							<summary>est, égal, vaut</summary>
+							<p><code>A = B</code></p>
+							<p>Indique que les deux parties de l'énigme produisent des résultats égaux.</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>donne, produit, fait, créé, pour, rend, dans</summary>
+							<p><code>A → B</code></p>
+							<p>Indique que la première partie de l'énigme mène à la seconde.</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>par, de, avec</summary>
+							<p><code>A ← B</code></p>
+							<p>Indique que la seconde partie de l'énigme mène à la première.</p>
+						</details>
+					</li>
+					<li>
+						<details>
+							<summary>ou, et, comme, ainsi que</summary>
+							<p><code>A ; B</code></p>
+							<p>Indique que la réponse finale peut être définie par la première partie mais aussi par la seconde.</p>
+						</details>
+					</li>
+				</ul>
+			</section>
+			<section id="ponctuation" class="section">
+				<h3>Ponctuation</h3>
+				<p>Cela dépend des choix stylistiques de l'auteur, mais très souvent la ponctuation doit être ignorée, elle sert seulement à la <span class="highlight underline surface">surface</span>.</p>
+				<p>Cependant, certaines marques de ponctuation peuvent être des indices.</p>
+				<p>
+					<code>?</code> - un point d'interrogation en fin d'énigme peut parfois indiquer qu'une partie de l'énigme est un peu tirée par les cheveux. Par exemple, si elle utilise un mot d'une manière non standard ("couleur" pour indiquer "quelque chose qui coule").<br>
+					Cela peut aussi indiquer que la définition est une instance de la réponse plutôt qu'un synonyme ("bleu?" pour la réponse "couleur").
+				</p>
+				<p><code>!</code> - un point d'exclamation en fin d'énigme peut parfois indiquer que l'on a affaire à une énigme tout-en-un.</p>
+				<Aside type="warning">
+					<template #title>Pas toujours</template>
+					<p><code>?</code> et <code>!</code> peuvent parfois être utilisés sans la signification ci-dessus, juste pour la forme.</p>
+				</Aside>
+			</section>
+			<section id="accents" class="section">
+				<h3>Accents</h3>
+				<p>Il n'y a pas vraiment de standard établi pour la cohérence des accents, par exemple si "début d'été" doit représenter un "é" dans la réponse ou peut aussi représenter un "e" ou "è".</p>
+				<p>Cela dit, les accents sont généralement ignorés dans les réponses de mots croisés classiques, il serait donc raisonnable de les ignorer ici aussi.</p>
+				<p>En tout cas, quand vous cherchez une réponse, ne partez donc pas du principe que les accents doivent correspondre.</p>
+			</section>
+			<section id="mots-à-double-usage" class="section">
+				<h3>Mots à double usage</h3>
+				<p>Comme indiqué plus haut, un <span class="highlight underline color-2">indicateur</span> ne peut pas être sa propre <span class="highlight underline color-1">matière</span>. Cela dit, un même mot peut être coupé en deux, une partie du mot servant d'indicateur pour l'autre partie.</p>
+				<p>Par exemple, <span class="highlight underline color-1">mara</span><span class="highlight underline color-2">bout</span> pourrait être le bout de "mara", un A.</p>
+			</section>
+			<section id="mots-superflus" class="section">
+				<h3>Mots superflus</h3>
+				<p>Une bonne énigme cryptique n'aura pas de mots superflus. Chaque mot doit servir à la <span class="highlight underline definition">définition</span> ou à la <span class="highlight underline wordplay">recette</span> (en tant qu'<span class="highlight underline color-2">indicateur</span> ou <span class="highlight underline color-1">matière</span>), ou être un <span class="highlight underline linking">mot de liaison</span>.</p>
+				<p>Si votre raisonnement vous conduit à un mot n'appartenant à aucune de ces catégories, vous êtes donc sûrement sur la mauvaise piste !</p>
+			</section>
+			<section id="outils" class="section">
+				<h2>Liens utiles</h2>
+				<p>Une liste de liens utiles est disponible sur la page <NuxtLink to="/outils">Outils</NuxtLink>.</p>
+			</section>
+		</main>
+	</div>
 </template>
 
 <style>
@@ -756,7 +758,7 @@
 @keyframes guide-toc-entry { to { bottom: 0; } }
 @keyframes guide-toc-exit { to { top: 100%; } }
 
-.page-guide {
+.guide-content {
 	.main {
 		/* Avoid margin collapsing */
 		display: inline-block;
@@ -887,7 +889,7 @@
 
 	/* 800 for .section max-width + 250 for #toc size */
 	@media (width >= 1050px) {
-		#root { display: flex; }
+		display: flex;
 		header { order: 1; }
 		#toc#toc {
 			position: sticky;

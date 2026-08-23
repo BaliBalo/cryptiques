@@ -78,7 +78,7 @@
 	</footer>
 </template>
 
-<style>
+<style scoped>
 @property --index-transparency {
 	syntax: '<percentage>';
 	inherits: false;
@@ -90,159 +90,157 @@
 	initial-value: 0deg;
 }
 @keyframes index-angle-spin { to { --index-angle: 1turn; } }
-.page-index {
-	.above {
-		max-width: 800px;
-		margin: 0 auto;
-		padding: 48px 16px;
-		min-height: 100lvh;
+.above {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 48px 16px;
+	min-height: 100lvh;
+}
+.account {
+	position: absolute;
+	top: 16px; right: 16px;
+	a {
+		text-decoration: underline wavy color-mix(in srgb, currentColor, transparent 50%);
+		transition: text-decoration-color .15s;
+		&:hover, &:focus-visible {
+			text-decoration-color: var(--color-primary);
+		}
 	}
-	.account {
+}
+hgroup {
+	h1 { margin-bottom: 0; }
+	p { font-size: .9em; opacity: 0.75; }
+}
+.top-split {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 32px;
+	margin-bottom: 32px;
+}
+.guide-cta, .clue-of-the-day {
+	flex: 1 1 calc(50% - 16px);
+	min-width: min(250px, 100%);
+	position: relative;
+	padding: 16px;
+	border: 2px solid var(--light-border);
+	border-radius: 16px;
+	background: var(--background);
+	&:first-child:last-child { flex-grow: 0; }
+	.icon {
 		position: absolute;
-		top: 16px; right: 16px;
-		a {
-			text-decoration: underline wavy color-mix(in srgb, currentColor, transparent 50%);
-			transition: text-decoration-color .15s;
-			&:hover, &:focus-visible {
-				text-decoration-color: var(--color-primary);
-			}
-		}
-	}
-	hgroup {
-		h1 { margin-bottom: 0; }
-		p { font-size: .9em; opacity: 0.75; }
-	}
-	.top-split {
-		display: flex;
-		flex-flow: row wrap;
-		align-items: center;
-		justify-content: center;
-		gap: 32px;
-		margin-bottom: 32px;
-	}
-	.guide-cta, .clue-of-the-day {
-		flex: 1 1 calc(50% - 16px);
-		min-width: min(250px, 100%);
-		position: relative;
-		padding: 16px;
-		border: 2px solid var(--light-border);
-		border-radius: 16px;
+		top: -10px;
+		left: -10px;
 		background: var(--background);
-		&:first-child:last-child { flex-grow: 0; }
-		.icon {
-			position: absolute;
-			top: -10px;
-			left: -10px;
-			background: var(--background);
-			border-radius: 50%;
-		}
-		p { margin-bottom: 16px; }
-		@supports (corner-shape: scoop) {
-			corner-top-left-shape: scoop;
-			border-top-left-radius: 16px;
-			.icon { top: -8px; left: -8px; z-index: -1; }
-			@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-				transition: border-top-left-radius .2s;
-				.icon { transition: translate .2s; }
-				&:hover {
-					border-top-left-radius: 12px;
-					.icon { translate: -7px -7px; }
-				}
+		border-radius: 50%;
+	}
+	p { margin-bottom: 16px; }
+	@supports (corner-shape: scoop) {
+		corner-top-left-shape: scoop;
+		border-top-left-radius: 16px;
+		.icon { top: -8px; left: -8px; z-index: -1; }
+		@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+			transition: border-top-left-radius .2s;
+			.icon { transition: translate .2s; }
+			&:hover {
+				border-top-left-radius: 12px;
+				.icon { translate: -7px -7px; }
 			}
 		}
 	}
-	.guide-cta {
-		--highlight: var(--color-primary-bright);
-		border-color: var(--highlight);
-		background: color-mix(in srgb, var(--highlight) 10%, var(--background));
-		.icon {
-			padding: 1px;
-			background: var(--highlight);
-			color: #111;
-			scale: -1 1;
-		}
+}
+.guide-cta {
+	--highlight: var(--color-primary-bright);
+	border-color: var(--highlight);
+	background: color-mix(in srgb, var(--highlight) 10%, var(--background));
+	.icon {
+		padding: 1px;
+		background: var(--highlight);
+		color: #111;
+		scale: -1 1;
 	}
-	.clue-of-the-day {
-		.icon {
-			padding: 3px;
-			border: 2px solid var(--light-border);
-		}
-		.intro {
-			display: flex;
-			flex-flow: row nowrap;
-			justify-content: space-between;
-			align-items: center;
-			gap: 4px;
-			margin-bottom: 8px;
-		}
-		.by {
-			font-size: .8rem;
-			opacity: 0.75;
-			margin: 0;
-		}
-		.solved {
-			flex: 0 0 auto;
-			color: var(--color-primary-bright);
-		}
-		.play {
-			position: relative;
-			display: block;
-			width: fit-content;
-			margin: 0 auto;
-			padding: 8px 16px;
-			border: 1px solid var(--light-border);
-			border-radius: 8px;
-			transition: border-color .15s, background-color .15s;
-			&:hover, &:focus-visible {
-				border-color: var(--color-primary-bright);
-				background-color: color-mix(in srgb, var(--color-primary-bright) 10%, var(--background));
-			}
-		}
+}
+.clue-of-the-day {
+	.icon {
+		padding: 3px;
+		border: 2px solid var(--light-border);
 	}
-	.guide {
+	.intro {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+		align-items: center;
+		gap: 4px;
+		margin-bottom: 8px;
+	}
+	.by {
+		font-size: .8rem;
+		opacity: 0.75;
+		margin: 0;
+	}
+	.solved {
+		flex: 0 0 auto;
+		color: var(--color-primary-bright);
+	}
+	.play {
 		position: relative;
 		display: block;
 		width: fit-content;
 		margin: 0 auto;
 		padding: 8px 16px;
-		font-size: 1.2rem;
-		border: 2px solid #0000;
+		border: 1px solid var(--light-border);
 		border-radius: 8px;
-		background:
-			linear-gradient(color-mix(in srgb, var(--background), transparent var(--index-transparency)) 0 0) padding-box,
-			conic-gradient(from var(--index-angle) in oklch longer hue, oklch(var(--highlight-base) 0), oklch(var(--highlight-base) 0)) border-box
-		;
-		animation: index-angle-spin 3s linear infinite paused;
-		transition: --index-transparency .15s;
-		@media (prefers-reduced-motion: reduce) {
-			animation: none;
-		}
+		transition: border-color .15s, background-color .15s;
 		&:hover, &:focus-visible {
-			--index-transparency: 10%;
-			animation-play-state: running;
+			border-color: var(--color-primary-bright);
+			background-color: color-mix(in srgb, var(--color-primary-bright) 10%, var(--background));
 		}
 	}
-	footer {
-		padding: 16px;
-		border-top: 1px solid var(--light-border);
-		ul {
-			display: flex;
-			flex-flow: row wrap;
-			justify-content: center;
-			gap: 8px 24px;
-			margin: 0;
-			padding: 0;
-			list-style: none;
-		}
-		a {
-			display: flex;
-			flex-flow: row nowrap;
-			gap: .5em;
-			opacity: 0.75;
-			transition: opacity .15s;
-			&:hover, &:focus-visible { opacity: 1; }
-			svg { height: 1lh; }
-		}
+}
+.guide {
+	position: relative;
+	display: block;
+	width: fit-content;
+	margin: 0 auto;
+	padding: 8px 16px;
+	font-size: 1.2rem;
+	border: 2px solid #0000;
+	border-radius: 8px;
+	background:
+		linear-gradient(color-mix(in srgb, var(--background), transparent var(--index-transparency)) 0 0) padding-box,
+		conic-gradient(from var(--index-angle) in oklch longer hue, oklch(var(--highlight-base) 0), oklch(var(--highlight-base) 0)) border-box
+	;
+	animation: index-angle-spin 3s linear infinite paused;
+	transition: --index-transparency .15s;
+	@media (prefers-reduced-motion: reduce) {
+		animation: none;
+	}
+	&:hover, &:focus-visible {
+		--index-transparency: 10%;
+		animation-play-state: running;
+	}
+}
+footer {
+	padding: 16px;
+	border-top: 1px solid var(--light-border);
+	ul {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
+		gap: 8px 24px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	a {
+		display: flex;
+		flex-flow: row nowrap;
+		gap: .5em;
+		opacity: 0.75;
+		transition: opacity .15s;
+		&:hover, &:focus-visible { opacity: 1; }
+		svg { height: 1lh; }
 	}
 }
 </style>
