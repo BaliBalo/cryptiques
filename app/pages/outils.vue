@@ -42,6 +42,9 @@
 			<li>
 				<a href="https://casevide.fr/grilles/archives/?crossword_type=1" target="_blank" rel="noopener noreferrer">D'autres grilles</a> par Antoine Hinge
 			</li>
+			<li>
+				<a href="https://enigmotix.com/" target="_blank" rel="noopener noreferrer">Enigmotix</a> autre site avec énigmes quotidiennes
+			</li>
 		</ul>
 		<h2>Dans d'autres langues</h2>
 		<h3>Anglais</h3>
