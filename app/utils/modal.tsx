@@ -1,4 +1,4 @@
-import { render, h } from 'vue';
+import { render } from 'vue';
 import ConfirmDialog from '~/components/confirm.vue';
 
 export async function showModal(vnode: VNode) {

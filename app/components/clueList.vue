@@ -155,7 +155,7 @@
 							</svg>
 							<span class="inner">
 								{{ clue.clue }} {{ clue.answerLength }}
-								<span v-if="clue.author" class="by">— {{ clue.author }}</span>
+								<span v-if="clue.author" class="by">— <Author :name="clue.author" no-link /></span>
 							</span>
 						</div>
 						<div class="solves" :aria-label="displayNumber(clue.solves, 'résolution')">{{ displayNumber(clue.solves) }}</div>

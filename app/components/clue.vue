@@ -88,7 +88,7 @@
 	<div class="clue-wrapper" :class="wrapperClass">
 		<div class="clue">
 			<div class="clue-text">
-				<div class="by">{{ by }}</div>
+				<div v-if="by" class="by"><Author :name="by" /></div>
 				<prompt /> {{ len }}
 			</div>
 			<div v-if="hints.indicators" class="hint indicators" data-nosnippet>
@@ -163,7 +163,6 @@
 		opacity: 0.75;
 		margin-bottom: .5rem;
 		&::before { content: 'Une énigme de : '; }
-		&:empty { display: none; }
 	}
 	.hint, .answer {
 		--highlight: color-mix(in oklch, currentColor, transparent 90%);
