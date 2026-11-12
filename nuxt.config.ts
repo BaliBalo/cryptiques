@@ -24,8 +24,8 @@ export default defineNuxtConfig({
 	},
 	modules: [
 		'@nuxt/eslint',
+		'@nuxt/fonts',
 		'@nuxtjs/sitemap',
-		'@nuxtjs/google-fonts',
 		'@nuxthub/core',
 		'nuxt-auth-utils',
 		'@vueuse/nuxt',
@@ -48,30 +48,14 @@ export default defineNuxtConfig({
 			'/enigme/creer',
 		],
 	},
-	googleFonts: {
-		families: {
-			'Funnel Display': {
-				wght: '300..800',
-			},
-			'Limelight': true,
-		},
-		display: 'swap',
-		preload: true,
-	},
 	hub: {
 		db: {
 			dialect: 'postgresql',
 			connection: { url: 'db' in secrets && typeof secrets.db === 'string' ? secrets.db : undefined },
 		},
 	},
-	ogImage: {
-		security: {
-			secret: secrets.ogImageSecret,
-		},
-	},
 	runtimeConfig: {
 		session: {
-			password: secrets.secretKey,
 			maxAge: 60 * 60 * 24 * 365,
 			cookie: { secure: !DEV },
 		},
